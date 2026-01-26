@@ -24,7 +24,8 @@
 - **Lip-sync**: Audio-driven mouth animation synced to TTS playback
 - **Animations**: VRMA-based idle and talking animations with automatic blinking
 - **Character Customization**: Customize your companion's name, personality, and system prompt
-- **Companion System**: Multi-axis relationship tracking with mood, events, and memory
+- **Companion System**: Multi-axis relationship tracking with mood, events, and semantic memory
+- **Semantic Memory**: Local AI-powered memory search using Transformers.js - finds memories by meaning, not just keywords
 - **Data Export/Import**: Download your data as a save file, restore anytime
 - **Theming**: 4 color themes (Default, Rosé Pine, Tokyo Night, Nord) with light/dark modes
 
@@ -44,7 +45,7 @@ Build a meaningful relationship with your AI companion through a dating sim-insp
 - **8 Relationship Stages**: Progress from Stranger → Acquaintance → Friend → Close Friend → Romantic Interest → Dating → Committed → Soulmate
 - **Dynamic Mood**: Real-time emotions with causality tracking (she remembers *why* she feels a certain way)
 - **Visual Novel Events**: Milestone moments, romantic scenes, and choices that matter - with custom dialogue and branching responses
-- **Persistent Memory**: Facts extracted from conversations, session summaries, and relationship milestones
+- **Semantic Memory**: Facts are indexed with vector embeddings for meaning-based retrieval - "outdoor activities" finds memories about hiking. Runs entirely in-browser using Transformers.js, no API calls
 - **Natural Progression**: Hybrid system combining app heuristics + LLM suggestions for believable relationship growth
 - **Time-Aware**: Your companion notices when you've been away and reacts accordingly
 
@@ -186,7 +187,7 @@ npm run check     # Type-check the project
 - [x] Companion system with multi-axis relationships
 - [x] 8-stage relationship progression (Stranger → Soulmate)
 - [x] Visual novel event system with choices
-- [x] Memory system (facts, sessions, working memory)
+- [x] Semantic memory system with local embeddings (Transformers.js)
 - [x] Time-based mood and relationship decay/recovery
 - [x] Local-first IndexedDB storage with export/import
 - [x] Theme system with light/dark modes
@@ -234,6 +235,7 @@ Utsuwa is built on the shoulders of these excellent projects:
 - **[Threlte](https://github.com/threlte/threlte)** - Svelte components for Three.js
 - **[SvelteKit](https://github.com/sveltejs/kit)** - Web application framework
 - **[Tailwind CSS](https://github.com/tailwindlabs/tailwindcss)** - Utility-first CSS framework
+- **[Transformers.js](https://github.com/xenova/transformers.js)** - In-browser ML for semantic memory embeddings
 
 ### UI & Data
 
