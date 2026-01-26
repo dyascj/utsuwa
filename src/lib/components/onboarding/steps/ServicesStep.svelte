@@ -169,6 +169,16 @@
 				/>
 			{/if}
 
+			{#if ttsSettings.activeProvider === 'elevenlabs'}
+				<input
+					type="text"
+					class="api-key-input"
+					placeholder="Custom Voice ID (optional)"
+					value={settingsStore.elevenLabsVoiceId}
+					oninput={(e) => settingsStore.setElevenLabsVoiceId(e.currentTarget.value)}
+				/>
+			{/if}
+
 			{#if ttsProvider?.requiresApiKey}
 				<input
 					type="password"

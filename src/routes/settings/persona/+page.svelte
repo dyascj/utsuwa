@@ -359,6 +359,18 @@
 									/>
 								{/if}
 
+								{#if speechSettings.activeProvider === 'elevenlabs'}
+									<div class="api-key-row">
+										<input
+											type="text"
+											class="api-key-input"
+											placeholder="Custom Voice ID (optional)"
+											value={settingsStore.elevenLabsVoiceId}
+											onchange={(e) => settingsStore.setElevenLabsVoiceId(e.currentTarget.value)}
+										/>
+									</div>
+								{/if}
+
 								{#if speechSettings.activeProvider}
 									{@const provider = getTTSProvider(speechSettings.activeProvider as string)}
 									{#if provider?.requiresApiKey}
