@@ -80,7 +80,7 @@ export async function exportSave(): Promise<SaveFile> {
 	return {
 		version: SAVE_FILE_VERSION,
 		exportedAt: new Date().toISOString(),
-		appVersion: '0.0.1',
+		appVersion: import.meta.env.VITE_APP_VERSION,
 		data: {
 			character: cleanCharacter as CharacterState,
 			facts: cleanFacts,
