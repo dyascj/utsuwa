@@ -49,7 +49,7 @@ Build a meaningful relationship with your AI companion through a dating sim-insp
 - **Natural Progression**: Hybrid system combining app heuristics + LLM suggestions for believable relationship growth
 - **Time-Aware**: Your companion notices when you've been away and reacts accordingly
 
-See [docs/companion-system.md](docs/companion-system.md) for full architecture details.
+See the [Companion System Architecture](https://utsuwa.ai/docs/technology/companion-system) for full details.
 
 ## Supported Providers
 
@@ -151,15 +151,23 @@ Your companion data is stored locally in your browser. To back up or transfer yo
 utsuwa/
 ├── src/
 │   ├── lib/
+│   │   ├── ai/             # LLM response parsing and prompt building
+│   │   ├── assets/         # Static assets
 │   │   ├── components/     # Svelte components
+│   │   ├── config/         # App and docs configuration
+│   │   ├── data/           # Event definitions and static data
 │   │   ├── db/             # IndexedDB database (Dexie)
+│   │   ├── engine/         # Companion engine (state, memory, events)
 │   │   ├── services/       # LLM, TTS, storage services
 │   │   ├── stores/         # Svelte 5 stores (state management)
 │   │   ├── types/          # TypeScript types
 │   │   └── utils/          # Utility functions
+│   ├── content/
+│   │   └── docs/           # Documentation site content
 │   └── routes/
-│       ├── +page.svelte    # Main app page
-│       └── settings/       # Settings pages
+│       ├── (app)/          # Main application routes
+│       ├── api/            # API routes
+│       └── docs/           # Documentation site routes
 ├── static/
 │   └── models/             # Place default VRM models here
 └── package.json
