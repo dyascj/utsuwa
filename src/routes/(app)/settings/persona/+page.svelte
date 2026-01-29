@@ -122,6 +122,10 @@
 		if (provider?.models?.length) {
 			modulesStore.setModuleSetting('consciousness', 'activeModel', provider.models[0].id);
 		}
+		// Mark local providers as added immediately (they don't need API keys)
+		if (provider?.isLocal || !provider?.requiresApiKey) {
+			settingsStore.markProviderAdded(providerId);
+		}
 	}
 
 	function handleLLMModelChange(modelId: string) {
@@ -133,6 +137,10 @@
 		const provider = getTTSProvider(providerId);
 		if (provider?.models?.length) {
 			modulesStore.setModuleSetting('speech', 'activeModel', provider.models[0].id);
+		}
+		// Mark local providers as added immediately (they don't need API keys)
+		if (provider?.isLocal || !provider?.requiresApiKey) {
+			settingsStore.markProviderAdded(providerId);
 		}
 	}
 
