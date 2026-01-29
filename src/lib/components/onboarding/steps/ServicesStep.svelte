@@ -161,50 +161,6 @@
 			/>
 		{/if}
 
-		{#if llmProvider?.id === 'azure'}
-			<input
-				type="text"
-				class="api-key-input"
-				placeholder="Azure Resource Name (required)"
-				value={settingsStore.getProviderConfig(llmProvider.id).resourceName ?? ''}
-				oninput={(e) => settingsStore.setProviderConfig(llmProvider.id, { resourceName: e.currentTarget.value })}
-			/>
-			<input
-				type="text"
-				class="api-key-input"
-				placeholder="Region (e.g., eastus)"
-				value={settingsStore.getProviderConfig(llmProvider.id).region ?? ''}
-				oninput={(e) => settingsStore.setProviderConfig(llmProvider.id, { region: e.currentTarget.value })}
-			/>
-		{/if}
-
-		{#if llmProvider?.id === 'cloudflare'}
-			<input
-				type="text"
-				class="api-key-input"
-				placeholder="Cloudflare Account ID (required)"
-				value={settingsStore.getProviderConfig(llmProvider.id).accountId ?? ''}
-				oninput={(e) => settingsStore.setProviderConfig(llmProvider.id, { accountId: e.currentTarget.value })}
-			/>
-		{/if}
-
-		{#if llmProvider?.id === 'openai-compatible'}
-			<input
-				type="text"
-				class="api-key-input"
-				placeholder="API Base URL (required)"
-				value={settingsStore.getProviderConfig(llmProvider.id).baseUrl ?? ''}
-				oninput={(e) => handleLLMBaseUrlChange(e.currentTarget.value)}
-			/>
-			<input
-				type="text"
-				class="api-key-input"
-				placeholder="Model name"
-				value={llmSettings.activeModel as string ?? ''}
-				oninput={(e) => handleLLMModelChange(e.currentTarget.value)}
-			/>
-		{/if}
-
 		{#if llmProvider?.isLocal}
 			<input
 				type="text"
@@ -267,23 +223,6 @@
 					placeholder="Custom Voice ID (optional)"
 					value={settingsStore.elevenLabsVoiceId}
 					oninput={(e) => settingsStore.setElevenLabsVoiceId(e.currentTarget.value)}
-				/>
-			{/if}
-
-			{#if ttsProvider?.id === 'openai-compatible-tts'}
-				<input
-					type="text"
-					class="api-key-input"
-					placeholder="API Base URL (required)"
-					value={settingsStore.getProviderConfig(ttsProvider.id).baseUrl ?? ''}
-					oninput={(e) => handleTTSBaseUrlChange(e.currentTarget.value)}
-				/>
-				<input
-					type="text"
-					class="api-key-input"
-					placeholder="Voice name"
-					value={ttsSettings.activeModel as string ?? ''}
-					oninput={(e) => handleTTSModelChange(e.currentTarget.value)}
 				/>
 			{/if}
 

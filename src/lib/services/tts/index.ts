@@ -37,29 +37,21 @@ export function getSharedAudioContext(): AudioContext {
 export const TTS_BASE_URLS: Partial<Record<TTSProvider, string>> = {
 	elevenlabs: 'https://api.elevenlabs.io/v1/',
 	'openai-tts': 'https://api.openai.com/v1/',
-	'web-speech': undefined, // Browser native
-	'index-tts': 'http://localhost:11996/',
-	'openai-compatible-tts': undefined, // Custom
 	'player2-tts': 'http://localhost:4315/'
 };
 
 // Providers that don't require API keys
-export const LOCAL_TTS_PROVIDERS: TTSProvider[] = [
-	'web-speech',
-	'index-tts',
-	'player2-tts'
-];
+export const LOCAL_TTS_PROVIDERS: TTSProvider[] = ['player2-tts'];
 
 // Default voices per provider
 export const DEFAULT_VOICES: Partial<Record<TTSProvider, string>> = {
-	elevenlabs: 'EXAVITQu4vr4xnSDxMaL', // Sarah
+	elevenlabs: 'EXAVITQu4vr4xnSDxMaL', // Bella
 	'openai-tts': 'alloy'
 };
 
 // Import individual providers
 import { ElevenLabsTTS } from './elevenlabs';
 import { OpenAITTS } from './openai-tts';
-import { WebSpeechTTS } from './web-speech';
 import { OpenAICompatibleTTS } from './openai-compatible-tts';
 
 // Provider factory
@@ -89,27 +81,18 @@ export function getTTSProvider(options: TTSOptions): ITTSProvider {
 			currentProvider = new OpenAITTS(options);
 			break;
 
-		case 'web-speech':
-			currentProvider = new WebSpeechTTS(options);
-			break;
-
-		case 'openai-compatible-tts':
-			currentProvider = new OpenAICompatibleTTS(options);
-			break;
-
-		case 'index-tts':
 		case 'player2-tts':
-			// These use OpenAI-compatible API
+			// Uses OpenAI-compatible API
 			currentProvider = new OpenAICompatibleTTS({
 				...options,
-				baseUrl: options.baseUrl || TTS_BASE_URLS[options.provider]
+				baseUrl: options.baseUrl || TTS_BASE_URLS['player2-tts']
 			});
 			break;
 
 		default:
-			// Fallback to Web Speech API for unsupported providers
-			console.warn(`TTS provider ${options.provider} not implemented, falling back to Web Speech`);
-			currentProvider = new WebSpeechTTS(options);
+			// Fallback to OpenAI TTS for unsupported providers
+			console.warn(`TTS provider ${options.provider} not implemented, falling back to OpenAI TTS`);
+			currentProvider = new OpenAITTS(options);
 	}
 
 	currentOptions = { ...options };

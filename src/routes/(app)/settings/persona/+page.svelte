@@ -352,57 +352,6 @@
 											/>
 										</div>
 									{/if}
-									{#if provider?.id === 'azure'}
-										<div class="api-key-row">
-											<input
-												type="text"
-												class="api-key-input"
-												placeholder="Azure Resource Name (required)"
-												value={settingsStore.getProviderConfig(provider.id).resourceName ?? ''}
-												onchange={(e) => settingsStore.setProviderConfig(provider.id, { resourceName: e.currentTarget.value })}
-											/>
-										</div>
-										<div class="api-key-row">
-											<input
-												type="text"
-												class="api-key-input"
-												placeholder="Region (e.g., eastus)"
-												value={settingsStore.getProviderConfig(provider.id).region ?? ''}
-												onchange={(e) => settingsStore.setProviderConfig(provider.id, { region: e.currentTarget.value })}
-											/>
-										</div>
-									{/if}
-									{#if provider?.id === 'cloudflare'}
-										<div class="api-key-row">
-											<input
-												type="text"
-												class="api-key-input"
-												placeholder="Cloudflare Account ID (required)"
-												value={settingsStore.getProviderConfig(provider.id).accountId ?? ''}
-												onchange={(e) => settingsStore.setProviderConfig(provider.id, { accountId: e.currentTarget.value })}
-											/>
-										</div>
-									{/if}
-									{#if provider?.id === 'openai-compatible'}
-										<div class="api-key-row">
-											<input
-												type="text"
-												class="api-key-input"
-												placeholder="API Base URL (required)"
-												value={settingsStore.getProviderConfig(provider.id).baseUrl ?? ''}
-												onchange={(e) => settingsStore.setProviderConfig(provider.id, { baseUrl: e.currentTarget.value })}
-											/>
-										</div>
-										<div class="api-key-row">
-											<input
-												type="text"
-												class="api-key-input"
-												placeholder="Model name"
-												value={consciousnessSettings.activeModel as string ?? ''}
-												onchange={(e) => handleLLMModelChange(e.currentTarget.value)}
-											/>
-										</div>
-									{/if}
 									{#if provider?.isLocal}
 										<div class="api-key-row">
 											<input
@@ -473,27 +422,6 @@
 											placeholder="Custom Voice ID (optional)"
 											value={settingsStore.elevenLabsVoiceId}
 											onchange={(e) => settingsStore.setElevenLabsVoiceId(e.currentTarget.value)}
-										/>
-									</div>
-								{/if}
-
-								{#if speechSettings.activeProvider === 'openai-compatible-tts'}
-									<div class="api-key-row">
-										<input
-											type="text"
-											class="api-key-input"
-											placeholder="API Base URL (required)"
-											value={settingsStore.getProviderConfig('openai-compatible-tts').baseUrl ?? ''}
-											onchange={(e) => settingsStore.setProviderConfig('openai-compatible-tts', { baseUrl: e.currentTarget.value })}
-										/>
-									</div>
-									<div class="api-key-row">
-										<input
-											type="text"
-											class="api-key-input"
-											placeholder="Voice name"
-											value={speechSettings.activeModel as string ?? ''}
-											onchange={(e) => handleTTSModelChange(e.currentTarget.value)}
 										/>
 									</div>
 								{/if}

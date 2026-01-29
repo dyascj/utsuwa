@@ -15,7 +15,7 @@ export interface ProviderMetadata {
 }
 
 // ============================================
-// LLM PROVIDERS (23 total)
+// LLM PROVIDERS (14 total)
 // ============================================
 
 export const LLM_PROVIDERS: ProviderMetadata[] = [
@@ -171,97 +171,7 @@ export const LLM_PROVIDERS: ProviderMetadata[] = [
 		]
 	},
 
-	// Cloud Additional (5)
-	{
-		id: 'cerebras',
-		name: 'Cerebras AI',
-		description: 'Ultra-fast inference',
-		category: 'llm',
-		icon: '🧮',
-		requiresApiKey: true,
-		defaultBaseUrl: 'https://api.cerebras.ai/v1/',
-		models: [
-			{ id: 'llama3.1-70b', name: 'Llama 3.1 70B' },
-			{ id: 'llama3.1-8b', name: 'Llama 3.1 8B' }
-		]
-	},
-	{
-		id: 'fireworks',
-		name: 'Fireworks AI',
-		description: 'Fast and affordable inference',
-		category: 'llm',
-		icon: '🎆',
-		requiresApiKey: true,
-		defaultBaseUrl: 'https://api.fireworks.ai/inference/v1/',
-		models: [
-			{ id: 'accounts/fireworks/models/llama-v3p1-70b-instruct', name: 'Llama 3.1 70B' },
-			{ id: 'accounts/fireworks/models/mixtral-8x22b-instruct', name: 'Mixtral 8x22B' }
-		]
-	},
-	{
-		id: 'novita',
-		name: 'Novita AI',
-		description: 'AI model API platform',
-		category: 'llm',
-		icon: '🌟',
-		requiresApiKey: true,
-		defaultBaseUrl: 'https://api.novita.ai/v3/openai/',
-		models: [
-			{ id: 'meta-llama/llama-3.1-70b-instruct', name: 'Llama 3.1 70B' },
-			{ id: 'meta-llama/llama-3.1-8b-instruct', name: 'Llama 3.1 8B' }
-		]
-	},
-	{
-		id: '302ai',
-		name: '302.AI',
-		description: 'AI aggregation platform',
-		category: 'llm',
-		icon: '3️⃣',
-		requiresApiKey: true,
-		defaultBaseUrl: 'https://api.302.ai/v1/',
-		models: [
-			{ id: 'gpt-4o', name: 'GPT-4o' },
-			{ id: 'claude-3-5-sonnet', name: 'Claude 3.5 Sonnet' }
-		]
-	},
-	{
-		id: 'comet',
-		name: 'Comet API',
-		description: 'Multi-model API platform',
-		category: 'llm',
-		icon: '☄️',
-		requiresApiKey: true,
-		defaultBaseUrl: 'https://api.cometapi.com/v1/',
-		models: []
-	},
-
-	// Aggregators (2)
-	{
-		id: 'openrouter',
-		name: 'OpenRouter',
-		description: 'Access 100+ models through one API',
-		category: 'llm',
-		icon: '🔀',
-		requiresApiKey: true,
-		defaultBaseUrl: 'https://openrouter.ai/api/v1/',
-		models: [
-			{ id: 'anthropic/claude-3.5-sonnet', name: 'Claude 3.5 Sonnet' },
-			{ id: 'openai/gpt-4o', name: 'GPT-4o' },
-			{ id: 'google/gemini-pro-1.5', name: 'Gemini Pro 1.5' },
-			{ id: 'meta-llama/llama-3.1-405b-instruct', name: 'Llama 3.1 405B' }
-		]
-	},
-	{
-		id: 'openai-compatible',
-		name: 'OpenAI Compatible',
-		description: 'Any OpenAI-compatible API endpoint',
-		category: 'llm',
-		icon: '🔌',
-		requiresApiKey: false,
-		models: []
-	},
-
-	// Local LLM (4)
+	// Local LLM
 	{
 		id: 'ollama',
 		name: 'Ollama',
@@ -315,39 +225,11 @@ export const LLM_PROVIDERS: ProviderMetadata[] = [
 		isLocal: true,
 		defaultBaseUrl: 'http://localhost:4315/v1/',
 		models: []
-	},
-
-	// Enterprise (2)
-	{
-		id: 'azure',
-		name: 'Azure AI Foundry',
-		description: 'Microsoft Azure OpenAI Service',
-		category: 'llm',
-		icon: '☁️',
-		iconColor: '#0078D4',
-		requiresApiKey: true,
-		models: [
-			{ id: 'gpt-4o', name: 'GPT-4o' },
-			{ id: 'gpt-4', name: 'GPT-4' }
-		]
-	},
-	{
-		id: 'cloudflare',
-		name: 'Cloudflare Workers AI',
-		description: 'Run AI on Cloudflare edge',
-		category: 'llm',
-		icon: '🔶',
-		iconColor: '#F38020',
-		requiresApiKey: true,
-		models: [
-			{ id: '@cf/meta/llama-3.1-8b-instruct', name: 'Llama 3.1 8B' },
-			{ id: '@cf/mistral/mistral-7b-instruct-v0.1', name: 'Mistral 7B' }
-		]
 	}
 ];
 
 // ============================================
-// TTS PROVIDERS (6 total)
+// TTS PROVIDERS (3 total)
 // ============================================
 
 export const TTS_PROVIDERS: ProviderMetadata[] = [
@@ -405,38 +287,7 @@ export const TTS_PROVIDERS: ProviderMetadata[] = [
 			{ id: 'cedar', name: 'Cedar' }
 		]
 	},
-	// Local/Free TTS
-	{
-		id: 'web-speech',
-		name: 'Web Speech API',
-		description: 'Free browser-native TTS (no API key)',
-		category: 'tts',
-		icon: '🌐',
-		requiresApiKey: false,
-		isLocal: true,
-		voices: [] // Populated dynamically from browser
-	},
-	{
-		id: 'index-tts',
-		name: 'Index-TTS',
-		description: 'Local TTS by Bilibili',
-		category: 'tts',
-		icon: '📑',
-		requiresApiKey: false,
-		isLocal: true,
-		defaultBaseUrl: 'http://localhost:11996/tts/',
-		voices: []
-	},
-	// Generic
-	{
-		id: 'openai-compatible-tts',
-		name: 'OpenAI Compatible TTS',
-		description: 'Any OpenAI-compatible TTS endpoint',
-		category: 'tts',
-		icon: '🔌',
-		requiresApiKey: false,
-		voices: []
-	},
+	// Local TTS
 	{
 		id: 'player2-tts',
 		name: 'Player2 TTS',

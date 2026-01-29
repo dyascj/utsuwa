@@ -3,8 +3,8 @@ import type { RequestHandler } from './$types';
 import type { LLMProvider } from '$lib/types';
 
 // Provider base URLs
-const PROVIDER_BASE_URLS: Record<LLMProvider, string | undefined> = {
-	// Cloud Commercial
+const PROVIDER_BASE_URLS: Partial<Record<LLMProvider, string>> = {
+	// Cloud
 	openai: 'https://api.openai.com/v1/',
 	anthropic: 'https://api.anthropic.com/v1/',
 	google: 'https://generativelanguage.googleapis.com/v1beta/openai/',
@@ -15,23 +15,11 @@ const PROVIDER_BASE_URLS: Record<LLMProvider, string | undefined> = {
 	perplexity: 'https://api.perplexity.ai/',
 	moonshot: 'https://api.moonshot.cn/v1/',
 	together: 'https://api.together.xyz/v1/',
-	// Cloud Additional
-	cerebras: 'https://api.cerebras.ai/v1/',
-	fireworks: 'https://api.fireworks.ai/inference/v1/',
-	novita: 'https://api.novita.ai/v3/openai/',
-	'302ai': 'https://api.302.ai/v1/',
-	comet: 'https://api.cometapi.com/v1/',
-	// Aggregators
-	openrouter: 'https://openrouter.ai/api/v1/',
-	'openai-compatible': undefined, // Requires custom baseURL
 	// Local
 	ollama: 'http://localhost:11434/v1/',
 	lmstudio: 'http://localhost:1234/v1/',
 	vllm: 'http://localhost:8000/v1/',
-	player2: 'http://localhost:4315/v1/',
-	// Enterprise
-	azure: undefined, // Constructed from resource name
-	cloudflare: undefined // Constructed from account ID
+	player2: 'http://localhost:4315/v1/'
 };
 
 // Providers that don't require API keys
@@ -49,20 +37,13 @@ const DEFAULT_MODELS: Partial<Record<LLMProvider, string>> = {
 	perplexity: 'sonar',
 	moonshot: 'moonshot-v1-32k',
 	together: 'meta-llama/Llama-3.3-70B-Instruct-Turbo',
-	cerebras: 'llama-3.3-70b',
-	fireworks: 'accounts/fireworks/models/llama-v3p3-70b-instruct',
-	novita: 'meta-llama/llama-3.1-70b-instruct',
-	'302ai': 'gpt-4.1',
-	comet: 'gpt-4.1',
-	openrouter: 'anthropic/claude-sonnet-4.5',
 	ollama: 'llama3.2',
 	lmstudio: 'local-model',
 	player2: 'gemma2'
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-	const { messages, provider, model, apiKey, baseURL, resourceName, accountId, systemPrompt } =
-		await request.json();
+	const { messages, provider, model, apiKey, baseURL, systemPrompt } = await request.json();
 
 	const typedProvider = provider as LLMProvider;
 
@@ -84,20 +65,6 @@ export const POST: RequestHandler = async ({ request }) => {
 		if (typedProvider === 'anthropic') {
 			providerBaseURL = providerBaseURL || PROVIDER_BASE_URLS.anthropic;
 			headers['anthropic-dangerous-direct-browser-access'] = 'true';
-		} else if (typedProvider === 'azure' && resourceName) {
-			// Azure requires special URL construction
-			providerBaseURL =
-				providerBaseURL || `https://${resourceName}.openai.azure.com/openai/deployments/`;
-			headers['api-key'] = apiKey;
-		} else if (typedProvider === 'cloudflare' && accountId) {
-			// Cloudflare Workers AI
-			providerBaseURL =
-				providerBaseURL ||
-				`https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/v1/`;
-		} else if (typedProvider === 'openrouter') {
-			providerBaseURL = providerBaseURL || PROVIDER_BASE_URLS.openrouter;
-			headers['HTTP-Referer'] = 'https://utsuwa.app';
-			headers['X-Title'] = 'Utsuwa';
 		} else {
 			// Use default base URL for provider
 			providerBaseURL = providerBaseURL || PROVIDER_BASE_URLS[typedProvider];
