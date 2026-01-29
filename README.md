@@ -98,7 +98,7 @@ If you prefer to run Utsuwa locally or host your own instance:
 #### Prerequisites
 
 - Node.js 22+
-- npm or pnpm
+- pnpm (recommended) or npm
 - A modern browser (Chrome, Firefox, Safari, Edge)
 
 #### Installation
@@ -109,10 +109,10 @@ git clone https://github.com/dyascj/utsuwa.git
 cd utsuwa
 
 # Install dependencies
-npm install
+pnpm install
 
 # Start development server
-npm run dev
+pnpm dev
 ```
 
 The app will be available at `http://localhost:5173`
@@ -176,10 +176,10 @@ utsuwa/
 ## Scripts
 
 ```bash
-npm run dev       # Start development server
-npm run build     # Build for production
-npm run preview   # Preview production build
-npm run check     # Type-check the project
+pnpm dev       # Start development server
+pnpm build     # Build for production
+pnpm preview   # Preview production build
+pnpm lint      # Type-check and lint the project
 ```
 
 ## Roadmap

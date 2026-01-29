@@ -7,7 +7,7 @@ Thank you for your interest in contributing to Utsuwa! This document provides gu
 ### Prerequisites
 
 - Node.js 22 or higher
-- npm or pnpm
+- pnpm
 
 ### Development Setup
 
@@ -19,11 +19,11 @@ Thank you for your interest in contributing to Utsuwa! This document provides gu
    ```
 3. Install dependencies:
    ```bash
-   npm install
+   pnpm install
    ```
 4. Start the development server:
    ```bash
-   npm run dev
+   pnpm dev
    ```
 5. Open [http://localhost:5173](http://localhost:5173) in your browser
 
@@ -56,7 +56,7 @@ Feature requests are welcome! Please create an issue with:
 2. Make your changes
 3. Ensure your code follows the project's style:
    ```bash
-   npm run check
+   pnpm lint
    ```
 4. Test your changes thoroughly
 5. Commit your changes with a clear message

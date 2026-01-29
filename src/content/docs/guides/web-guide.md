@@ -12,7 +12,7 @@ This guide walks you through using Utsuwa, whether on the hosted version at [uts
 ### Prerequisites
 
 - Node.js 22 or higher
-- npm or pnpm
+- pnpm
 - A modern browser (Chrome, Firefox, Safari, Edge)
 
 ### Installation
@@ -20,8 +20,8 @@ This guide walks you through using Utsuwa, whether on the hosted version at [uts
 ```bash
 git clone https://github.com/dyascj/utsuwa.git
 cd utsuwa
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 The app will be available at `http://localhost:5173`.
