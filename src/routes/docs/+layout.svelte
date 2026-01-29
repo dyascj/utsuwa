@@ -8,11 +8,35 @@
 
 	const isLandingPage = $derived(page.url.pathname === '/docs');
 	let sidebarOpen = $state(false);
+	let headerComponent = $state<DocsHeader | null>(null);
+	let sidebarComponent = $state<DocsSidebar | null>(null);
 
 	// Close sidebar on navigation
 	$effect(() => {
 		void page.url.pathname;
 		sidebarOpen = false;
+	});
+
+	// Keyboard shortcut: Cmd/Ctrl+K to focus search
+	$effect(() => {
+		if (!browser) return;
+
+		function handleKeydown(e: KeyboardEvent) {
+			if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+				e.preventDefault();
+				const isMobile = window.innerWidth <= 768;
+				if (isMobile) {
+					sidebarOpen = true;
+					// Wait for sidebar to open, then focus
+					setTimeout(() => sidebarComponent?.focusSearch(), 100);
+				} else {
+					headerComponent?.focusSearch();
+				}
+			}
+		}
+
+		document.addEventListener('keydown', handleKeydown);
+		return () => document.removeEventListener('keydown', handleKeydown);
 	});
 
 	let docsEl = $state<HTMLDivElement | null>(null);
@@ -86,16 +110,16 @@
 </script>
 
 <div class="docs" bind:this={docsEl}>
-	<DocsHeader onToggleSidebar={() => sidebarOpen = !sidebarOpen} {sidebarOpen} />
+	<DocsHeader bind:this={headerComponent} onToggleSidebar={() => sidebarOpen = !sidebarOpen} {sidebarOpen} />
 	<div class="docs-body">
 		{#if !isLandingPage}
 			{#if sidebarOpen}
 				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div class="sidebar-overlay" onclick={() => sidebarOpen = false} onkeydown={(e) => e.key === 'Escape' && (sidebarOpen = false)}></div>
 			{/if}
-			<DocsSidebar mobileOpen={sidebarOpen} />
+			<DocsSidebar bind:this={sidebarComponent} mobileOpen={sidebarOpen} />
 		{/if}
-		<div class="docs-main" class:full-width={isLandingPage}>
+		<div class="docs-main" class:full-width={isLandingPage} data-pagefind-body>
 			{@render children()}
 		</div>
 	</div>

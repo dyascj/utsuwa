@@ -1,5 +1,6 @@
 <script lang="ts">
 	import DocsSidebarSection from './DocsSidebarSection.svelte';
+	import DocsSearch from './DocsSearch.svelte';
 	import { docsNav } from '$lib/config/docs-nav';
 
 	interface Props {
@@ -7,9 +8,18 @@
 	}
 
 	let { mobileOpen = false }: Props = $props();
+
+	let searchComponent = $state<DocsSearch | null>(null);
+
+	export function focusSearch() {
+		searchComponent?.focus();
+	}
 </script>
 
 <aside class="sidebar" class:mobile-open={mobileOpen}>
+	<div class="sidebar-search">
+		<DocsSearch bind:this={searchComponent} id="sidebar-search" />
+	</div>
 	<nav class="sidebar-nav">
 		{#each docsNav as section}
 			<DocsSidebarSection {section} />
@@ -31,6 +41,12 @@
 		background: var(--docs-bg);
 	}
 
+	.sidebar-search {
+		display: none;
+		padding: 0 0.25rem;
+		margin-bottom: 1rem;
+	}
+
 	.sidebar-nav {
 		display: flex;
 		flex-direction: column;
@@ -49,6 +65,10 @@
 		}
 
 		.sidebar.mobile-open {
+			display: block;
+		}
+
+		.sidebar-search {
 			display: block;
 		}
 	}

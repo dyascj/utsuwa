@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Icon from '$lib/components/ui/Icon.svelte';
+	import DocsSearch from './DocsSearch.svelte';
 	import { browser } from '$app/environment';
 
 	interface Props {
@@ -8,6 +9,12 @@
 	}
 
 	let { onToggleSidebar, sidebarOpen = false }: Props = $props();
+
+	let searchComponent = $state<DocsSearch | null>(null);
+
+	export function focusSearch() {
+		searchComponent?.focus();
+	}
 
 	type Theme = 'light' | 'dark' | 'system';
 
@@ -51,6 +58,9 @@
 			<img src="/brand-assets/logo.svg" alt="Utsuwa" class="logo-img" />
 		</a>
 	</div>
+	<div class="header-search">
+		<DocsSearch bind:this={searchComponent} id="header-search" />
+	</div>
 	<a href="/docs" class="logo mobile-logo">
 		<img src="/brand-assets/logo.svg" alt="Utsuwa" class="logo-img" />
 	</a>
@@ -81,6 +91,14 @@
 	.header-left {
 		display: flex;
 		align-items: center;
+	}
+
+	.header-search {
+		flex: 1;
+		display: flex;
+		justify-content: center;
+		max-width: 320px;
+		margin: 0 1rem;
 	}
 
 	.logo {
@@ -160,6 +178,10 @@
 		}
 
 		.desktop-logo {
+			display: none;
+		}
+
+		.header-search {
 			display: none;
 		}
 
