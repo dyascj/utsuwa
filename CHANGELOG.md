@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2026-01-28
+
+### Added
+- Documentation hub at `/docs` with mdsvex-powered markdown rendering
+- Pagefind search with Cmd/Ctrl+K keyboard shortcut
+- Shiki syntax highlighting with dual theme support (light/dark)
+- Copy-to-clipboard button on code blocks
+- Breadcrumb and prev/next page navigation
+- Troubleshooting guide
+- Architecture overview documentation
+- Contributing guide (in-app)
+- Lint script to package.json
+
+### Changed
+- Standardized on pnpm as package manager
+- Updated all documentation to use pnpm commands
+- Minimum Node.js version updated to 22+
+- Version chip now reads directly from package.json
+
 ## [0.2.0] - 2026-01-26
 
 ### Added
