@@ -11,10 +11,6 @@ const PROVIDER_BASE_URLS: Partial<Record<LLMProvider, string>> = {
 	deepseek: 'https://api.deepseek.com/',
 	mistral: 'https://api.mistral.ai/v1/',
 	xai: 'https://api.x.ai/v1/',
-	groq: 'https://api.groq.com/openai/v1/',
-	perplexity: 'https://api.perplexity.ai/',
-	moonshot: 'https://api.moonshot.cn/v1/',
-	together: 'https://api.together.xyz/v1/',
 	// Local
 	ollama: 'http://localhost:11434/v1/',
 	lmstudio: 'http://localhost:1234/v1/',
@@ -33,10 +29,6 @@ const DEFAULT_MODELS: Partial<Record<LLMProvider, string>> = {
 	deepseek: 'deepseek-chat',
 	mistral: 'mistral-large-latest',
 	xai: 'grok-3',
-	groq: 'meta-llama/llama-4-maverick-17b-128e-instruct',
-	perplexity: 'sonar',
-	moonshot: 'moonshot-v1-32k',
-	together: 'meta-llama/Llama-3.3-70B-Instruct-Turbo',
 	ollama: 'llama3.2',
 	lmstudio: 'local-model',
 	player2: 'gemma2'

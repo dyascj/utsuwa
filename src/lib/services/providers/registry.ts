@@ -15,7 +15,7 @@ export interface ProviderMetadata {
 }
 
 // ============================================
-// LLM PROVIDERS (14 total)
+// LLM PROVIDERS (10 total)
 // ============================================
 
 export const LLM_PROVIDERS: ProviderMetadata[] = [
@@ -112,65 +112,6 @@ export const LLM_PROVIDERS: ProviderMetadata[] = [
 			{ id: 'grok-2-vision-1212', name: 'Grok 2 Vision' }
 		]
 	},
-	{
-		id: 'groq',
-		name: 'Groq',
-		description: 'Ultra-fast inference with LPU',
-		category: 'llm',
-		icon: '⚡',
-		requiresApiKey: true,
-		defaultBaseUrl: 'https://api.groq.com/openai/v1/',
-		models: [
-			{ id: 'meta-llama/llama-4-maverick-17b-128e-instruct', name: 'Llama 4 Maverick' },
-			{ id: 'meta-llama/llama-4-scout-17b-16e-instruct', name: 'Llama 4 Scout' },
-			{ id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B' },
-			{ id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B Instant' }
-		]
-	},
-	{
-		id: 'perplexity',
-		name: 'Perplexity AI',
-		description: 'Search-augmented AI models',
-		category: 'llm',
-		icon: '🔎',
-		requiresApiKey: true,
-		defaultBaseUrl: 'https://api.perplexity.ai/',
-		models: [
-			{ id: 'llama-3.1-sonar-large-128k-online', name: 'Sonar Large Online' },
-			{ id: 'llama-3.1-sonar-small-128k-online', name: 'Sonar Small Online' },
-			{ id: 'llama-3.1-sonar-large-128k-chat', name: 'Sonar Large Chat' }
-		]
-	},
-	{
-		id: 'moonshot',
-		name: 'Moonshot AI',
-		description: 'Kimi models with long context',
-		category: 'llm',
-		icon: '🌙',
-		requiresApiKey: true,
-		defaultBaseUrl: 'https://api.moonshot.cn/v1/',
-		models: [
-			{ id: 'moonshot-v1-128k', name: 'Moonshot 128K' },
-			{ id: 'moonshot-v1-32k', name: 'Moonshot 32K' },
-			{ id: 'moonshot-v1-8k', name: 'Moonshot 8K' }
-		]
-	},
-	{
-		id: 'together',
-		name: 'Together AI',
-		description: 'Open-source models at scale',
-		category: 'llm',
-		icon: '🤝',
-		requiresApiKey: true,
-		defaultBaseUrl: 'https://api.together.xyz/v1/',
-		models: [
-			{ id: 'meta-llama/Llama-3.3-70B-Instruct-Turbo', name: 'Llama 3.3 70B Turbo' },
-			{ id: 'meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo', name: 'Llama 3.1 405B' },
-			{ id: 'Qwen/Qwen2.5-72B-Instruct-Turbo', name: 'Qwen 2.5 72B' },
-			{ id: 'mistralai/Mixtral-8x22B-Instruct-v0.1', name: 'Mixtral 8x22B' }
-		]
-	},
-
 	// Local LLM
 	{
 		id: 'ollama',
