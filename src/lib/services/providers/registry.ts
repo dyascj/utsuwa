@@ -46,8 +46,8 @@ export const LLM_PROVIDERS: ProviderMetadata[] = [
 		requiresApiKey: true,
 		defaultBaseUrl: 'https://api.anthropic.com/v1/',
 		models: [
-			{ id: 'claude-opus-4-5-20251101', name: 'Claude Opus 4.5' },
 			{ id: 'claude-sonnet-4-5-20251101', name: 'Claude Sonnet 4.5' },
+			{ id: 'claude-opus-4-5-20251101', name: 'Claude Opus 4.5' },
 			{ id: 'claude-haiku-4-5-20251101', name: 'Claude Haiku 4.5' },
 			{ id: 'claude-sonnet-4-20250514', name: 'Claude Sonnet 4' },
 			{ id: 'claude-opus-4-20250514', name: 'Claude Opus 4' }
@@ -100,14 +100,14 @@ export const LLM_PROVIDERS: ProviderMetadata[] = [
 	{
 		id: 'xai',
 		name: 'xAI (Grok)',
-		description: 'Grok 4, Grok 3, and more',
+		description: 'Grok 3, Grok 4, and more',
 		category: 'llm',
 		icon: '𝕏',
 		requiresApiKey: true,
 		defaultBaseUrl: 'https://api.x.ai/v1/',
 		models: [
-			{ id: 'grok-4', name: 'Grok 4' },
 			{ id: 'grok-3', name: 'Grok 3' },
+			{ id: 'grok-4', name: 'Grok 4' },
 			{ id: 'grok-3-mini', name: 'Grok 3 Mini' },
 			{ id: 'grok-2-vision-1212', name: 'Grok 2 Vision' }
 		]

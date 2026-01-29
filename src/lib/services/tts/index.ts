@@ -37,7 +37,7 @@ export function getSharedAudioContext(): AudioContext {
 export const TTS_BASE_URLS: Partial<Record<TTSProvider, string>> = {
 	elevenlabs: 'https://api.elevenlabs.io/v1/',
 	'openai-tts': 'https://api.openai.com/v1/',
-	'player2-tts': 'http://localhost:4315/'
+	'player2-tts': 'http://localhost:4315/v1/'
 };
 
 // Providers that don't require API keys

@@ -31,6 +31,7 @@ const DEFAULT_MODELS: Partial<Record<LLMProvider, string>> = {
 	xai: 'grok-3',
 	ollama: 'llama3.2',
 	lmstudio: 'local-model',
+	vllm: 'llama-2-7b',
 	player2: 'gemma2'
 };
 
