@@ -13,12 +13,10 @@ const PROVIDER_BASE_URLS: Partial<Record<LLMProvider, string>> = {
 	// Local
 	ollama: 'http://localhost:11434/v1/',
 	lmstudio: 'http://localhost:1234/v1/',
-	vllm: 'http://localhost:8000/v1/',
-	player2: 'http://localhost:4315/v1/'
 };
 
 // Providers that don't require API keys
-const LOCAL_PROVIDERS: LLMProvider[] = ['ollama', 'lmstudio', 'vllm', 'player2'];
+const LOCAL_PROVIDERS: LLMProvider[] = ['ollama', 'lmstudio'];
 
 // Default models per provider
 const DEFAULT_MODELS: Partial<Record<LLMProvider, string>> = {
@@ -28,9 +26,7 @@ const DEFAULT_MODELS: Partial<Record<LLMProvider, string>> = {
 	deepseek: 'deepseek-chat',
 	xai: 'grok-3',
 	ollama: 'llama3.2',
-	lmstudio: 'local-model',
-	vllm: 'llama-2-7b',
-	player2: 'gemma2'
+	lmstudio: 'local-model'
 };
 
 export const POST: RequestHandler = async ({ request }) => {

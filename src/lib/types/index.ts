@@ -19,9 +19,7 @@ export type LLMProvider =
 	| 'xai'
 	// Local
 	| 'ollama'
-	| 'lmstudio'
-	| 'vllm'
-	| 'player2';
+	| 'lmstudio';
 
 export interface LLMConfig {
 	provider: LLMProvider;
@@ -31,12 +29,7 @@ export interface LLMConfig {
 }
 
 // TTS Provider IDs
-export type TTSProvider =
-	// Cloud
-	| 'elevenlabs'
-	| 'openai-tts'
-	// Local
-	| 'player2-tts';
+export type TTSProvider = 'elevenlabs' | 'openai-tts';
 
 export interface TTSConfig {
 	provider: TTSProvider;

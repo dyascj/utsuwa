@@ -15,7 +15,7 @@ export interface ProviderMetadata {
 }
 
 // ============================================
-// LLM PROVIDERS (9 total)
+// LLM PROVIDERS (7 total)
 // ============================================
 
 export const LLM_PROVIDERS: ProviderMetadata[] = [
@@ -126,36 +126,10 @@ export const LLM_PROVIDERS: ProviderMetadata[] = [
 		defaultBaseUrl: 'http://localhost:1234/v1/',
 		models: []
 	},
-	{
-		id: 'vllm',
-		name: 'vLLM',
-		description: 'High-throughput LLM serving',
-		category: 'llm',
-		icon: '🚀',
-		requiresApiKey: false,
-		isLocal: true,
-		defaultBaseUrl: 'http://localhost:8000/v1/',
-		models: [
-			{ id: 'llama-2-7b', name: 'Llama 2 7B' },
-			{ id: 'llama-2-13b', name: 'Llama 2 13B' },
-			{ id: 'llama-2-70b', name: 'Llama 2 70B' }
-		]
-	},
-	{
-		id: 'player2',
-		name: 'Player2',
-		description: 'Game engine LLM integration',
-		category: 'llm',
-		icon: '🎮',
-		requiresApiKey: false,
-		isLocal: true,
-		defaultBaseUrl: 'http://localhost:4315/v1/',
-		models: []
-	}
 ];
 
 // ============================================
-// TTS PROVIDERS (3 total)
+// TTS PROVIDERS (2 total)
 // ============================================
 
 export const TTS_PROVIDERS: ProviderMetadata[] = [
@@ -213,18 +187,6 @@ export const TTS_PROVIDERS: ProviderMetadata[] = [
 			{ id: 'cedar', name: 'Cedar' }
 		]
 	},
-	// Local TTS
-	{
-		id: 'player2-tts',
-		name: 'Player2 TTS',
-		description: 'Game engine TTS integration',
-		category: 'tts',
-		icon: '🎮',
-		requiresApiKey: false,
-		isLocal: true,
-		defaultBaseUrl: 'http://localhost:4315/v1/',
-		voices: []
-	}
 ];
 
 // Helper functions

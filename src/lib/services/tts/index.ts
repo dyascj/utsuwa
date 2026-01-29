@@ -36,12 +36,8 @@ export function getSharedAudioContext(): AudioContext {
 // Provider base URLs
 export const TTS_BASE_URLS: Partial<Record<TTSProvider, string>> = {
 	elevenlabs: 'https://api.elevenlabs.io/v1/',
-	'openai-tts': 'https://api.openai.com/v1/',
-	'player2-tts': 'http://localhost:4315/v1/'
+	'openai-tts': 'https://api.openai.com/v1/'
 };
-
-// Providers that don't require API keys
-export const LOCAL_TTS_PROVIDERS: TTSProvider[] = ['player2-tts'];
 
 // Default voices per provider
 export const DEFAULT_VOICES: Partial<Record<TTSProvider, string>> = {
@@ -52,7 +48,6 @@ export const DEFAULT_VOICES: Partial<Record<TTSProvider, string>> = {
 // Import individual providers
 import { ElevenLabsTTS } from './elevenlabs';
 import { OpenAITTS } from './openai-tts';
-import { OpenAICompatibleTTS } from './openai-compatible-tts';
 
 // Provider factory
 let currentProvider: ITTSProvider | null = null;
@@ -79,14 +74,6 @@ export function getTTSProvider(options: TTSOptions): ITTSProvider {
 
 		case 'openai-tts':
 			currentProvider = new OpenAITTS(options);
-			break;
-
-		case 'player2-tts':
-			// Uses OpenAI-compatible API
-			currentProvider = new OpenAICompatibleTTS({
-				...options,
-				baseUrl: options.baseUrl || TTS_BASE_URLS['player2-tts']
-			});
 			break;
 
 		default:
