@@ -57,7 +57,10 @@ export async function initEmbeddingModel(): Promise<boolean> {
 
 	try {
 		// Dynamic import to avoid SSR issues
-		const { pipeline: createPipeline } = await import('@xenova/transformers');
+		const { pipeline: createPipeline, env } = await import('@xenova/transformers');
+
+		// Ensure models load from Hugging Face CDN, not local path
+		env.allowLocalModels = false;
 
 		pipeline = await createPipeline('feature-extraction', MODEL_NAME, {
 			progress_callback: (progress: { status: string }) => {
