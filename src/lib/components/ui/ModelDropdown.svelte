@@ -97,29 +97,30 @@
 		align-items: center;
 		gap: 0.5rem;
 		flex: 1;
-		padding: 0.625rem 0.75rem;
-		background: var(--color-neutral-50);
-		border: 1px solid var(--color-neutral-300);
-		border-radius: 0.5rem;
+		padding: 0.75rem 1rem;
+		background: var(--bg-primary);
+		border: 1px solid var(--border-light);
+		border-radius: var(--radius-md);
 		cursor: pointer;
-		transition: all 0.15s;
+		transition: all 0.2s;
 		font-family: inherit;
 		font-size: 0.875rem;
-		color: var(--color-neutral-900);
+		color: var(--text-primary);
 		text-align: left;
 	}
 
 	:global(.model-dropdown-trigger:hover:not(:disabled)) {
-		border-color: var(--color-neutral-400);
+		border-color: var(--text-tertiary);
 	}
 
 	:global(.model-dropdown-trigger:focus) {
 		outline: none;
-		border-color: var(--accent);
+		border-color: #01B2FF;
+		box-shadow: 0 0 0 3px rgba(1, 178, 255, 0.15);
 	}
 
 	:global(.model-dropdown-trigger:disabled) {
-		opacity: 0.7;
+		opacity: 0.6;
 		cursor: not-allowed;
 	}
 
@@ -130,7 +131,7 @@
 
 	.trigger-placeholder {
 		flex: 1;
-		color: var(--color-neutral-500);
+		color: var(--text-tertiary);
 	}
 
 	.trigger-loading {
@@ -138,14 +139,14 @@
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		color: var(--color-neutral-500);
+		color: var(--text-tertiary);
 	}
 
 	.loading-spinner {
 		width: 14px;
 		height: 14px;
-		border: 2px solid var(--color-neutral-300);
-		border-top-color: var(--accent);
+		border: 2px solid var(--border-light);
+		border-top-color: #01B2FF;
 		border-radius: 50%;
 		animation: spin 0.8s linear infinite;
 	}
@@ -160,29 +161,29 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 0 0.625rem;
-		background: var(--color-neutral-100);
-		border: 1px solid var(--color-neutral-300);
-		border-radius: 0.5rem;
-		color: var(--color-neutral-600);
+		padding: 0 0.75rem;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-light);
+		border-radius: var(--radius-md);
+		color: var(--text-secondary);
 		cursor: pointer;
-		transition: all 0.15s;
+		transition: all 0.2s;
 	}
 
 	.refresh-btn:hover {
-		background: var(--color-neutral-200);
-		color: var(--color-neutral-800);
+		background: var(--bg-tertiary);
+		color: var(--text-primary);
 	}
 
 	:global(.model-dropdown-content) {
 		z-index: 1050;
 		min-width: 200px;
 		max-width: 300px;
-		background: var(--color-background);
-		border: 1px solid var(--color-border);
-		border-radius: 0.75rem;
+		background: var(--bg-primary);
+		border: 1px solid var(--border-light);
+		border-radius: var(--radius-lg);
 		padding: 0.375rem;
-		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+		box-shadow: var(--shadow-lg);
 		animation: modelSlideDown 0.15s ease-out;
 	}
 
@@ -208,7 +209,7 @@
 		gap: 0.5rem;
 		width: 100%;
 		padding: 0.5rem 0.625rem;
-		border-radius: 0.375rem;
+		border-radius: var(--radius-sm);
 		cursor: pointer;
 		transition: all 0.1s;
 		outline: none;
@@ -216,30 +217,30 @@
 
 	:global(.model-item:hover),
 	:global(.model-item[data-highlighted]) {
-		background: var(--color-neutral-100);
+		background: var(--bg-secondary);
 	}
 
 	:global(.model-item.selected) {
-		background: color-mix(in srgb, var(--accent) 15%, transparent);
+		background: rgba(1, 178, 255, 0.1);
 	}
 
 	.model-name {
 		flex: 1;
 		font-size: 0.8125rem;
 		font-weight: 500;
-		color: var(--color-neutral-700);
+		color: var(--text-primary);
 	}
 
 	.check-icon {
 		display: flex;
 		align-items: center;
-		color: var(--accent);
+		color: #01B2FF;
 	}
 
 	.no-models {
 		padding: 0.75rem;
 		text-align: center;
 		font-size: 0.8rem;
-		color: var(--color-neutral-500);
+		color: var(--text-tertiary);
 	}
 </style>

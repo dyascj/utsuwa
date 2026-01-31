@@ -63,16 +63,18 @@
 
 <div class="modal-overlay">
 	<div class="modal-container">
-		<!-- Progress dots -->
-		<div class="progress-dots">
-			{#each steps as step, i}
-				<div
-					class="dot"
-					class:active={i === currentStepIndex}
-					class:completed={i < currentStepIndex}
-				></div>
-			{/each}
-		</div>
+		<!-- Progress dots (hidden on complete step) -->
+		{#if currentStep !== 'complete'}
+			<div class="progress-dots">
+				{#each steps as step, i}
+					<div
+						class="dot"
+						class:active={i === currentStepIndex}
+						class:completed={i < currentStepIndex}
+					></div>
+				{/each}
+			</div>
+		{/if}
 
 		<!-- Step content -->
 		<div class="step-wrapper" class:slide-forward={direction === 'forward'} class:slide-back={direction === 'back'}>
@@ -109,15 +111,15 @@
 	.modal-overlay {
 		position: fixed;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.4);
-		backdrop-filter: blur(8px);
-		-webkit-backdrop-filter: blur(8px);
+		background: rgba(0, 0, 0, 0.3);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		z-index: 1000;
-		padding: 1rem;
-		animation: fadeIn 0.2s ease-out;
+		padding: 1.5rem;
+		animation: fadeIn 0.3s ease-out;
 	}
 
 	@keyframes fadeIn {
@@ -127,69 +129,71 @@
 
 	.modal-container {
 		position: relative;
-		background: var(--glass-bg-solid);
-		border: 1px solid var(--glass-border);
-		border-radius: 1.25rem;
-		max-width: 420px;
+		background: var(--bg-primary);
+		border: 1px solid var(--border-subtle);
+		border-radius: var(--radius-xl);
+		max-width: 440px;
 		width: 100%;
 		max-height: 85vh;
 		overflow: hidden;
-		animation: slideUp 0.25s ease-out;
-		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+		animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+		box-shadow: var(--shadow-xl);
 	}
 
 	@keyframes slideUp {
 		from {
 			opacity: 0;
-			transform: translateY(20px);
+			transform: translateY(24px) scale(0.96);
 		}
 		to {
 			opacity: 1;
-			transform: translateY(0);
+			transform: translateY(0) scale(1);
 		}
 	}
 
 	.progress-dots {
 		display: flex;
+		align-items: center;
 		justify-content: center;
-		gap: 0.5rem;
-		padding: 1rem 1rem 0;
+		gap: 8px;
+		padding: 1.5rem 1.5rem 0.5rem;
 	}
 
 	.dot {
-		width: 6px;
-		height: 6px;
-		border-radius: 50%;
-		background: var(--color-neutral-300);
-		transition: all 0.2s;
+		width: 8px;
+		height: 8px;
+		border-radius: var(--radius-full);
+		background: var(--bg-tertiary);
+		transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	.dot.active {
-		background: var(--accent);
-		transform: scale(1.25);
+		width: 28px;
+		background: #01B2FF;
+		box-shadow: 0 0 12px rgba(1, 178, 255, 0.4);
 	}
 
 	.dot.completed {
-		background: var(--ctp-green);
+		background: var(--text-tertiary);
 	}
 
 	.step-wrapper {
 		overflow-y: auto;
-		max-height: calc(85vh - 3rem);
+		max-height: calc(85vh - 3.5rem);
 	}
 
 	.step-wrapper.slide-forward {
-		animation: slideInRight 0.2s ease-out;
+		animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	.step-wrapper.slide-back {
-		animation: slideInLeft 0.2s ease-out;
+		animation: slideInLeft 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	@keyframes slideInRight {
 		from {
 			opacity: 0;
-			transform: translateX(20px);
+			transform: translateX(16px);
 		}
 		to {
 			opacity: 1;
@@ -200,7 +204,7 @@
 	@keyframes slideInLeft {
 		from {
 			opacity: 0;
-			transform: translateX(-20px);
+			transform: translateX(-16px);
 		}
 		to {
 			opacity: 1;

@@ -22,48 +22,6 @@
 	<div class="mode-cards">
 		<button
 			class="mode-card"
-			class:selected={mode === 'companion'}
-			onclick={() => onModeChange('companion')}
-		>
-			<div class="mode-icon">
-				<Icon name="sparkles" size={24} />
-			</div>
-			<h3 class="mode-title">Companion Mode</h3>
-			<p class="mode-description">A helpful AI assistant focused on conversation and utility</p>
-
-			<div class="mode-features">
-				<div class="feature">
-					<Icon name="check" size={14} />
-					<span>Mood tracking</span>
-				</div>
-				<div class="feature">
-					<Icon name="check" size={14} />
-					<span>Energy system</span>
-				</div>
-				<div class="feature disabled">
-					<Icon name="x" size={14} />
-					<span>Relationship stats</span>
-				</div>
-				<div class="feature disabled">
-					<Icon name="x" size={14} />
-					<span>Events & milestones</span>
-				</div>
-				<div class="feature disabled">
-					<Icon name="x" size={14} />
-					<span>Stage progression</span>
-				</div>
-			</div>
-
-			{#if mode === 'companion'}
-				<div class="selected-badge">
-					<Icon name="check" size={14} />
-					Selected
-				</div>
-			{/if}
-		</button>
-
-		<button
-			class="mode-card"
 			class:selected={mode === 'dating_sim'}
 			onclick={() => onModeChange('dating_sim')}
 		>
@@ -103,6 +61,48 @@
 				</div>
 			{/if}
 		</button>
+
+		<button
+			class="mode-card"
+			class:selected={mode === 'companion'}
+			onclick={() => onModeChange('companion')}
+		>
+			<div class="mode-icon">
+				<Icon name="sparkles" size={24} />
+			</div>
+			<h3 class="mode-title">Companion Mode</h3>
+			<p class="mode-description">A helpful AI assistant focused on conversation and utility</p>
+
+			<div class="mode-features">
+				<div class="feature">
+					<Icon name="check" size={14} />
+					<span>Mood tracking</span>
+				</div>
+				<div class="feature">
+					<Icon name="check" size={14} />
+					<span>Energy system</span>
+				</div>
+				<div class="feature disabled">
+					<Icon name="x" size={14} />
+					<span>Relationship stats</span>
+				</div>
+				<div class="feature disabled">
+					<Icon name="x" size={14} />
+					<span>Events & milestones</span>
+				</div>
+				<div class="feature disabled">
+					<Icon name="x" size={14} />
+					<span>Stage progression</span>
+				</div>
+			</div>
+
+			{#if mode === 'companion'}
+				<div class="selected-badge">
+					<Icon name="check" size={14} />
+					Selected
+				</div>
+			{/if}
+		</button>
 	</div>
 
 	<p class="mode-note">
@@ -126,8 +126,8 @@
 	.step-content {
 		display: flex;
 		flex-direction: column;
-		padding: 1.25rem;
-		gap: 1rem;
+		padding: 1.5rem;
+		gap: 1.25rem;
 	}
 
 	.step-header {
@@ -135,33 +135,28 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.375rem;
-		color: var(--accent);
+		gap: 0.5rem;
+		color: var(--text-secondary);
 	}
 
 	.title {
-		font-size: 1.1rem;
-		font-weight: 700;
-		color: var(--color-neutral-900);
+		font-size: 1.125rem;
+		font-weight: 600;
+		color: var(--text-primary);
 		margin: 0;
+		letter-spacing: -0.02em;
 	}
 
 	.subtitle {
-		font-size: 0.8rem;
-		color: var(--color-neutral-600);
+		font-size: 0.875rem;
+		color: var(--text-secondary);
 		margin: 0;
 	}
 
 	.mode-cards {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 1rem;
-	}
-
-	@media (max-width: 500px) {
-		.mode-cards {
-			grid-template-columns: 1fr;
-		}
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
 	}
 
 	.mode-card {
@@ -170,59 +165,60 @@
 		flex-direction: column;
 		align-items: center;
 		gap: 0.5rem;
-		padding: 1rem 0.875rem;
-		background: var(--color-neutral-100);
-		border: 2px solid var(--color-neutral-200);
-		border-radius: 0.625rem;
+		padding: 1.25rem 1rem;
+		background: var(--bg-primary);
+		border: 2px solid var(--border-light);
+		border-radius: var(--radius-lg);
 		cursor: pointer;
-		transition: all 0.15s;
+		transition: all 0.2s;
 		text-align: center;
 	}
 
 	.mode-card:hover {
-		border-color: var(--color-neutral-300);
+		border-color: var(--text-tertiary);
 	}
 
 	.mode-card.selected {
-		border-color: var(--accent);
-		background: color-mix(in srgb, var(--accent) 5%, transparent);
+		border-color: var(--border-light);
+		background: rgba(1, 178, 255, 0.08);
 	}
 
 	.mode-icon {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 48px;
-		height: 48px;
-		background: color-mix(in srgb, var(--accent) 15%, transparent);
+		width: 52px;
+		height: 52px;
+		background: var(--bg-tertiary);
 		border-radius: 50%;
-		color: var(--accent);
+		color: var(--text-tertiary);
+		transition: all 0.2s;
 	}
 
-	.mode-icon.dating {
-		background: color-mix(in srgb, var(--ctp-pink) 15%, transparent);
-		color: var(--ctp-pink);
+	.mode-card.selected .mode-icon {
+		background: #01B2FF;
+		color: white;
 	}
 
 	.mode-title {
 		font-size: 0.9rem;
 		font-weight: 600;
-		color: var(--color-neutral-900);
+		color: var(--text-primary);
 		margin: 0;
 	}
 
 	.mode-description {
-		font-size: 0.75rem;
-		color: var(--color-neutral-600);
+		font-size: 0.8rem;
+		color: var(--text-secondary);
 		margin: 0;
-		line-height: 1.4;
+		line-height: 1.5;
 	}
 
 	.mode-features {
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
-		margin-top: 0.375rem;
+		margin-top: 0.5rem;
 		width: 100%;
 	}
 
@@ -230,27 +226,27 @@
 		display: flex;
 		align-items: center;
 		gap: 0.375rem;
-		font-size: 0.7rem;
-		color: var(--ctp-green);
+		font-size: 0.75rem;
+		color: #01B2FF;
 	}
 
 	.feature.disabled {
-		color: var(--color-neutral-400);
+		color: var(--text-tertiary);
 	}
 
 	.selected-badge {
 		position: absolute;
-		top: 0.625rem;
-		right: 0.625rem;
+		top: 0.75rem;
+		right: 0.75rem;
 		display: flex;
 		align-items: center;
 		gap: 0.25rem;
-		font-size: 0.65rem;
+		font-size: 0.7rem;
 		font-weight: 600;
-		color: var(--accent-foreground);
-		background: var(--accent);
-		padding: 0.25rem 0.5rem;
-		border-radius: 0.375rem;
+		color: white;
+		background: #01B2FF;
+		padding: 0.375rem 0.625rem;
+		border-radius: var(--radius-full);
 	}
 
 	.mode-note {
@@ -259,52 +255,56 @@
 		justify-content: center;
 		gap: 0.375rem;
 		margin: 0;
-		font-size: 0.7rem;
-		color: var(--color-neutral-500);
+		font-size: 0.75rem;
+		color: var(--text-tertiary);
 	}
 
 	.actions {
 		display: flex;
 		justify-content: space-between;
 		gap: 1rem;
-		margin-top: 0.25rem;
+		margin-top: 0.5rem;
 	}
 
 	.back-btn {
 		display: flex;
 		align-items: center;
 		gap: 0.375rem;
-		padding: 0.625rem 1rem;
-		background: var(--color-neutral-100);
-		border: 1px solid var(--color-neutral-200);
-		border-radius: 0.5rem;
+		padding: 0.75rem 1.25rem;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-light);
+		border-radius: var(--radius-full);
 		font-size: 0.875rem;
 		font-weight: 500;
-		color: var(--color-neutral-700);
+		color: var(--text-secondary);
 		cursor: pointer;
-		transition: all 0.15s;
+		transition: all 0.2s;
 	}
 
 	.back-btn:hover {
-		background: var(--color-neutral-200);
+		background: var(--bg-tertiary);
+		color: var(--text-primary);
 	}
 
 	.next-btn {
 		display: flex;
 		align-items: center;
 		gap: 0.375rem;
-		padding: 0.625rem 1.25rem;
-		background: var(--accent);
-		color: var(--accent-foreground);
+		padding: 0.75rem 1.5rem;
+		background: #01B2FF;
+		color: white;
 		border: none;
-		border-radius: 0.5rem;
+		border-radius: var(--radius-full);
 		font-size: 0.875rem;
-		font-weight: 600;
+		font-weight: 500;
 		cursor: pointer;
-		transition: all 0.15s;
+		transition: all 0.2s;
+		box-shadow: var(--shadow-sm);
 	}
 
 	.next-btn:hover {
-		filter: brightness(1.1);
+		background: #00a0e6;
+		transform: translateY(-1px);
+		box-shadow: var(--shadow-md);
 	}
 </style>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Icon } from '$lib/components/ui';
+	import { vrmStore } from '$lib/stores/vrm.svelte';
 
 	interface Props {
 		characterName: string;
@@ -7,123 +8,111 @@
 	}
 
 	let { characterName, onComplete }: Props = $props();
+
+	const activeModel = $derived(vrmStore.models.find((m) => m.id === vrmStore.activeModelId));
 </script>
 
-<div class="step-content">
-	<div class="success-icon">
-		<Icon name="check" size={36} strokeWidth={3} />
-	</div>
+<div class="complete-wrapper">
+	<div class="complete-layout">
+		<div class="avatar-box">
+			{#if activeModel?.previewUrl}
+				<img src={activeModel.previewUrl} alt={activeModel.name} />
+			{:else}
+				<div class="avatar-fallback">
+					<Icon name="user" size={48} />
+				</div>
+			{/if}
+		</div>
 
-	<h2 class="title">You're All Set!</h2>
-	<p class="subtitle">{characterName} is ready to chat with you</p>
-
-	<div class="summary">
-		<div class="summary-item">
-			<Icon name="check-circle" size={14} />
-			<span>Character configured</span>
-		</div>
-		<div class="summary-item">
-			<Icon name="check-circle" size={14} />
-			<span>Avatar selected</span>
-		</div>
-		<div class="summary-item">
-			<Icon name="check-circle" size={14} />
-			<span>AI services ready</span>
-		</div>
-		<div class="summary-item">
-			<Icon name="check-circle" size={14} />
-			<span>Mode selected</span>
+		<div class="text-box">
+			<p class="greeting">Hi, I'm <strong>{characterName}</strong>!</p>
+			<p class="tagline">Your new AI companion</p>
+			<button class="start-btn" onclick={onComplete}>
+				Start Chatting
+			</button>
 		</div>
 	</div>
-
-	<button class="start-btn" onclick={onComplete}>
-		Start Chatting
-		<Icon name="arrow-right" size={18} />
-	</button>
 </div>
 
 <style>
-	.step-content {
+	.complete-wrapper {
+		padding: 2rem 1.5rem;
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		padding: 1.5rem;
-		gap: 0.75rem;
+		justify-content: center;
 	}
 
-	.success-icon {
+	.complete-layout {
+		display: flex;
+		gap: 1.25rem;
+		align-items: center;
+	}
+
+	.avatar-box {
+		width: 100px;
+		height: 100px;
+	}
+
+	.avatar-box img {
+		width: 100%;
+		height: 100%;
+		border-radius: var(--radius-lg);
+		object-fit: cover;
+		background: var(--bg-secondary);
+		display: block;
+	}
+
+	.avatar-fallback {
+		width: 100px;
+		height: 100px;
+		border-radius: var(--radius-lg);
+		background: var(--bg-secondary);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 64px;
-		height: 64px;
-		background: color-mix(in srgb, var(--ctp-green) 15%, transparent);
-		border-radius: 50%;
-		color: var(--ctp-green);
-		animation: scaleIn 0.3s ease-out;
+		color: var(--text-tertiary);
 	}
 
-	@keyframes scaleIn {
-		from {
-			transform: scale(0.5);
-			opacity: 0;
-		}
-		to {
-			transform: scale(1);
-			opacity: 1;
-		}
-	}
-
-	.title {
-		font-size: 1.1rem;
-		font-weight: 700;
-		color: var(--color-neutral-900);
-		margin: 0;
-	}
-
-	.subtitle {
-		font-size: 0.8rem;
-		color: var(--color-neutral-600);
-		margin: 0;
-	}
-
-	.summary {
+	.text-box {
 		display: flex;
 		flex-direction: column;
-		gap: 0.375rem;
-		padding: 0.875rem 1.25rem;
-		background: var(--color-neutral-100);
-		border-radius: 0.625rem;
-		margin: 0.375rem 0;
+		gap: 0.25rem;
 	}
 
-	.summary-item {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		font-size: 0.8rem;
-		color: var(--ctp-green);
+	.greeting {
+		font-size: 1.125rem;
+		color: var(--text-primary);
+		margin: 0;
+		line-height: 1.4;
+	}
+
+	.greeting strong {
+		font-weight: 600;
+	}
+
+	.tagline {
+		font-size: 0.875rem;
+		color: var(--text-secondary);
+		margin: 0;
 	}
 
 	.start-btn {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		margin-top: 0.5rem;
-		padding: 0.75rem 1.75rem;
-		background: var(--accent);
-		color: var(--accent-foreground);
+		margin-top: 0.75rem;
+		padding: 0.625rem 1.25rem;
+		background: #01B2FF;
+		color: white;
 		border: none;
-		border-radius: 0.5rem;
-		font-size: 0.875rem;
-		font-weight: 600;
+		border-radius: var(--radius-full);
+		font-size: 0.8125rem;
+		font-weight: 500;
 		cursor: pointer;
-		transition: all 0.15s;
+		transition: all 0.2s;
+		box-shadow: var(--shadow-sm);
+		width: fit-content;
 	}
 
 	.start-btn:hover {
-		filter: brightness(1.1);
+		background: #00a0e6;
 		transform: translateY(-1px);
+		box-shadow: var(--shadow-md);
 	}
 </style>

@@ -63,8 +63,8 @@
 	.step-content {
 		display: flex;
 		flex-direction: column;
-		padding: 1.25rem;
-		gap: 1rem;
+		padding: 1.5rem;
+		gap: 1.25rem;
 	}
 
 	.step-header {
@@ -72,119 +72,132 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.375rem;
-		color: var(--accent);
+		gap: 0.5rem;
+		color: var(--text-secondary);
 	}
 
 	.title {
-		font-size: 1.1rem;
-		font-weight: 700;
-		color: var(--color-neutral-900);
+		font-size: 1.125rem;
+		font-weight: 600;
+		color: var(--text-primary);
 		margin: 0;
+		letter-spacing: -0.02em;
 	}
 
 	.subtitle {
-		font-size: 0.8rem;
-		color: var(--color-neutral-600);
+		font-size: 0.875rem;
+		color: var(--text-secondary);
 		margin: 0;
 	}
 
 	.form-group {
 		display: flex;
 		flex-direction: column;
-		gap: 0.375rem;
+		gap: 0.5rem;
 	}
 
 	.label {
-		font-size: 0.7rem;
-		font-weight: 600;
-		color: var(--color-neutral-700);
-		text-transform: uppercase;
-		letter-spacing: 0.03em;
+		font-size: 0.8rem;
+		font-weight: 500;
+		color: var(--text-primary);
 	}
 
 	.input {
-		padding: 0.625rem 0.875rem;
-		background: var(--color-neutral-100);
-		border: 1px solid var(--color-neutral-200);
-		border-radius: 0.5rem;
-		font-size: 0.875rem;
-		color: var(--color-neutral-900);
-		transition: border-color 0.15s;
+		padding: 0.75rem 1rem;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-light);
+		border-radius: var(--radius-md);
+		font-size: 0.9rem;
+		color: var(--text-primary);
+		transition: all 0.2s;
 	}
 
 	.input:focus {
 		outline: none;
-		border-color: var(--accent);
+		border-color: #01B2FF;
+		box-shadow: 0 0 0 3px rgba(1, 178, 255, 0.15);
+	}
+
+	.input::placeholder {
+		color: var(--text-tertiary);
 	}
 
 	.textarea {
-		padding: 0.625rem 0.875rem;
-		background: var(--color-neutral-100);
-		border: 1px solid var(--color-neutral-200);
-		border-radius: 0.5rem;
-		font-size: 0.8rem;
-		color: var(--color-neutral-900);
+		padding: 0.75rem 1rem;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-light);
+		border-radius: var(--radius-md);
+		font-size: 0.875rem;
+		color: var(--text-primary);
 		font-family: inherit;
 		resize: vertical;
-		min-height: 90px;
-		line-height: 1.5;
-		transition: border-color 0.15s;
+		min-height: 100px;
+		line-height: 1.6;
+		transition: all 0.2s;
 	}
 
 	.textarea:focus {
 		outline: none;
-		border-color: var(--accent);
+		border-color: #01B2FF;
+		box-shadow: 0 0 0 3px rgba(1, 178, 255, 0.15);
+	}
+
+	.textarea::placeholder {
+		color: var(--text-tertiary);
 	}
 
 	.hint {
-		font-size: 0.7rem;
-		color: var(--color-neutral-500);
+		font-size: 0.75rem;
+		color: var(--text-tertiary);
 	}
 
 	.actions {
 		display: flex;
 		justify-content: space-between;
 		gap: 1rem;
-		margin-top: 0.25rem;
+		margin-top: 0.5rem;
 	}
 
 	.back-btn {
 		display: flex;
 		align-items: center;
 		gap: 0.375rem;
-		padding: 0.625rem 1rem;
-		background: var(--color-neutral-100);
-		border: 1px solid var(--color-neutral-200);
-		border-radius: 0.5rem;
+		padding: 0.75rem 1.25rem;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-light);
+		border-radius: var(--radius-full);
 		font-size: 0.875rem;
 		font-weight: 500;
-		color: var(--color-neutral-700);
+		color: var(--text-secondary);
 		cursor: pointer;
-		transition: all 0.15s;
+		transition: all 0.2s;
 	}
 
 	.back-btn:hover {
-		background: var(--color-neutral-200);
+		background: var(--bg-tertiary);
+		color: var(--text-primary);
 	}
 
 	.next-btn {
 		display: flex;
 		align-items: center;
 		gap: 0.375rem;
-		padding: 0.625rem 1.25rem;
-		background: var(--accent);
-		color: var(--accent-foreground);
+		padding: 0.75rem 1.5rem;
+		background: #01B2FF;
+		color: white;
 		border: none;
-		border-radius: 0.5rem;
+		border-radius: var(--radius-full);
 		font-size: 0.875rem;
-		font-weight: 600;
+		font-weight: 500;
 		cursor: pointer;
-		transition: all 0.15s;
+		transition: all 0.2s;
+		box-shadow: var(--shadow-sm);
 	}
 
 	.next-btn:hover:not(:disabled) {
-		filter: brightness(1.1);
+		background: #00a0e6;
+		transform: translateY(-1px);
+		box-shadow: var(--shadow-md);
 	}
 
 	.next-btn:disabled {

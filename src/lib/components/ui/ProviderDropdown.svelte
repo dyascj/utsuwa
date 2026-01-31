@@ -114,25 +114,26 @@
 		align-items: center;
 		gap: 0.5rem;
 		width: 100%;
-		padding: 0.625rem 0.75rem;
-		background: var(--color-neutral-50);
-		border: 1px solid var(--color-neutral-300);
-		border-radius: 0.5rem;
+		padding: 0.75rem 1rem;
+		background: var(--bg-primary);
+		border: 1px solid var(--border-light);
+		border-radius: var(--radius-md);
 		cursor: pointer;
-		transition: all 0.15s;
+		transition: all 0.2s;
 		font-family: inherit;
 		font-size: 0.875rem;
-		color: var(--color-neutral-900);
+		color: var(--text-primary);
 		text-align: left;
 	}
 
 	:global(.dropdown-trigger:hover) {
-		border-color: var(--color-neutral-400);
+		border-color: var(--text-tertiary);
 	}
 
 	:global(.dropdown-trigger:focus) {
 		outline: none;
-		border-color: var(--color-ring);
+		border-color: #01B2FF;
+		box-shadow: 0 0 0 3px rgba(1, 178, 255, 0.15);
 	}
 
 	.trigger-icon {
@@ -147,18 +148,18 @@
 
 	.trigger-placeholder {
 		flex: 1;
-		color: var(--color-neutral-500);
+		color: var(--text-tertiary);
 	}
 
 	:global(.dropdown-content) {
 		z-index: 1050;
 		min-width: 280px;
 		max-width: 320px;
-		background: var(--color-background);
-		border: 1px solid var(--color-border);
-		border-radius: 0.75rem;
+		background: var(--bg-primary);
+		border: 1px solid var(--border-light);
+		border-radius: var(--radius-lg);
 		padding: 0.5rem;
-		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+		box-shadow: var(--shadow-lg);
 		animation: slideDown 0.15s ease-out;
 	}
 
@@ -192,7 +193,7 @@
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
-		color: var(--color-neutral-400);
+		color: var(--text-tertiary);
 	}
 
 	:global(.provider-item) {
@@ -201,7 +202,7 @@
 		gap: 0.625rem;
 		width: 100%;
 		padding: 0.5rem 0.625rem;
-		border-radius: 0.375rem;
+		border-radius: var(--radius-sm);
 		cursor: pointer;
 		transition: all 0.1s;
 		outline: none;
@@ -209,11 +210,11 @@
 
 	:global(.provider-item:hover),
 	:global(.provider-item[data-highlighted]) {
-		background: var(--color-neutral-100);
+		background: var(--bg-secondary);
 	}
 
 	:global(.provider-item.selected) {
-		background: color-mix(in srgb, var(--accent) 15%, transparent);
+		background: rgba(1, 178, 255, 0.1);
 	}
 
 	.provider-icon {
@@ -223,28 +224,28 @@
 		width: 24px;
 		height: 24px;
 		flex-shrink: 0;
-		color: var(--color-neutral-600);
+		color: var(--text-secondary);
 	}
 
 	.provider-name {
 		flex: 1;
 		font-size: 0.8rem;
 		font-weight: 500;
-		color: var(--color-neutral-700);
+		color: var(--text-primary);
 	}
 
 	.badge {
 		font-size: 0.5rem;
 		padding: 0.125rem 0.375rem;
-		border-radius: 0.25rem;
+		border-radius: var(--radius-xs);
 		font-weight: 600;
 		text-transform: uppercase;
 		flex-shrink: 0;
 	}
 
 	.badge.local {
-		background: color-mix(in srgb, var(--color-info) 20%, transparent);
-		color: var(--color-info);
+		background: rgba(1, 178, 255, 0.15);
+		color: #01B2FF;
 	}
 
 	.badge.configured {
@@ -254,8 +255,8 @@
 		width: 16px;
 		height: 16px;
 		padding: 0;
-		background: color-mix(in srgb, var(--color-success) 20%, transparent);
-		color: var(--color-success);
+		background: var(--color-success);
+		color: white;
 		border-radius: 50%;
 	}
 </style>
