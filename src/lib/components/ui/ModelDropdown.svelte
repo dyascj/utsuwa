@@ -13,7 +13,6 @@
 		onSelect: (modelId: string) => void;
 		placeholder?: string;
 		isLoading?: boolean;
-		fetchError?: string | null;
 		onRefresh?: () => void;
 		disabled?: boolean;
 		disabledMessage?: string;
@@ -25,7 +24,6 @@
 		onSelect,
 		placeholder = 'Select model...',
 		isLoading = false,
-		fetchError = null,
 		onRefresh,
 		disabled = false,
 		disabledMessage = 'Enter API key first'
@@ -35,13 +33,6 @@
 
 	const selectedModel = $derived(models.find((m) => m.id === value));
 </script>
-
-{#if fetchError}
-	<div class="fetch-warning">
-		<Icon name="alert-triangle" size={14} />
-		<span>{fetchError}</span>
-	</div>
-{/if}
 
 <div class="model-dropdown-wrapper">
 	<DropdownMenu.Root>
@@ -99,19 +90,6 @@
 		display: flex;
 		gap: 0.375rem;
 		align-items: stretch;
-	}
-
-	.fetch-warning {
-		display: flex;
-		align-items: center;
-		gap: 0.375rem;
-		padding: 0.5rem 0.75rem;
-		background: color-mix(in srgb, var(--ctp-yellow) 10%, transparent);
-		border: 1px solid color-mix(in srgb, var(--ctp-yellow) 30%, transparent);
-		border-radius: 0.375rem;
-		font-size: 0.7rem;
-		color: var(--ctp-yellow);
-		margin-bottom: 0.375rem;
 	}
 
 	:global(.model-dropdown-trigger) {

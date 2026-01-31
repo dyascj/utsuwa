@@ -186,6 +186,7 @@
 
 	function handleLLMApiKeyChange(apiKey: string) {
 		if (llmProvider) {
+			llmFetchError = null; // Clear error when user types
 			settingsStore.setProviderConfig(llmProvider.id, { apiKey });
 			if (apiKey) {
 				settingsStore.markProviderAdded(llmProvider.id);
@@ -236,6 +237,7 @@
 
 	function handleTTSApiKeyChange(apiKey: string) {
 		if (ttsProvider) {
+			ttsFetchError = null; // Clear error when user types
 			settingsStore.setProviderConfig(ttsProvider.id, { apiKey });
 			if (apiKey) {
 				settingsStore.markProviderAdded(ttsProvider.id);
@@ -296,6 +298,7 @@
 			<input
 				type="password"
 				class="api-key-input"
+				class:error={llmFetchError}
 				placeholder="Enter API Key..."
 				value={settingsStore.getProviderConfig(llmProvider.id).apiKey ?? ''}
 				oninput={(e) => handleLLMApiKeyChange(e.currentTarget.value)}
@@ -310,7 +313,6 @@
 				onSelect={handleLLMModelChange}
 				placeholder="Select model..."
 				isLoading={llmIsLoading}
-				fetchError={llmFetchError}
 				onRefresh={llmHasApiKey ? fetchLLMModels : undefined}
 				disabled={!llmHasApiKey}
 				disabledMessage="Enter API key first"
@@ -367,6 +369,7 @@
 				<input
 					type="password"
 					class="api-key-input"
+					class:error={ttsFetchError}
 					placeholder="Enter API Key..."
 					value={settingsStore.getProviderConfig(ttsProvider.id).apiKey ?? ''}
 					oninput={(e) => handleTTSApiKeyChange(e.currentTarget.value)}
@@ -381,7 +384,6 @@
 					onSelect={handleTTSModelChange}
 					placeholder="Select model..."
 					isLoading={ttsIsLoading}
-					fetchError={ttsFetchError}
 					onRefresh={ttsHasApiKey ? fetchTTSModels : undefined}
 					disabled={!ttsHasApiKey}
 					disabledMessage="Enter API key first"
@@ -578,6 +580,19 @@
 	.api-key-input:focus {
 		outline: none;
 		border-color: var(--accent);
+	}
+
+	.api-key-input.error {
+		border-color: var(--ctp-red);
+		animation: shake 0.4s ease-out;
+	}
+
+	@keyframes shake {
+		0%, 100% { transform: translateX(0); }
+		20% { transform: translateX(-4px); }
+		40% { transform: translateX(4px); }
+		60% { transform: translateX(-3px); }
+		80% { transform: translateX(2px); }
 	}
 
 	.provider-note {

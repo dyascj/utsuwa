@@ -8,9 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.2] - 2026-01-31
 
 ### Added
-- Dynamic model fetching from provider APIs with caching
+- Dynamic model fetching from provider APIs with caching (LLM and TTS)
 - Model dropdown with loading states and refresh button
-- API endpoint for fetching models from LLM providers
+- API endpoint for fetching models from LLM and TTS providers
+- Debounced API calls to prevent rapid requests on blur
+- Red border with shake animation on invalid API key
 
 ### Changed
 - Reordered provider setup: Provider → API Key → Model (onboarding and settings)
@@ -36,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Anthropic model name formatting for versioned models
 - Empty model lists no longer show as errors
 - Docs search links now work correctly (removed .html suffix)
+- Model cache invalidated when API key changes
 - Provider configuration UI completion and cleanup
 - Local providers properly marked as added when selected
 - TypeScript errors resolved

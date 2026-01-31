@@ -318,7 +318,11 @@
 		}
 	}
 
-	function handleApiKeyChange(providerId: string, apiKey: string) {
+	function handleApiKeyChange(providerId: string, apiKey: string, type: 'llm' | 'tts') {
+		// Clear error when user types
+		if (type === 'llm') llmFetchError = null;
+		if (type === 'tts') ttsFetchError = null;
+
 		settingsStore.setProviderConfig(providerId, { apiKey });
 		if (apiKey) {
 			settingsStore.markProviderAdded(providerId);
@@ -499,9 +503,10 @@
 											<input
 												type="password"
 												class="api-key-input"
+												class:error={llmFetchError}
 												placeholder="API Key"
 												value={settingsStore.getProviderConfig(provider.id).apiKey ?? ''}
-												onchange={(e) => handleApiKeyChange(provider.id, e.currentTarget.value)}
+												oninput={(e) => handleApiKeyChange(provider.id, e.currentTarget.value, 'llm')}
 												onblur={handleLLMApiKeyBlur}
 											/>
 										</div>
@@ -517,7 +522,6 @@
 											onSelect={handleLLMModelChange}
 											placeholder="Select model..."
 											isLoading={llmIsLoading}
-											fetchError={llmFetchError}
 											onRefresh={llmHasApiKey ? fetchLLMModels : undefined}
 											disabled={!llmHasApiKey}
 											disabledMessage="Enter API key first"
@@ -578,9 +582,10 @@
 											<input
 												type="password"
 												class="api-key-input"
+												class:error={ttsFetchError}
 												placeholder="API Key"
 												value={settingsStore.getProviderConfig(provider.id).apiKey ?? ''}
-												onchange={(e) => handleApiKeyChange(provider.id, e.currentTarget.value)}
+												oninput={(e) => handleApiKeyChange(provider.id, e.currentTarget.value, 'tts')}
 												onblur={handleTTSApiKeyBlur}
 											/>
 										</div>
@@ -596,7 +601,6 @@
 											onSelect={handleTTSModelChange}
 											placeholder="Select model..."
 											isLoading={ttsIsLoading}
-											fetchError={ttsFetchError}
 											onRefresh={ttsHasApiKey ? fetchTTSModels : undefined}
 											disabled={!ttsHasApiKey}
 											disabledMessage="Enter API key first"
@@ -1706,6 +1710,19 @@
 	.api-key-input:focus {
 		outline: none;
 		border-color: var(--ctp-pink);
+	}
+
+	.api-key-input.error {
+		border-color: var(--ctp-red);
+		animation: shake 0.4s ease-out;
+	}
+
+	@keyframes shake {
+		0%, 100% { transform: translateX(0); }
+		20% { transform: translateX(-4px); }
+		40% { transform: translateX(4px); }
+		60% { transform: translateX(-3px); }
+		80% { transform: translateX(2px); }
 	}
 
 	/* Upload Modal */
