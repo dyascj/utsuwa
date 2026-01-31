@@ -84,7 +84,7 @@
 	.orb-pink {
 		width: 120px;
 		height: 120px;
-		background: var(--gradient-orb-pink);
+		background: #01B2FF;
 		top: 10px;
 		left: 10px;
 		animation-delay: 0s;
@@ -93,7 +93,7 @@
 	.orb-blue {
 		width: 100px;
 		height: 100px;
-		background: var(--gradient-orb-blue);
+		background: #0ea5e9;
 		top: 30px;
 		left: 40px;
 		animation-delay: -2s;
@@ -102,7 +102,7 @@
 	.orb-purple {
 		width: 80px;
 		height: 80px;
-		background: var(--gradient-orb-purple);
+		background: #0284c7;
 		top: 20px;
 		left: 20px;
 		animation-delay: -4s;
