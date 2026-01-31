@@ -58,7 +58,7 @@
 				<!-- Relationship Stage & Affection -->
 				<div class="affection-section">
 					<div class="affection-label">
-						<span class="heart-glow"><Icon name="heart" size={14} color="var(--ctp-pink)" /></span>
+						<span class="heart-glow"><Icon name="heart" size={14} color="#01B2FF" /></span>
 						<span class="tier-name">{stageInfo.name}</span>
 						<span class="affection-value">{affectionPercent}%</span>
 					</div>
@@ -272,7 +272,7 @@
 
 	.heart-glow {
 		display: flex;
-		filter: drop-shadow(0 0 4px rgba(244, 114, 182, 0.5));
+		filter: drop-shadow(0 0 4px rgba(1, 178, 255, 0.5));
 	}
 
 	.tier-name {

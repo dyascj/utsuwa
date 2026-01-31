@@ -38,7 +38,7 @@
 		position: relative;
 		width: 100%;
 		overflow: hidden;
-		background: var(--color-neutral-200);
+		background: var(--bg-tertiary);
 		border-radius: 9999px;
 	}
 
@@ -85,7 +85,7 @@
 	}
 
 	.progress-fill.variant-affection {
-		background: linear-gradient(to right, var(--ctp-rosewater), var(--ctp-pink), var(--ctp-flamingo));
-		box-shadow: 0 0 8px rgba(234, 118, 203, 0.4);
+		background: #01B2FF;
+		box-shadow: 0 0 8px rgba(1, 178, 255, 0.4);
 	}
 </style>
