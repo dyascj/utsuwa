@@ -3,7 +3,12 @@
 	import { modulesStore } from '$lib/stores/modules.svelte';
 	import { settingsStore } from '$lib/stores/settings.svelte';
 	import { getLLMProvider, getTTSProvider } from '$lib/services/providers/registry';
-	import { fetchProviderModels, type ModelInfo } from '$lib/services/providers/model-fetcher';
+	import {
+		fetchModels,
+		getCachedModelsForProvider,
+		debounce,
+		type ModelInfo
+	} from '$lib/services/providers/use-model-fetch';
 
 	interface Props {
 		onNext: () => void;
@@ -66,87 +71,89 @@
 		return !!config.apiKey;
 	});
 
-	// Fetch models from provider API
+	// Fetch LLM models from provider API
 	async function fetchLLMModels() {
 		const targetProvider = llmProvider?.id;
-		if (!targetProvider || llmProvider.isLocal) return;
+		if (!targetProvider) return;
 
 		const config = settingsStore.getProviderConfig(targetProvider);
-		if (!config.apiKey) return;
 
-		llmIsLoading = true;
-		llmFetchError = null;
-
-		const result = await fetchProviderModels(
-			targetProvider,
-			config.apiKey,
-			config.baseUrl
-		);
-
-		// Provider changed during fetch - discard stale results
-		if (llmProvider?.id !== targetProvider) {
-			llmIsLoading = false;
-			return;
-		}
-
-		llmIsLoading = false;
-
-		if (result.error) {
-			llmFetchError = 'Using default list';
-			llmDynamicModels = null;
-		} else if (result.models.length > 0) {
-			llmDynamicModels = result.models;
-			settingsStore.setCachedModels(targetProvider, result.models);
-			// Auto-select first model if none selected
-			if (!llmSettings.activeModel && result.models.length > 0) {
-				modulesStore.setModuleSetting('consciousness', 'activeModel', result.models[0].id);
+		await fetchModels({
+			providerId: targetProvider,
+			apiKey: config.apiKey ?? '',
+			baseUrl: config.baseUrl,
+			isLocal: llmProvider?.isLocal,
+			getCurrentProviderId: () => llmProvider?.id,
+			onStart: () => {
+				llmIsLoading = true;
+				llmFetchError = null;
+			},
+			onSuccess: (models) => {
+				llmIsLoading = false;
+				llmDynamicModels = models;
+				// Auto-select first model if none selected
+				if (!llmSettings.activeModel && models.length > 0) {
+					modulesStore.setModuleSetting('consciousness', 'activeModel', models[0].id);
+				}
+			},
+			onError: () => {
+				llmIsLoading = false;
+				llmFetchError = 'Using default list';
+				llmDynamicModels = null;
+			},
+			onEmpty: () => {
+				llmIsLoading = false;
+				llmDynamicModels = null;
+			},
+			onStale: () => {
+				llmIsLoading = false;
 			}
-		} else {
-			// Empty but not an error - silently fall back to static models
-			llmDynamicModels = null;
-		}
+		});
 	}
 
 	// Fetch TTS models from provider API
 	async function fetchTTSModels() {
 		const targetProvider = ttsProvider?.id;
-		if (!targetProvider || ttsProvider.isLocal) return;
+		if (!targetProvider) return;
 
 		const config = settingsStore.getProviderConfig(targetProvider);
-		if (!config.apiKey) return;
 
-		ttsIsLoading = true;
-		ttsFetchError = null;
-
-		const result = await fetchProviderModels(
-			targetProvider,
-			config.apiKey,
-			config.baseUrl
-		);
-
-		// Provider changed during fetch - discard stale results
-		if (ttsProvider?.id !== targetProvider) {
-			ttsIsLoading = false;
-			return;
-		}
-
-		ttsIsLoading = false;
-
-		if (result.error) {
-			ttsFetchError = 'Using default list';
-			ttsDynamicModels = null;
-		} else if (result.models.length > 0) {
-			ttsDynamicModels = result.models;
-			settingsStore.setCachedModels(targetProvider, result.models);
-			// Auto-select first model if none selected
-			if (!ttsSettings.activeModel && result.models.length > 0) {
-				modulesStore.setModuleSetting('speech', 'activeModel', result.models[0].id);
+		await fetchModels({
+			providerId: targetProvider,
+			apiKey: config.apiKey ?? '',
+			baseUrl: config.baseUrl,
+			isLocal: ttsProvider?.isLocal,
+			getCurrentProviderId: () => ttsProvider?.id,
+			onStart: () => {
+				ttsIsLoading = true;
+				ttsFetchError = null;
+			},
+			onSuccess: (models) => {
+				ttsIsLoading = false;
+				ttsDynamicModels = models;
+				// Auto-select first model if none selected
+				if (!ttsSettings.activeModel && models.length > 0) {
+					modulesStore.setModuleSetting('speech', 'activeModel', models[0].id);
+				}
+			},
+			onError: () => {
+				ttsIsLoading = false;
+				ttsFetchError = 'Using default list';
+				ttsDynamicModels = null;
+			},
+			onEmpty: () => {
+				ttsIsLoading = false;
+				ttsDynamicModels = null;
+			},
+			onStale: () => {
+				ttsIsLoading = false;
 			}
-		} else {
-			// Empty but not an error - silently fall back to static models
-			ttsDynamicModels = null;
-		}
+		});
 	}
+
+	// Debounced fetch to avoid rapid API calls
+	const debouncedFetchLLMModels = debounce(fetchLLMModels, 300);
+	const debouncedFetchTTSModels = debounce(fetchTTSModels, 300);
 
 	// Handlers
 	function handleLLMProviderChange(providerId: string) {
@@ -159,8 +166,8 @@
 		llmIsLoading = false;
 
 		// Check for cached models
-		const cached = settingsStore.getCachedModels(providerId);
-		if (cached && cached.length > 0) {
+		const cached = getCachedModelsForProvider(providerId);
+		if (cached) {
 			llmDynamicModels = cached;
 		}
 
@@ -189,7 +196,7 @@
 	function handleLLMApiKeyBlur() {
 		const config = settingsStore.getProviderConfig(llmProvider?.id ?? '');
 		if (config.apiKey && llmProvider && !llmProvider.isLocal) {
-			fetchLLMModels();
+			debouncedFetchLLMModels();
 		}
 	}
 
@@ -209,8 +216,8 @@
 		ttsIsLoading = false;
 
 		// Check for cached models
-		const cached = settingsStore.getCachedModels(providerId);
-		if (cached && cached.length > 0) {
+		const cached = getCachedModelsForProvider(providerId);
+		if (cached) {
 			ttsDynamicModels = cached;
 		}
 
@@ -239,7 +246,7 @@
 	function handleTTSApiKeyBlur() {
 		const config = settingsStore.getProviderConfig(ttsProvider?.id ?? '');
 		if (config.apiKey && ttsProvider && !ttsProvider.isLocal) {
-			fetchTTSModels();
+			debouncedFetchTTSModels();
 		}
 	}
 
