@@ -488,6 +488,21 @@
 
 								{#if speechSettings.activeProvider}
 									{@const provider = getTTSProvider(speechSettings.activeProvider as string)}
+									{#if provider?.requiresApiKey}
+										<div class="api-key-row">
+											<input
+												type="password"
+												class="api-key-input"
+												placeholder="API Key"
+												value={settingsStore.getProviderConfig(provider.id).apiKey ?? ''}
+												onchange={(e) => handleApiKeyChange(provider.id, e.currentTarget.value)}
+											/>
+										</div>
+									{/if}
+								{/if}
+
+								{#if speechSettings.activeProvider}
+									{@const provider = getTTSProvider(speechSettings.activeProvider as string)}
 									{#if !provider?.isLocal}
 										<ModelDropdown
 											models={ttsModels}
@@ -497,21 +512,6 @@
 											disabled={!ttsHasApiKey}
 											disabledMessage="Enter API key first"
 										/>
-									{/if}
-								{/if}
-
-								{#if speechSettings.activeProvider}
-									{@const provider = getTTSProvider(speechSettings.activeProvider as string)}
-									{#if provider?.isLocal}
-										<div class="api-key-row">
-											<input
-												type="text"
-												class="api-key-input"
-												placeholder="Model/voice name"
-												value={speechSettings.activeModel as string ?? ''}
-												onchange={(e) => handleTTSModelChange(e.currentTarget.value)}
-											/>
-										</div>
 									{/if}
 								{/if}
 
@@ -529,14 +529,14 @@
 
 								{#if speechSettings.activeProvider}
 									{@const provider = getTTSProvider(speechSettings.activeProvider as string)}
-									{#if provider?.requiresApiKey}
+									{#if provider?.isLocal}
 										<div class="api-key-row">
 											<input
-												type="password"
+												type="text"
 												class="api-key-input"
-												placeholder="API Key"
-												value={settingsStore.getProviderConfig(provider.id).apiKey ?? ''}
-												onchange={(e) => handleApiKeyChange(provider.id, e.currentTarget.value)}
+												placeholder="Model/voice name"
+												value={speechSettings.activeModel as string ?? ''}
+												onchange={(e) => handleTTSModelChange(e.currentTarget.value)}
 											/>
 										</div>
 									{/if}

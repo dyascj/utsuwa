@@ -285,6 +285,16 @@
 				placeholder="Select TTS provider..."
 			/>
 
+			{#if ttsProvider?.requiresApiKey}
+				<input
+					type="password"
+					class="api-key-input"
+					placeholder="Enter API Key..."
+					value={settingsStore.getProviderConfig(ttsProvider.id).apiKey ?? ''}
+					oninput={(e) => handleTTSApiKeyChange(e.currentTarget.value)}
+				/>
+			{/if}
+
 			{#if ttsSettings.activeProvider && !ttsProvider?.isLocal}
 				<ModelDropdown
 					models={ttsModels}
@@ -293,16 +303,6 @@
 					placeholder="Select voice..."
 					disabled={!ttsHasApiKey}
 					disabledMessage="Enter API key first"
-				/>
-			{/if}
-
-			{#if ttsProvider?.isLocal}
-				<input
-					type="text"
-					class="api-key-input"
-					placeholder="Model/voice name"
-					value={ttsSettings.activeModel as string ?? ''}
-					oninput={(e) => handleTTSModelChange(e.currentTarget.value)}
 				/>
 			{/if}
 
@@ -316,13 +316,13 @@
 				/>
 			{/if}
 
-			{#if ttsProvider?.requiresApiKey}
+			{#if ttsProvider?.isLocal}
 				<input
-					type="password"
+					type="text"
 					class="api-key-input"
-					placeholder="Enter API Key..."
-					value={settingsStore.getProviderConfig(ttsProvider.id).apiKey ?? ''}
-					oninput={(e) => handleTTSApiKeyChange(e.currentTarget.value)}
+					placeholder="Model/voice name"
+					value={ttsSettings.activeModel as string ?? ''}
+					oninput={(e) => handleTTSModelChange(e.currentTarget.value)}
 				/>
 			{/if}
 
