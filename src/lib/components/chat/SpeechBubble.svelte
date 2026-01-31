@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { vrmStore } from '$lib/stores/vrm.svelte';
-	import { themeStore } from '$lib/stores/theme.svelte';
 
 	interface Props {
 		message: string;
@@ -10,6 +9,22 @@
 	}
 
 	let { message, isTyping = false, onHide }: Props = $props();
+
+	// Design language colors (matching CSS tokens)
+	const BUBBLE_COLORS = {
+		light: {
+			background: 'rgba(255, 255, 255, 0.95)',
+			border: 'rgba(0, 0, 0, 0.08)',
+			text: '#1a1a1a',
+			dots: '#9ca3af'
+		},
+		dark: {
+			background: 'rgba(33, 33, 33, 0.95)',
+			border: 'rgba(255, 255, 255, 0.1)',
+			text: '#fafafa',
+			dots: '#6b7280'
+		}
+	};
 
 	// Detect dark mode
 	let isDark = $state(false);
@@ -25,32 +40,18 @@
 		}
 	});
 
-	// Get current theme colors for inline styles (ensures reactivity on theme change)
-	const themeColors = $derived(themeStore.currentTheme.colors);
+	// Simple color getters based on dark mode
 	const glassBackground = $derived(() => {
-		const c = themeColors;
-		const base = isDark ? c.baseDark : c.base;
-		// Convert hex to RGB for rgba()
-		const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(base);
-		if (!result) return 'rgba(0, 0, 0, 0.95)';
-		const rgb = `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`;
-		return `rgba(${rgb}, 0.95)`;
+		return isDark ? BUBBLE_COLORS.dark.background : BUBBLE_COLORS.light.background;
 	});
 	const glassBorder = $derived(() => {
-		const c = themeColors;
-		const accent = isDark ? (c.accentDark || c.accent) : c.accent;
-		const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(accent);
-		if (!result) return 'rgba(0, 0, 0, 0.15)';
-		const rgb = `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`;
-		return `rgba(${rgb}, ${isDark ? 0.15 : 0.2})`;
+		return isDark ? BUBBLE_COLORS.dark.border : BUBBLE_COLORS.light.border;
 	});
 	const textColor = $derived(() => {
-		const c = themeColors;
-		return isDark ? c.textDark : c.text;
+		return isDark ? BUBBLE_COLORS.dark.text : BUBBLE_COLORS.light.text;
 	});
-	const overlayColor = $derived(() => {
-		const c = themeColors;
-		return isDark ? c.overlayDark : c.overlay;
+	const dotsColor = $derived(() => {
+		return isDark ? BUBBLE_COLORS.dark.dots : BUBBLE_COLORS.light.dots;
 	});
 
 	// Get screen position from VRM store for 3D tracking
@@ -104,7 +105,7 @@
 		>
 			<div class="speech-bubble-content">
 				{#if isTyping}
-					<div class="typing-indicator" style="--dot-color: {overlayColor()}">
+					<div class="typing-indicator" style="--dot-color: {dotsColor()}">
 						<span></span>
 						<span></span>
 						<span></span>

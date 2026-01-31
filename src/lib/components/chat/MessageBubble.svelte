@@ -42,16 +42,15 @@
 	}
 
 	.user .bubble {
-		background: var(--color-muted);
-		color: var(--color-neutral-800);
+		background: #01B2FF;
+		color: white;
 		border-bottom-right-radius: 0.25rem;
-		border: 1px solid var(--color-border);
 	}
 
 	.assistant .bubble {
-		background: var(--color-neutral-100);
-		color: var(--color-neutral-800);
+		background: var(--bg-secondary);
+		color: var(--text-primary);
 		border-bottom-left-radius: 0.25rem;
-		border: 2px solid var(--color-neutral-200);
+		border: 1px solid var(--border-light);
 	}
 </style>
