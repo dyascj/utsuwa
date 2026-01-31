@@ -137,7 +137,11 @@
 				disabled={disabled || !hasContent}
 				aria-label={hasContent ? "Send message" : "Waiting for input"}
 			>
-				<span class="orb-gradient"></span>
+				<span class="orb-container">
+					<span class="orb orb-blue"></span>
+					<span class="orb orb-purple"></span>
+					<span class="orb orb-pink"></span>
+				</span>
 				<span class="send-icon">
 					<Icon name="send" size={20} />
 				</span>
@@ -330,25 +334,57 @@
 		overflow: hidden;
 	}
 
-	/* Gradient orb - visible when no content */
-	.orb-gradient {
+	/* Soft orb container - visible when no content */
+	.orb-container {
 		position: absolute;
-		inset: 0;
-		border-radius: 50%;
-		background: linear-gradient(135deg, #01B2FF, #7c3aed, #ec4899, #01B2FF);
-		background-size: 300% 300%;
-		animation: gradient-shift 4s ease infinite;
+		inset: -4px;
 		opacity: 1;
-		transform: scale(1);
 		transition: opacity 0.3s ease, transform 0.3s ease;
 	}
 
-	@keyframes gradient-shift {
+	.orb {
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(8px);
+		animation: orb-float 4s ease-in-out infinite;
+	}
+
+	.orb-blue {
+		width: 32px;
+		height: 32px;
+		background: #01B2FF;
+		top: 8px;
+		left: 8px;
+		animation-delay: 0s;
+	}
+
+	.orb-purple {
+		width: 24px;
+		height: 24px;
+		background: #7c3aed;
+		top: 12px;
+		left: 16px;
+		animation-delay: -1.3s;
+	}
+
+	.orb-pink {
+		width: 20px;
+		height: 20px;
+		background: #ec4899;
+		top: 16px;
+		left: 10px;
+		animation-delay: -2.6s;
+	}
+
+	@keyframes orb-float {
 		0%, 100% {
-			background-position: 0% 50%;
+			transform: translate(0, 0) scale(1);
 		}
-		50% {
-			background-position: 100% 50%;
+		33% {
+			transform: translate(4px, -4px) scale(1.1);
+		}
+		66% {
+			transform: translate(-2px, 2px) scale(0.9);
 		}
 	}
 
@@ -369,7 +405,7 @@
 		background: #01B2FF;
 	}
 
-	.send-btn.has-content .orb-gradient {
+	.send-btn.has-content .orb-container {
 		opacity: 0;
 		transform: scale(0);
 	}
