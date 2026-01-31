@@ -6,10 +6,21 @@
 	import { HemisphereLight, DirectionalLight } from 'three';
 	import VrmModel from './VrmModel.svelte';
 	import { vrmStore } from '$lib/stores/vrm.svelte';
-	import { themeStore } from '$lib/stores/theme.svelte';
 	import { displayStore } from '$lib/stores/display.svelte';
 	import { screenshotStore } from '$lib/stores/screenshot.svelte';
 	import { onMount } from 'svelte';
+
+	// Design language colors (matching CSS tokens in app.css)
+	const SCENE_COLORS = {
+		light: {
+			background: '#ffffff',
+			placeholder: '#9ca3af' // text-tertiary equivalent
+		},
+		dark: {
+			background: '#212121',
+			placeholder: '#6b7280'
+		}
+	};
 
 	// Refs for lights (needed to call setHSL methods)
 	let hemiLight = $state<HemisphereLight | undefined>(undefined);
@@ -83,16 +94,14 @@
 		};
 	});
 
-	// Background color from current theme
+	// Background color from design language
 	const backgroundColor = $derived(() => {
-		const theme = themeStore.currentTheme;
-		return isDarkMode ? theme.colors.baseDark : theme.colors.base;
+		return isDarkMode ? SCENE_COLORS.dark.background : SCENE_COLORS.light.background;
 	});
 
-	// Placeholder color from current theme
+	// Placeholder color from design language
 	const placeholderColor = $derived(() => {
-		const theme = themeStore.currentTheme;
-		return theme.colors.mauve;
+		return isDarkMode ? SCENE_COLORS.dark.placeholder : SCENE_COLORS.light.placeholder;
 	});
 
 	// Camera always centered (no sidebar offset needed with new bottom chat bar layout)
