@@ -79,11 +79,22 @@
 	.sidebar {
 		width: 260px;
 		flex-shrink: 0;
-		background: var(--bg-secondary);
-		border-right: 1px solid var(--border-light);
+		background: linear-gradient(180deg, #f8f8f8 0%, #ebebeb 100%);
+		border-right: 1px solid rgba(0, 0, 0, 0.08);
 		display: flex;
 		flex-direction: column;
 		padding: 1rem;
+		box-shadow:
+			inset -1px 0 0 rgba(255, 255, 255, 0.8),
+			2px 0 8px rgba(0, 0, 0, 0.04);
+	}
+
+	:global(.dark) .sidebar {
+		background: linear-gradient(180deg, #1f1f1f 0%, #171717 100%);
+		border-right-color: rgba(255, 255, 255, 0.06);
+		box-shadow:
+			inset -1px 0 0 rgba(255, 255, 255, 0.03),
+			2px 0 8px rgba(0, 0, 0, 0.2);
 	}
 
 	.sidebar-header {
@@ -94,20 +105,42 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
-		padding: 0.5rem 0.75rem;
+		padding: 0.5rem 0.875rem;
 		margin-bottom: 1rem;
-		background: transparent;
-		border: none;
+		background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+		border: 1px solid rgba(0, 0, 0, 0.08);
 		color: var(--text-secondary);
 		font-size: 0.875rem;
 		text-decoration: none;
-		border-radius: 0.5rem;
-		transition: all 0.15s;
+		border-radius: 12px;
+		transition: all 0.15s ease-out;
+		box-shadow:
+			0 2px 6px rgba(0, 0, 0, 0.06),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+	}
+
+	:global(.dark) .back-button {
+		background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+		border-color: rgba(255, 255, 255, 0.08);
+		box-shadow:
+			0 2px 6px rgba(0, 0, 0, 0.2),
+			inset 0 1px 0 rgba(255, 255, 255, 0.05);
 	}
 
 	.back-button:hover {
-		background: var(--bg-tertiary);
+		background: linear-gradient(180deg, #f5f5f5 0%, #e8e8e8 100%);
 		color: var(--text-primary);
+		transform: translateY(-1px);
+		box-shadow:
+			0 4px 10px rgba(0, 0, 0, 0.08),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+	}
+
+	:global(.dark) .back-button:hover {
+		background: linear-gradient(180deg, #333333 0%, #282828 100%);
+		box-shadow:
+			0 4px 10px rgba(0, 0, 0, 0.3),
+			inset 0 1px 0 rgba(255, 255, 255, 0.08);
 	}
 
 	.sidebar-header h1 {
@@ -120,7 +153,7 @@
 	.nav {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: 0.375rem;
 	}
 
 	.nav-item {
@@ -128,23 +161,57 @@
 		align-items: center;
 		gap: 0.75rem;
 		padding: 0.75rem 1rem;
-		border-radius: 0.75rem;
+		border-radius: 14px;
 		color: var(--text-secondary);
 		text-decoration: none;
 		font-size: 0.875rem;
 		font-weight: 500;
-		transition: all 0.15s;
+		transition: all 0.15s ease-out;
+		background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
+		border: 1px solid rgba(0, 0, 0, 0.06);
+		box-shadow:
+			0 2px 4px rgba(0, 0, 0, 0.04),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+	}
+
+	:global(.dark) .nav-item {
+		background: linear-gradient(180deg, #2a2a2a 0%, #222222 100%);
+		border-color: rgba(255, 255, 255, 0.06);
+		box-shadow:
+			0 2px 4px rgba(0, 0, 0, 0.15),
+			inset 0 1px 0 rgba(255, 255, 255, 0.05);
 	}
 
 	.nav-item:hover {
-		background: var(--bg-tertiary);
+		background: linear-gradient(180deg, #f8f8f8 0%, #eeeeee 100%);
 		color: var(--text-primary);
+		transform: translateY(-1px);
+		box-shadow:
+			0 4px 8px rgba(0, 0, 0, 0.08),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+	}
+
+	:global(.dark) .nav-item:hover {
+		background: linear-gradient(180deg, #333333 0%, #2a2a2a 100%);
+		box-shadow:
+			0 4px 8px rgba(0, 0, 0, 0.25),
+			inset 0 1px 0 rgba(255, 255, 255, 0.08);
 	}
 
 	.nav-item.active {
-		background: #01B2FF;
+		background: linear-gradient(180deg, #4dd0ff 0%, #01B2FF 100%);
+		border-color: rgba(0, 0, 0, 0.1);
 		color: white;
 		font-weight: 600;
+		box-shadow:
+			0 3px 8px rgba(1, 178, 255, 0.35),
+			inset 0 1px 0 rgba(255, 255, 255, 0.3);
+	}
+
+	:global(.dark) .nav-item.active {
+		box-shadow:
+			0 3px 10px rgba(1, 178, 255, 0.4),
+			inset 0 1px 0 rgba(255, 255, 255, 0.2);
 	}
 
 	.nav-label {

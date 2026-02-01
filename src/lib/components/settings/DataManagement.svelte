@@ -315,8 +315,8 @@
 	}
 
 	.section-title {
-		font-size: 1.25rem;
-		font-weight: 600;
+		font-size: 1.5rem;
+		font-weight: 700;
 		color: var(--text-primary);
 		margin-bottom: 0.5rem;
 	}
@@ -334,10 +334,39 @@
 	}
 
 	.action-card {
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-light);
-		border-radius: 0.75rem;
+		background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		border-radius: 14px;
 		padding: 1.25rem;
+		box-shadow:
+			0 3px 10px rgba(0, 0, 0, 0.06),
+			0 1px 3px rgba(0, 0, 0, 0.04),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+		transition: all 0.15s ease-out;
+	}
+
+	:global(.dark) .action-card {
+		background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+		border-color: rgba(255, 255, 255, 0.08);
+		box-shadow:
+			0 3px 10px rgba(0, 0, 0, 0.25),
+			0 1px 3px rgba(0, 0, 0, 0.15),
+			inset 0 1px 0 rgba(255, 255, 255, 0.05);
+	}
+
+	.action-card:hover {
+		transform: translateY(-1px);
+		box-shadow:
+			0 6px 16px rgba(0, 0, 0, 0.08),
+			0 2px 6px rgba(0, 0, 0, 0.05),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+	}
+
+	:global(.dark) .action-card:hover {
+		box-shadow:
+			0 6px 16px rgba(0, 0, 0, 0.35),
+			0 2px 6px rgba(0, 0, 0, 0.2),
+			inset 0 1px 0 rgba(255, 255, 255, 0.08);
 	}
 
 	.action-card.danger {
@@ -349,7 +378,7 @@
 		align-items: center;
 		gap: 0.5rem;
 		margin-bottom: 0.5rem;
-		color: var(--text-secondary);
+		color: #01B2FF;
 	}
 
 	.action-card.danger .action-header {
@@ -364,6 +393,7 @@
 		font-size: 1rem;
 		font-weight: 600;
 		margin: 0;
+		color: var(--text-primary);
 	}
 
 	.action-description {
@@ -375,57 +405,90 @@
 	.file-input {
 		display: block;
 		width: 100%;
-		padding: 0.75rem;
+		padding: 0.875rem 1rem;
 		font-size: 0.875rem;
-		border: 2px dashed var(--border-light);
-		border-radius: 0.5rem;
-		background: var(--bg-tertiary);
+		border: 2px dashed rgba(1, 178, 255, 0.3);
+		border-radius: 12px;
+		background: linear-gradient(180deg, #f8f8f8 0%, #f0f0f0 100%);
 		color: var(--text-secondary);
 		cursor: pointer;
 		margin-bottom: 1rem;
+		transition: all 0.15s ease-out;
+		box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+	}
+
+	:global(.dark) .file-input {
+		background: linear-gradient(180deg, #1a1a1a 0%, #141414 100%);
+		border-color: rgba(1, 178, 255, 0.25);
+		box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 	}
 
 	.file-input:hover {
-		border-color: var(--text-tertiary);
+		border-color: rgba(1, 178, 255, 0.5);
+		background: linear-gradient(180deg, #f5f5f5 0%, #ebebeb 100%);
+	}
+
+	:global(.dark) .file-input:hover {
+		background: linear-gradient(180deg, #1f1f1f 0%, #181818 100%);
 	}
 
 	.error-message {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		padding: 0.75rem;
-		background: oklch(65% 0.15 25 / 0.1);
-		border-radius: 0.5rem;
+		padding: 0.875rem 1rem;
+		background: linear-gradient(180deg, #fff5f5 0%, #ffebeb 100%);
+		border: 1px solid oklch(65% 0.15 25 / 0.3);
+		border-radius: 12px;
 		color: oklch(50% 0.18 25);
 		font-size: 0.875rem;
 		margin-bottom: 1rem;
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
 	}
 
 	:global(.dark) .error-message {
+		background: linear-gradient(180deg, #3a2020 0%, #2a1515 100%);
 		color: oklch(70% 0.15 25);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 	}
 
 	.success-message {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		padding: 0.75rem;
-		background: oklch(65% 0.15 145 / 0.1);
-		border-radius: 0.5rem;
+		padding: 0.875rem 1rem;
+		background: linear-gradient(180deg, #f0fff5 0%, #e5ffed 100%);
+		border: 1px solid oklch(65% 0.15 145 / 0.3);
+		border-radius: 12px;
 		color: oklch(45% 0.15 145);
 		font-size: 0.875rem;
 		margin-bottom: 1rem;
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
 	}
 
 	:global(.dark) .success-message {
+		background: linear-gradient(180deg, #1a3020 0%, #152515 100%);
 		color: oklch(70% 0.12 145);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 	}
 
 	.import-preview {
-		background: var(--bg-tertiary);
-		border-radius: 0.5rem;
+		background: linear-gradient(180deg, #f8f8f8 0%, #f0f0f0 100%);
+		border: 1px solid rgba(0, 0, 0, 0.06);
+		border-radius: 12px;
 		padding: 1rem;
 		margin-bottom: 1rem;
+		box-shadow:
+			inset 0 1px 3px rgba(0, 0, 0, 0.05),
+			0 1px 0 rgba(255, 255, 255, 0.8);
+	}
+
+	:global(.dark) .import-preview {
+		background: linear-gradient(180deg, #1a1a1a 0%, #141414 100%);
+		border-color: rgba(255, 255, 255, 0.06);
+		box-shadow:
+			inset 0 1px 3px rgba(0, 0, 0, 0.2),
+			0 1px 0 rgba(255, 255, 255, 0.03);
 	}
 
 	.preview-header {
@@ -433,7 +496,7 @@
 		align-items: center;
 		gap: 0.5rem;
 		font-weight: 600;
-		color: var(--text-secondary);
+		color: #01B2FF;
 		margin-bottom: 0.75rem;
 	}
 
@@ -472,12 +535,39 @@
 		grid-template-rows: auto auto;
 		gap: 0.25rem 0.75rem;
 		cursor: pointer;
+		padding: 0.75rem;
+		background: linear-gradient(180deg, #ffffff 0%, #f8f8f8 100%);
+		border: 1px solid rgba(0, 0, 0, 0.06);
+		border-radius: 10px;
+		transition: all 0.15s ease-out;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+	}
+
+	:global(.dark) .mode-option {
+		background: linear-gradient(180deg, #252525 0%, #1f1f1f 100%);
+		border-color: rgba(255, 255, 255, 0.06);
+	}
+
+	.mode-option:hover {
+		border-color: rgba(1, 178, 255, 0.3);
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+	}
+
+	.mode-option:has(input:checked) {
+		border-color: rgba(1, 178, 255, 0.5);
+		background: linear-gradient(180deg, #e8f7ff 0%, #d8f0ff 100%);
+		box-shadow: 0 0 0 2px rgba(1, 178, 255, 0.15);
+	}
+
+	:global(.dark) .mode-option:has(input:checked) {
+		background: linear-gradient(180deg, #1a3040 0%, #152530 100%);
 	}
 
 	.mode-option input {
 		grid-row: span 2;
 		margin: 0;
 		margin-top: 0.25rem;
+		accent-color: #01B2FF;
 	}
 
 	.mode-label {
@@ -500,16 +590,20 @@
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		padding: 0.75rem;
-		background: oklch(70% 0.15 70 / 0.15);
-		border-radius: 0.5rem;
+		padding: 0.875rem 1rem;
+		background: linear-gradient(180deg, #fffbf0 0%, #fff5e5 100%);
+		border: 1px solid oklch(70% 0.15 70 / 0.3);
+		border-radius: 12px;
 		color: oklch(45% 0.15 70);
 		font-size: 0.875rem;
 		margin-bottom: 1rem;
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
 	}
 
 	:global(.dark) .confirm-message {
+		background: linear-gradient(180deg, #3a3020 0%, #2a2515 100%);
 		color: oklch(75% 0.12 70);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 	}
 
 	.confirm-actions {
