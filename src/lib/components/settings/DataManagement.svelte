@@ -317,13 +317,13 @@
 	.section-title {
 		font-size: 1.25rem;
 		font-weight: 600;
-		color: var(--color-neutral-900);
+		color: var(--text-primary);
 		margin-bottom: 0.5rem;
 	}
 
 	.section-description {
 		font-size: 0.875rem;
-		color: var(--color-neutral-600);
+		color: var(--text-secondary);
 		margin-bottom: 1.5rem;
 	}
 
@@ -334,8 +334,8 @@
 	}
 
 	.action-card {
-		background: var(--color-neutral-50);
-		border: 1px solid var(--color-neutral-200);
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-light);
 		border-radius: 0.75rem;
 		padding: 1.25rem;
 	}
@@ -349,7 +349,7 @@
 		align-items: center;
 		gap: 0.5rem;
 		margin-bottom: 0.5rem;
-		color: var(--color-neutral-700);
+		color: var(--text-secondary);
 	}
 
 	.action-card.danger .action-header {
@@ -368,7 +368,7 @@
 
 	.action-description {
 		font-size: 0.875rem;
-		color: var(--color-neutral-600);
+		color: var(--text-secondary);
 		margin-bottom: 1rem;
 	}
 
@@ -377,16 +377,16 @@
 		width: 100%;
 		padding: 0.75rem;
 		font-size: 0.875rem;
-		border: 2px dashed var(--color-neutral-300);
+		border: 2px dashed var(--border-light);
 		border-radius: 0.5rem;
-		background: var(--color-neutral-100);
-		color: var(--color-neutral-700);
+		background: var(--bg-tertiary);
+		color: var(--text-secondary);
 		cursor: pointer;
 		margin-bottom: 1rem;
 	}
 
 	.file-input:hover {
-		border-color: var(--color-neutral-400);
+		border-color: var(--text-tertiary);
 	}
 
 	.error-message {
@@ -422,7 +422,7 @@
 	}
 
 	.import-preview {
-		background: var(--color-neutral-100);
+		background: var(--bg-tertiary);
 		border-radius: 0.5rem;
 		padding: 1rem;
 		margin-bottom: 1rem;
@@ -433,7 +433,7 @@
 		align-items: center;
 		gap: 0.5rem;
 		font-weight: 600;
-		color: var(--color-neutral-700);
+		color: var(--text-secondary);
 		margin-bottom: 0.75rem;
 	}
 
@@ -451,12 +451,12 @@
 	}
 
 	.preview-row .label {
-		color: var(--color-neutral-500);
+		color: var(--text-tertiary);
 		min-width: 80px;
 	}
 
 	.preview-row .value {
-		color: var(--color-neutral-700);
+		color: var(--text-secondary);
 	}
 
 	.import-mode {
@@ -482,12 +482,12 @@
 
 	.mode-label {
 		font-weight: 500;
-		color: var(--color-neutral-700);
+		color: var(--text-primary);
 	}
 
 	.mode-description {
 		font-size: 0.8rem;
-		color: var(--color-neutral-500);
+		color: var(--text-tertiary);
 	}
 
 	.import-actions {

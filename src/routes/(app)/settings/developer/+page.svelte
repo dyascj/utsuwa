@@ -403,13 +403,13 @@
 		margin: 0 0 0.25rem;
 		font-size: 1.5rem;
 		font-weight: 700;
-		color: var(--color-neutral-900);
+		color: var(--text-primary);
 	}
 
 
 	.description {
 		margin: 0;
-		color: var(--color-neutral-600);
+		color: var(--text-secondary);
 	}
 
 
@@ -431,7 +431,7 @@
 	.viewport {
 		flex: 1;
 		min-height: 400px;
-		background: var(--color-neutral-900);
+		background: var(--bg-tertiary);
 		border-radius: 0.75rem;
 		overflow: hidden;
 	}
@@ -446,19 +446,19 @@
 		align-items: center;
 		gap: 0.5rem;
 		padding: 0.5rem 1rem;
-		background: var(--color-neutral-200);
+		background: var(--bg-secondary);
 		border: none;
 		border-radius: 0.5rem;
 		font-size: 0.8125rem;
 		font-weight: 500;
-		color: var(--color-neutral-700);
+		color: var(--text-secondary);
 		cursor: pointer;
 		transition: all 0.15s;
 	}
 
 
 	.viewport-btn:hover {
-		background: var(--color-neutral-300);
+		background: var(--bg-tertiary);
 	}
 
 
@@ -472,7 +472,7 @@
 	.section {
 		margin-bottom: 2rem;
 		padding: 1.5rem;
-		background: var(--color-neutral-100);
+		background: var(--bg-secondary);
 		border-radius: 0.75rem;
 	}
 
@@ -481,37 +481,37 @@
 		margin: 0 0 1rem;
 		font-size: 1rem;
 		font-weight: 600;
-		color: var(--color-neutral-800);
+		color: var(--text-primary);
 	}
 
 
 	.hint {
 		margin: 0 0 0.75rem;
 		font-size: 0.875rem;
-		color: var(--color-neutral-500);
+		color: var(--text-tertiary);
 	}
 
 	.animation-select select {
 		width: 100%;
 		padding: 0.75rem 1rem;
-		background: var(--color-neutral-200);
-		border: 1px solid var(--color-neutral-300);
+		background: var(--bg-tertiary);
+		border: 1px solid var(--border-light);
 		border-radius: 0.5rem;
 		font-size: 0.875rem;
-		color: var(--color-neutral-800);
+		color: var(--text-primary);
 		cursor: pointer;
 		transition: all 0.15s;
 	}
 
 
 	.animation-select select:hover {
-		border-color: var(--color-primary-400);
+		border-color: var(--text-tertiary);
 	}
 
 	.animation-select select:focus {
 		outline: none;
-		border-color: var(--color-primary-500);
-		box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.2);
+		border-color: #01B2FF;
+		box-shadow: 0 0 0 3px rgba(1, 178, 255, 0.15);
 	}
 
 	.quick-actions {
@@ -522,19 +522,19 @@
 
 	.action-btn {
 		padding: 0.5rem 1rem;
-		background: var(--color-neutral-200);
+		background: var(--bg-tertiary);
 		border: none;
 		border-radius: 0.5rem;
 		font-size: 0.875rem;
 		font-weight: 500;
-		color: var(--color-neutral-700);
+		color: var(--text-secondary);
 		cursor: pointer;
 		transition: all 0.15s;
 	}
 
 
 	.action-btn:hover {
-		background: var(--color-neutral-300);
+		background: var(--border-light);
 	}
 
 
@@ -567,29 +567,29 @@
 		align-items: center;
 		gap: 0.5rem;
 		padding: 0.625rem 1rem;
-		background: rgba(244, 114, 182, 0.1);
-		border: 1px solid rgba(244, 114, 182, 0.2);
+		background: rgba(1, 178, 255, 0.1);
+		border: 1px solid rgba(1, 178, 255, 0.2);
 		border-radius: 0.5rem;
 		font-size: 0.875rem;
 		font-weight: 500;
-		color: #ec4899;
+		color: #01B2FF;
 		cursor: pointer;
 		transition: all 0.15s;
 	}
 
 	.event-btn:hover {
-		background: rgba(244, 114, 182, 0.2);
-		border-color: rgba(244, 114, 182, 0.4);
+		background: rgba(1, 178, 255, 0.2);
+		border-color: rgba(1, 178, 255, 0.4);
 		transform: translateY(-1px);
 	}
 
 	:global(.dark) .event-btn {
-		background: rgba(244, 114, 182, 0.15);
-		border-color: rgba(244, 114, 182, 0.25);
+		background: rgba(1, 178, 255, 0.15);
+		border-color: rgba(1, 178, 255, 0.25);
 	}
 
 	:global(.dark) .event-btn:hover {
-		background: rgba(244, 114, 182, 0.25);
+		background: rgba(1, 178, 255, 0.25);
 	}
 
 	.expression-tags {
@@ -600,11 +600,11 @@
 
 	.tag {
 		padding: 0.25rem 0.5rem;
-		background: var(--color-neutral-200);
+		background: var(--bg-tertiary);
 		border-radius: 0.375rem;
 		font-size: 0.75rem;
 		font-family: monospace;
-		color: var(--color-neutral-700);
+		color: var(--text-secondary);
 	}
 
 
@@ -624,14 +624,14 @@
 	.slider-row label {
 		font-size: 0.8125rem;
 		font-family: monospace;
-		color: var(--color-neutral-700);
+		color: var(--text-secondary);
 	}
 
 
 	.slider-row input[type='range'] {
 		width: 100%;
 		height: 6px;
-		background: var(--color-neutral-300);
+		background: var(--bg-tertiary);
 		border-radius: 3px;
 		outline: none;
 		-webkit-appearance: none;
@@ -642,7 +642,7 @@
 		-webkit-appearance: none;
 		width: 16px;
 		height: 16px;
-		background: var(--color-primary-500);
+		background: #01B2FF;
 		border-radius: 50%;
 		cursor: pointer;
 	}
@@ -650,7 +650,7 @@
 	.slider-row .value {
 		font-size: 0.75rem;
 		font-family: monospace;
-		color: var(--color-neutral-500);
+		color: var(--text-tertiary);
 		text-align: right;
 	}
 

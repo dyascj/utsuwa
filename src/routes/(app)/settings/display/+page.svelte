@@ -189,12 +189,12 @@
 		margin: 0 0 0.5rem;
 		font-size: 1.5rem;
 		font-weight: 700;
-		color: var(--color-neutral-900);
+		color: var(--text-primary);
 	}
 
 	.page-header p {
 		margin: 0;
-		color: var(--color-neutral-500);
+		color: var(--text-tertiary);
 		font-size: 0.875rem;
 	}
 
@@ -212,7 +212,7 @@
 		margin: 0 0 1rem;
 		font-size: 0.75rem;
 		font-weight: 600;
-		color: var(--color-neutral-500);
+		color: var(--text-tertiary);
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
 	}
@@ -222,8 +222,8 @@
 		align-items: center;
 		justify-content: space-between;
 		padding: 1rem;
-		background: var(--color-neutral-100);
-		border: 1px solid var(--color-border);
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-light);
 		border-radius: 0.75rem;
 	}
 
@@ -236,18 +236,18 @@
 	.setting-label {
 		font-weight: 600;
 		font-size: 0.875rem;
-		color: var(--color-neutral-800);
+		color: var(--text-primary);
 	}
 
 	.setting-desc {
 		font-size: 0.75rem;
-		color: var(--color-neutral-500);
+		color: var(--text-tertiary);
 	}
 
 	/* Mode Selector */
 	.mode-selector {
 		display: flex;
-		background: var(--color-neutral-200);
+		background: var(--bg-tertiary);
 		border-radius: 0.5rem;
 		padding: 3px;
 		gap: 2px;
@@ -261,7 +261,7 @@
 		background: transparent;
 		border: none;
 		border-radius: 0.375rem;
-		color: var(--color-neutral-500);
+		color: var(--text-tertiary);
 		font-size: 0.8125rem;
 		font-weight: 500;
 		font-family: inherit;
@@ -270,17 +270,17 @@
 	}
 
 	.mode-option:hover:not(.active) {
-		color: var(--color-neutral-700);
+		color: var(--text-secondary);
 	}
 
 	.mode-option.active {
-		background: var(--color-neutral-50);
-		color: var(--color-neutral-900);
+		background: var(--bg-primary);
+		color: var(--text-primary);
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 	}
 
 	:global(.dark) .mode-option.active {
-		background: var(--color-neutral-300);
+		background: var(--bg-secondary);
 	}
 
 	/* Theme Grid */
@@ -295,8 +295,8 @@
 		display: flex;
 		align-items: center;
 		padding: 1rem;
-		background: var(--color-neutral-100);
-		border: 2px solid var(--color-border);
+		background: var(--bg-secondary);
+		border: 2px solid var(--border-light);
 		border-radius: 0.75rem;
 		cursor: pointer;
 		transition: all 0.15s;
@@ -305,13 +305,13 @@
 	}
 
 	.theme-card:hover {
-		border-color: var(--color-neutral-300);
-		background: var(--color-neutral-50);
+		border-color: var(--text-tertiary);
+		background: var(--bg-primary);
 	}
 
 	.theme-card.selected {
-		border-color: var(--accent);
-		background: var(--accent-subtle);
+		border-color: #01B2FF;
+		background: rgba(1, 178, 255, 0.08);
 	}
 
 	.theme-content {
@@ -331,12 +331,12 @@
 	.theme-name {
 		font-weight: 600;
 		font-size: 0.9rem;
-		color: var(--color-neutral-800);
+		color: var(--text-primary);
 	}
 
 	.theme-desc {
 		font-size: 0.75rem;
-		color: var(--color-neutral-500);
+		color: var(--text-tertiary);
 	}
 
 	.theme-colors {
@@ -361,8 +361,8 @@
 		justify-content: center;
 		width: 22px;
 		height: 22px;
-		background: var(--accent);
-		color: var(--accent-foreground);
+		background: #01B2FF;
+		color: white;
 		border-radius: 50%;
 	}
 
@@ -375,7 +375,7 @@
 
 	.slider-label {
 		font-size: 0.75rem;
-		color: var(--color-neutral-500);
+		color: var(--text-tertiary);
 		white-space: nowrap;
 	}
 
@@ -383,7 +383,7 @@
 		width: 120px;
 		height: 6px;
 		appearance: none;
-		background: var(--color-neutral-200);
+		background: var(--bg-tertiary);
 		border-radius: 3px;
 		cursor: pointer;
 	}
@@ -392,7 +392,7 @@
 		appearance: none;
 		width: 18px;
 		height: 18px;
-		background: var(--accent);
+		background: #01B2FF;
 		border-radius: 50%;
 		cursor: pointer;
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -401,7 +401,7 @@
 	.zoom-slider::-moz-range-thumb {
 		width: 18px;
 		height: 18px;
-		background: var(--accent);
+		background: #01B2FF;
 		border: none;
 		border-radius: 50%;
 		cursor: pointer;

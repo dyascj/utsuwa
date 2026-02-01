@@ -73,14 +73,14 @@
 		display: flex;
 		height: 100vh;
 		overflow: hidden;
-		background: var(--color-neutral-50);
+		background: var(--bg-primary);
 	}
 
 	.sidebar {
 		width: 260px;
 		flex-shrink: 0;
-		background: var(--color-neutral-100);
-		border-right: 1px solid var(--color-neutral-200);
+		background: var(--bg-secondary);
+		border-right: 1px solid var(--border-light);
 		display: flex;
 		flex-direction: column;
 		padding: 1rem;
@@ -98,7 +98,7 @@
 		margin-bottom: 1rem;
 		background: transparent;
 		border: none;
-		color: var(--color-neutral-600);
+		color: var(--text-secondary);
 		font-size: 0.875rem;
 		text-decoration: none;
 		border-radius: 0.5rem;
@@ -106,15 +106,15 @@
 	}
 
 	.back-button:hover {
-		background: var(--color-neutral-200);
-		color: var(--color-neutral-800);
+		background: var(--bg-tertiary);
+		color: var(--text-primary);
 	}
 
 	.sidebar-header h1 {
 		margin: 0;
 		font-size: 1.5rem;
 		font-weight: 700;
-		color: var(--color-neutral-900);
+		color: var(--text-primary);
 	}
 
 	.nav {
@@ -129,7 +129,7 @@
 		gap: 0.75rem;
 		padding: 0.75rem 1rem;
 		border-radius: 0.75rem;
-		color: var(--color-neutral-600);
+		color: var(--text-secondary);
 		text-decoration: none;
 		font-size: 0.875rem;
 		font-weight: 500;
@@ -137,13 +137,13 @@
 	}
 
 	.nav-item:hover {
-		background: var(--color-neutral-200);
-		color: var(--color-neutral-800);
+		background: var(--bg-tertiary);
+		color: var(--text-primary);
 	}
 
 	.nav-item.active {
-		background: var(--accent);
-		color: var(--accent-foreground);
+		background: #01B2FF;
+		color: white;
 		font-weight: 600;
 	}
 
@@ -167,7 +167,7 @@
 		opacity: 0.04;
 		pointer-events: none;
 		z-index: 0;
-		color: var(--accent);
+		color: #01B2FF;
 		transform: rotate(-12deg);
 	}
 
@@ -228,7 +228,7 @@
 		.sidebar {
 			width: 100%;
 			border-right: none;
-			border-bottom: 1px solid var(--color-neutral-200);
+			border-bottom: 1px solid var(--border-light);
 			padding: 0.5rem 0.75rem;
 			gap: 0.5rem;
 		}
@@ -290,8 +290,8 @@
 		}
 
 		.nav-item.active {
-			background: var(--accent);
-			color: var(--accent-foreground);
+			background: #01B2FF;
+			color: white;
 		}
 
 		.content {
