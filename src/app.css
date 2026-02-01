@@ -2,228 +2,218 @@
 
 /* bits-ui compatible theme */
 @theme inline {
-	--color-background: var(--color-neutral-50);
-	--color-foreground: var(--color-neutral-900);
-	--color-muted: var(--color-neutral-100);
-	--color-muted-foreground: var(--color-neutral-500);
-	--color-accent: var(--color-primary-100);
-	--color-accent-foreground: var(--color-primary-700);
-	--color-border: var(--color-neutral-200);
-	--color-input: var(--color-neutral-200);
+	--color-background: var(--bg-primary);
+	--color-foreground: var(--text-primary);
+	--color-muted: var(--bg-secondary);
+	--color-muted-foreground: var(--text-secondary);
+	--color-accent: var(--accent);
+	--color-accent-foreground: #ffffff;
+	--color-border: var(--border-light);
+	--color-input: var(--border-light);
 	--color-ring: var(--accent);
-	--color-destructive: var(--ctp-red);
+	--color-destructive: #ef4444;
 	--color-destructive-foreground: #fef2f2;
 
-	--radius-button: 0.5rem;
-	--radius-card: 0.75rem;
-	--radius-popover: 0.75rem;
+	--radius-button: var(--radius-full);
+	--radius-card: var(--radius-lg);
+	--radius-popover: var(--radius-lg);
 
-	--shadow-popover: 0 10px 38px -10px rgba(0, 0, 0, 0.15), 0 10px 20px -15px rgba(0, 0, 0, 0.1);
-	--shadow-btn: 0 1px 2px rgba(0, 0, 0, 0.05);
+	--shadow-popover: var(--shadow-lg);
+	--shadow-btn: var(--shadow-sm);
 }
 
 :root {
-	/* Theme Accent Colors (light mode defaults) */
-	--ctp-rosewater: #dc8a78;
-	--ctp-flamingo: #dd7878;
-	--ctp-pink: #ea76cb;
-	--ctp-mauve: #8839ef;
-	--ctp-red: #d20f39;
-	--ctp-maroon: #e64553;
-	--ctp-peach: #fe640b;
-	--ctp-yellow: #df8e1d;
-	--ctp-green: #40a02b;
-	--ctp-teal: #179299;
-	--ctp-sky: #04a5e5;
-	--ctp-sapphire: #209fb5;
-	--ctp-blue: #1e66f5;
-	--ctp-lavender: #7287fd;
+	/* Backgrounds */
+	--bg-primary: #ffffff;
+	--bg-secondary: #f7f7f8;
+	--bg-tertiary: #efefef;
 
-	/* Latte Base/Surface Colors */
-	--ctp-text: #4c4f69;
-	--ctp-subtext1: #5c5f77;
-	--ctp-subtext0: #6c6f85;
-	--ctp-overlay2: #7c7f93;
-	--ctp-overlay1: #8c8fa1;
-	--ctp-overlay0: #9ca0b0;
-	--ctp-surface2: #acb0be;
-	--ctp-surface1: #bcc0cc;
-	--ctp-surface0: #ccd0da;
-	--ctp-base: #eff1f5;
-	--ctp-mantle: #e6e9ef;
-	--ctp-crust: #dce0e8;
+	/* Text */
+	--text-primary: #1a1a1a;
+	--text-secondary: #666666;
+	--text-tertiary: #999999;
 
-	/* Glass/Transparent backgrounds - easy to customize */
-	--glass-bg: rgba(239, 241, 245, 0.85);
-	--glass-bg-solid: rgba(239, 241, 245, 0.95);
-	--glass-bg-subtle: rgba(239, 241, 245, 0.7);
-	--glass-border: color-mix(in srgb, var(--ctp-pink) 20%, transparent);
-	--glass-border-subtle: color-mix(in srgb, var(--ctp-pink) 10%, transparent);
+	/* Borders */
+	--border-light: #e5e5e5;
+	--border-subtle: #f0f0f0;
 
-	/* Accent color (change this to swap the main accent) */
-	--accent: var(--ctp-pink);
-	--accent-hover: color-mix(in srgb, var(--ctp-pink) 85%, black);
-	--accent-muted: color-mix(in srgb, var(--ctp-pink) 15%, transparent);
-	--accent-subtle: color-mix(in srgb, var(--ctp-pink) 8%, transparent);
+	/* Accent */
+	--accent: #ec4899;
+	--accent-hover: #db2777;
+	--accent-muted: rgba(236, 72, 153, 0.1);
+	--accent-subtle: rgba(236, 72, 153, 0.05);
 
-	/* Stat colors - theme-controlled */
-	--stat-trust: var(--ctp-green);
-	--stat-intimacy: var(--ctp-pink);
-	--stat-comfort: var(--ctp-mauve);
-	--stat-energy: var(--ctp-sky);
-	--stat-respect: var(--ctp-peach);
-	--stat-affection: var(--ctp-pink);
+	/* Gradient orbs */
+	--gradient-orb-blue: radial-gradient(circle, rgba(147, 197, 253, 0.7) 0%, rgba(147, 197, 253, 0) 70%);
+	--gradient-orb-pink: radial-gradient(circle, rgba(251, 207, 232, 0.8) 0%, rgba(251, 207, 232, 0) 70%);
+	--gradient-orb-purple: radial-gradient(circle, rgba(196, 181, 253, 0.7) 0%, rgba(196, 181, 253, 0) 70%);
+	--gradient-orb-peach: radial-gradient(circle, rgba(254, 215, 170, 0.7) 0%, rgba(254, 215, 170, 0) 70%);
 
-	/* Relationship tier colors - theme-controlled */
-	--tier-stranger: var(--ctp-overlay0);
-	--tier-acquaintance: var(--ctp-blue);
-	--tier-friend: var(--ctp-green);
-	--tier-close-friend: var(--ctp-teal);
-	--tier-best-friend: var(--ctp-yellow);
-	--tier-soulmate: var(--ctp-pink);
-	--tier-eternal-bond: var(--ctp-mauve);
+	/* Button gradient */
+	--gradient-button: linear-gradient(135deg, #fce7f3 0%, #fdf2f8 100%);
+	--gradient-button-hover: linear-gradient(135deg, #fbcfe8 0%, #fce7f3 100%);
+
+	/* Shadows */
+	--shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.03);
+	--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+	--shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+	--shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
+
+	/* Radius */
+	--radius-xs: 4px;
+	--radius-sm: 8px;
+	--radius-md: 12px;
+	--radius-lg: 16px;
+	--radius-xl: 24px;
+	--radius-full: 9999px;
 
 	/* Semantic colors */
-	--color-success: var(--ctp-green);
-	--color-error: var(--ctp-red);
-	--color-warning: var(--ctp-yellow);
-	--color-info: var(--ctp-blue);
+	--color-success: #22c55e;
+	--color-error: #ef4444;
+	--color-warning: #f59e0b;
+	--color-info: #3b82f6;
+
+	/* Stat colors */
+	--stat-trust: #22c55e;
+	--stat-intimacy: #ec4899;
+	--stat-comfort: #8b5cf6;
+	--stat-energy: #06b6d4;
+	--stat-respect: #f97316;
+	--stat-affection: #ec4899;
+
+	/* Relationship tier colors */
+	--tier-stranger: #9ca3af;
+	--tier-acquaintance: #3b82f6;
+	--tier-friend: #22c55e;
+	--tier-close-friend: #14b8a6;
+	--tier-best-friend: #eab308;
+	--tier-soulmate: #ec4899;
+	--tier-eternal-bond: #8b5cf6;
 
 	/* Scrollbar */
-	--scrollbar-thumb: rgba(0, 0, 0, 0.15);
-	--scrollbar-thumb-hover: rgba(0, 0, 0, 0.25);
+	--scrollbar-thumb: rgba(0, 0, 0, 0.12);
+	--scrollbar-thumb-hover: rgba(0, 0, 0, 0.2);
 
-	/* Scene colors for 3D (read by Three.js) */
-	--scene-bg: var(--ctp-base);
-	--scene-placeholder: var(--ctp-mauve);
+	/* Scene colors for 3D */
+	--scene-bg: #f7f7f8;
+	--scene-placeholder: #8b5cf6;
 
-	/* Primary colors - pink accent */
-	--color-primary-50: #fef1fa;
-	--color-primary-100: #fce4f4;
-	--color-primary-200: #f9c8e9;
-	--color-primary-300: #f5a3d8;
-	--color-primary-400: #ea76cb;
-	--color-primary-500: #dc5fbe;
-	--color-primary-600: #c44da5;
-	--color-primary-700: #a43d87;
-	--color-primary-800: #87346f;
-	--color-primary-900: #712f5e;
-	--color-primary-950: #441536;
+	/* Legacy compatibility aliases */
+	--color-neutral-50: var(--bg-primary);
+	--color-neutral-100: var(--bg-secondary);
+	--color-neutral-200: var(--bg-tertiary);
+	--color-neutral-300: #e5e5e5;
+	--color-neutral-400: #d4d4d4;
+	--color-neutral-500: #a3a3a3;
+	--color-neutral-600: #737373;
+	--color-neutral-700: var(--text-secondary);
+	--color-neutral-800: #404040;
+	--color-neutral-900: var(--text-primary);
+	--color-neutral-950: var(--text-primary);
 
-	/* Neutral colors (light mode) */
-	--color-neutral-50: var(--ctp-base);
-	--color-neutral-100: var(--ctp-mantle);
-	--color-neutral-200: var(--ctp-crust);
-	--color-neutral-300: var(--ctp-surface0);
-	--color-neutral-400: var(--ctp-surface1);
-	--color-neutral-500: var(--ctp-overlay0);
-	--color-neutral-600: var(--ctp-overlay1);
-	--color-neutral-700: var(--ctp-subtext0);
-	--color-neutral-800: var(--ctp-subtext1);
-	--color-neutral-900: var(--ctp-text);
-	--color-neutral-950: var(--ctp-text);
+	--ctp-pink: var(--accent);
+	--ctp-green: var(--color-success);
+	--ctp-red: var(--color-error);
+	--ctp-yellow: var(--color-warning);
+	--ctp-blue: var(--color-info);
+	--ctp-mauve: #8b5cf6;
+	--ctp-teal: #14b8a6;
+	--ctp-peach: #f97316;
+	--ctp-sky: #06b6d4;
 }
 
 .dark {
-	/* Theme Accent Colors (dark mode defaults) */
-	--ctp-rosewater: #f5e0dc;
-	--ctp-flamingo: #f2cdcd;
-	--ctp-pink: #f5c2e7;
-	--ctp-mauve: #cba6f7;
-	--ctp-red: #f38ba8;
-	--ctp-maroon: #eba0ac;
-	--ctp-peach: #fab387;
-	--ctp-yellow: #f9e2af;
-	--ctp-green: #a6e3a1;
-	--ctp-teal: #94e2d5;
-	--ctp-sky: #89dceb;
-	--ctp-sapphire: #74c7ec;
-	--ctp-blue: #89b4fa;
-	--ctp-lavender: #b4befe;
+	/* Backgrounds */
+	--bg-primary: #0a0a0a;
+	--bg-secondary: #171717;
+	--bg-tertiary: #262626;
 
-	/* Mocha Base/Surface Colors */
-	--ctp-text: #cdd6f4;
-	--ctp-subtext1: #bac2de;
-	--ctp-subtext0: #a6adc8;
-	--ctp-overlay2: #9399b2;
-	--ctp-overlay1: #7f849c;
-	--ctp-overlay0: #6c7086;
-	--ctp-surface2: #585b70;
-	--ctp-surface1: #45475a;
-	--ctp-surface0: #313244;
-	--ctp-base: #1e1e2e;
-	--ctp-mantle: #181825;
-	--ctp-crust: #11111b;
+	/* Text */
+	--text-primary: #fafafa;
+	--text-secondary: #a3a3a3;
+	--text-tertiary: #737373;
 
-	/* Glass/Transparent backgrounds - dark mode */
-	--glass-bg: rgba(30, 30, 46, 0.85);
-	--glass-bg-solid: rgba(30, 30, 46, 0.95);
-	--glass-bg-subtle: rgba(30, 30, 46, 0.7);
-	--glass-border: color-mix(in srgb, var(--ctp-pink) 15%, transparent);
-	--glass-border-subtle: color-mix(in srgb, var(--ctp-pink) 8%, transparent);
+	/* Borders */
+	--border-light: #262626;
+	--border-subtle: #1f1f1f;
 
-	/* Accent color - dark mode uses the same variable names */
-	--accent: var(--ctp-pink);
-	--accent-hover: color-mix(in srgb, var(--ctp-pink) 85%, white);
-	--accent-muted: color-mix(in srgb, var(--ctp-pink) 20%, transparent);
-	--accent-subtle: color-mix(in srgb, var(--ctp-pink) 12%, transparent);
+	/* Accent */
+	--accent: #f472b6;
+	--accent-hover: #ec4899;
+	--accent-muted: rgba(244, 114, 182, 0.15);
+	--accent-subtle: rgba(244, 114, 182, 0.08);
 
-	/* Stat colors - same var names, different base colors */
-	--stat-trust: var(--ctp-green);
-	--stat-intimacy: var(--ctp-pink);
-	--stat-comfort: var(--ctp-mauve);
-	--stat-energy: var(--ctp-sky);
-	--stat-respect: var(--ctp-peach);
-	--stat-affection: var(--ctp-pink);
+	/* Gradient orbs (darker, more subtle) */
+	--gradient-orb-blue: radial-gradient(circle, rgba(96, 165, 250, 0.3) 0%, rgba(96, 165, 250, 0) 70%);
+	--gradient-orb-pink: radial-gradient(circle, rgba(244, 114, 182, 0.3) 0%, rgba(244, 114, 182, 0) 70%);
+	--gradient-orb-purple: radial-gradient(circle, rgba(167, 139, 250, 0.3) 0%, rgba(167, 139, 250, 0) 70%);
+	--gradient-orb-peach: radial-gradient(circle, rgba(251, 146, 60, 0.25) 0%, rgba(251, 146, 60, 0) 70%);
 
-	/* Relationship tier colors */
-	--tier-stranger: var(--ctp-overlay0);
-	--tier-acquaintance: var(--ctp-blue);
-	--tier-friend: var(--ctp-green);
-	--tier-close-friend: var(--ctp-teal);
-	--tier-best-friend: var(--ctp-yellow);
-	--tier-soulmate: var(--ctp-pink);
-	--tier-eternal-bond: var(--ctp-mauve);
+	/* Button gradient */
+	--gradient-button: linear-gradient(135deg, rgba(244, 114, 182, 0.2) 0%, rgba(244, 114, 182, 0.1) 100%);
+	--gradient-button-hover: linear-gradient(135deg, rgba(244, 114, 182, 0.3) 0%, rgba(244, 114, 182, 0.2) 100%);
+
+	/* Shadows (subtle in dark mode) */
+	--shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+	--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+	--shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+	--shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
 
 	/* Semantic colors */
-	--color-success: var(--ctp-green);
-	--color-error: var(--ctp-red);
-	--color-warning: var(--ctp-yellow);
-	--color-info: var(--ctp-blue);
+	--color-success: #4ade80;
+	--color-error: #f87171;
+	--color-warning: #fbbf24;
+	--color-info: #60a5fa;
+
+	/* Stat colors */
+	--stat-trust: #4ade80;
+	--stat-intimacy: #f472b6;
+	--stat-comfort: #a78bfa;
+	--stat-energy: #22d3ee;
+	--stat-respect: #fb923c;
+	--stat-affection: #f472b6;
+
+	/* Tier colors */
+	--tier-stranger: #6b7280;
+	--tier-acquaintance: #60a5fa;
+	--tier-friend: #4ade80;
+	--tier-close-friend: #2dd4bf;
+	--tier-best-friend: #facc15;
+	--tier-soulmate: #f472b6;
+	--tier-eternal-bond: #a78bfa;
 
 	/* Scrollbar */
-	--scrollbar-thumb: rgba(255, 255, 255, 0.2);
-	--scrollbar-thumb-hover: rgba(255, 255, 255, 0.3);
+	--scrollbar-thumb: rgba(255, 255, 255, 0.15);
+	--scrollbar-thumb-hover: rgba(255, 255, 255, 0.25);
 
-	/* Scene colors for 3D */
-	--scene-bg: var(--ctp-base);
-	--scene-placeholder: var(--ctp-mauve);
+	/* Scene colors */
+	--scene-bg: #0a0a0a;
+	--scene-placeholder: #a78bfa;
 
-	/* Primary colors - pink accent (Mocha) */
-	--color-primary-50: #1e1e2e;
-	--color-primary-100: #302d3d;
-	--color-primary-200: #453e55;
-	--color-primary-300: #6b5a7a;
-	--color-primary-400: #9d7faa;
-	--color-primary-500: #cba6f7;
-	--color-primary-600: #d9bff8;
-	--color-primary-700: #e5d4fa;
-	--color-primary-800: #f0e6fc;
-	--color-primary-900: #f7f1fd;
-	--color-primary-950: #fbf8fe;
+	/* Legacy compatibility */
+	--color-neutral-50: var(--bg-primary);
+	--color-neutral-100: var(--bg-secondary);
+	--color-neutral-200: var(--bg-tertiary);
+	--color-neutral-300: #404040;
+	--color-neutral-400: #525252;
+	--color-neutral-500: #737373;
+	--color-neutral-600: #a3a3a3;
+	--color-neutral-700: var(--text-secondary);
+	--color-neutral-800: #d4d4d4;
+	--color-neutral-900: var(--text-primary);
+	--color-neutral-950: var(--text-primary);
 
-	/* Neutral colors (dark mode) */
-	--color-neutral-50: var(--ctp-crust);
-	--color-neutral-100: var(--ctp-mantle);
-	--color-neutral-200: var(--ctp-base);
-	--color-neutral-300: var(--ctp-surface0);
-	--color-neutral-400: var(--ctp-surface1);
-	--color-neutral-500: var(--ctp-overlay0);
-	--color-neutral-600: var(--ctp-overlay1);
-	--color-neutral-700: var(--ctp-subtext0);
-	--color-neutral-800: var(--ctp-subtext1);
-	--color-neutral-900: var(--ctp-text);
-	--color-neutral-950: var(--ctp-text);
+	--ctp-pink: var(--accent);
+	--ctp-green: var(--color-success);
+	--ctp-red: var(--color-error);
+	--ctp-yellow: var(--color-warning);
+	--ctp-blue: var(--color-info);
+	--ctp-mauve: #a78bfa;
+	--ctp-teal: #2dd4bf;
+	--ctp-peach: #fb923c;
+	--ctp-sky: #22d3ee;
 }
 
 * {
@@ -235,10 +225,12 @@ body {
 	margin: 0;
 	padding: 0;
 	height: 100%;
-	font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-	background-color: var(--color-background);
-	color: var(--color-foreground);
+	font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	background-color: var(--bg-primary);
+	color: var(--text-primary);
 	transition: background-color 0.2s, color 0.2s;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 /* Scrollbar styling */

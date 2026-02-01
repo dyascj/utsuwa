@@ -27,6 +27,4 @@ vite.config.ts.timestamp-*
 
 # Claude
 .claude/
-
-# Personal notes
-todos.md
+.refs
