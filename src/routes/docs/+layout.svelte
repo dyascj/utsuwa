@@ -48,8 +48,8 @@
 		'--docs-border': '#e5e5e5',
 		'--docs-surface': '#f0f0f0',
 		'--docs-code-bg': '#f5f5f5',
-		'--docs-accent': '#EF4A5B',
-		'--docs-accent-hover': '#d93a4a',
+		'--docs-accent': '#01B2FF',
+		'--docs-accent-hover': '#0099dd',
 		'--docs-logo-filter': 'brightness(0)'
 	};
 
@@ -60,8 +60,8 @@
 		'--docs-border': '#262626',
 		'--docs-surface': '#171717',
 		'--docs-code-bg': '#1c1c1c',
-		'--docs-accent': '#EF4A5B',
-		'--docs-accent-hover': '#f4707d',
+		'--docs-accent': '#01B2FF',
+		'--docs-accent-hover': '#33c1ff',
 		'--docs-logo-filter': 'none'
 	};
 
