@@ -3,21 +3,52 @@
 	// https://github.com/pixiv/three-vrm/blob/dev/packages/three-vrm/examples/humanoidAnimation/main.js
 	import { T, useThrelte, useTask } from '@threlte/core';
 	import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-	import { HemisphereLight, DirectionalLight } from 'three';
+	import { HemisphereLight, DirectionalLight, ShaderMaterial, Color, BackSide } from 'three';
 	import VrmModel from './VrmModel.svelte';
 	import { vrmStore } from '$lib/stores/vrm.svelte';
 	import { displayStore } from '$lib/stores/display.svelte';
 	import { screenshotStore } from '$lib/stores/screenshot.svelte';
 	import { onMount } from 'svelte';
 
+	// Dot grid shader for background sphere
+	const dotGridVertexShader = `
+		varying vec2 vUv;
+		varying vec3 vNormal;
+		void main() {
+			vUv = uv;
+			vNormal = normal;
+			gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+		}
+	`;
+
+	const dotGridFragmentShader = `
+		uniform vec3 uBackgroundColor;
+		uniform vec3 uDotColor;
+		uniform float uDotSize;
+		uniform float uSpacingX;
+		uniform float uSpacingY;
+		varying vec2 vUv;
+
+		void main() {
+			// Create grid with separate X and Y spacing for proper circles on sphere
+			vec2 grid = fract(vec2(vUv.x * uSpacingX, vUv.y * uSpacingY));
+			float dist = length(grid - 0.5);
+			float dot = 1.0 - smoothstep(uDotSize - 0.005, uDotSize + 0.005, dist);
+			vec3 color = mix(uBackgroundColor, uDotColor, dot);
+			gl_FragColor = vec4(color, 1.0);
+		}
+	`;
+
 	// Design language colors (matching CSS tokens in app.css)
 	const SCENE_COLORS = {
 		light: {
 			background: '#ffffff',
+			dot: '#d0d0d0',
 			placeholder: '#9ca3af' // text-tertiary equivalent
 		},
 		dark: {
-			background: '#171717',
+			background: '#353535',
+			dot: '#888888',
 			placeholder: '#6b7280'
 		}
 	};
@@ -57,6 +88,26 @@
 
 	// Dark mode detection
 	let isDarkMode = $state(false);
+
+	// Create dot grid shader material - recreate on theme change for proper reactivity
+	const dotGridMaterial = $derived.by(() => {
+		const bgColor = isDarkMode ? SCENE_COLORS.dark.background : SCENE_COLORS.light.background;
+		const dotColor = isDarkMode ? SCENE_COLORS.dark.dot : SCENE_COLORS.light.dot;
+
+		return new ShaderMaterial({
+			uniforms: {
+				uBackgroundColor: { value: new Color(bgColor) },
+				uDotColor: { value: new Color(dotColor) },
+				uDotSize: { value: 0.025 },
+				uSpacingX: { value: 200.0 },
+				uSpacingY: { value: 100.0 }
+			},
+			vertexShader: dotGridVertexShader,
+			fragmentShader: dotGridFragmentShader,
+			side: BackSide,
+			depthWrite: false
+		});
+	});
 
 	onMount(() => {
 		const checkDesktop = () => {
@@ -144,8 +195,14 @@
 <!-- Camera - view with model centered, distance from display settings -->
 <T.PerspectiveCamera makeDefault position={[cameraTargetX, 1.15, cameraDistance]} fov={30} near={0.1} far={20} />
 
-<!-- Scene Background - syncs with light/dark mode and theme -->
+<!-- Scene Background fallback -->
 <T.Color attach="background" args={[backgroundColor()]} />
+
+<!-- Dot Grid Background Sphere (skybox-style) -->
+<T.Mesh position={[0, 0, 0]}>
+	<T.SphereGeometry args={[15, 64, 32]} />
+	<T is={dotGridMaterial} />
+</T.Mesh>
 
 <!-- Hemisphere lighting matching Three.js example -->
 <!-- https://threejs.org/examples/webgl_lights_hemisphere.html -->
@@ -185,5 +242,5 @@
 <!-- Ground plane - receives shadows -->
 <T.Mesh rotation.x={-Math.PI / 2} position.y={0} receiveShadow>
 	<T.CircleGeometry args={[2, 64]} />
-	<T.MeshStandardMaterial color={backgroundColor()} />
+	<T.ShadowMaterial opacity={0.15} />
 </T.Mesh>

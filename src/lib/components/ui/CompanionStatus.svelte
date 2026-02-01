@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { characterStore } from '$lib/stores/character.svelte';
-	import { Progress, Icon } from '$lib/components/ui';
-	import CircularGauge from './CircularGauge.svelte';
+	import { Icon } from '$lib/components/ui';
 
 	let isExpanded = $state(false);
 
@@ -21,101 +20,62 @@
 	{#if isExpanded}
 		<div class="status-details">
 			{#if isCompanionMode}
-				<!-- Companion Mode: Simplified view -->
-				<div class="companion-header">
-					<Icon name="sparkles" size={16} color="#01B2FF" />
-					<span class="companion-title">Companion</span>
-				</div>
-
-				<!-- Energy only -->
-				<div class="stat-row">
-					<Icon name="zap" size={12} />
-					<span class="stat-label">Energy</span>
-					<div class="stat-bar-container">
-						<div
-							class="stat-bar"
-							style="width: {charState.energy}%"
-						></div>
-					</div>
-					<span class="stat-value">{charState.energy}</span>
-				</div>
-
-				<!-- Quick Stats -->
-				<div class="quick-stats">
-					<div class="quick-stat">
-						<Icon name="message-circle" size={12} />
-						<span>{charState.totalInteractions} chats</span>
-					</div>
-					{#if charState.currentStreak > 1}
-						<div class="quick-stat streak">
-							<Icon name="flame" size={12} />
-							<span>{charState.currentStreak} day streak</span>
+				<!-- Companion Mode: 2x1 Grid -->
+				<div class="stats-grid companion-grid">
+					<div class="stat-tile" style="--delay: 0">
+						<span class="tile-icon"><Icon name="zap" size={20} /></span>
+						<div class="tile-bar-container">
+							<div class="tile-bar" style="width: {charState.energy}%"></div>
 						</div>
-					{/if}
+						<span class="tile-value">{charState.energy}</span>
+						<span class="tile-label">Energy</span>
+					</div>
+					<div class="stat-tile" style="--delay: 1">
+						<span class="tile-icon"><Icon name="message-circle" size={20} /></span>
+						<span class="tile-value">{charState.totalInteractions}</span>
+						<span class="tile-label">Chats</span>
+						{#if charState.currentStreak > 1}
+							<span class="streak-badge">
+								<Icon name="flame" size={10} />
+								{charState.currentStreak}
+							</span>
+						{/if}
+					</div>
 				</div>
 			{:else}
-				<!-- Dating Sim Mode: Full view -->
-				<!-- Relationship Stage & Affection -->
-				<div class="affection-section">
-					<div class="affection-label">
-						<span class="heart-glow"><Icon name="heart" size={14} color="#01B2FF" /></span>
-						<span class="tier-name">{stageInfo.name}</span>
-						<span class="affection-value">{affectionPercent}%</span>
+				<!-- Dating Sim Mode: 3x2 Grid -->
+				<div class="stats-grid">
+					<!-- Row 1 -->
+					<div class="stat-tile" style="--delay: 0">
+						<span class="tile-icon"><Icon name="heart" size={20} /></span>
+						<span class="tile-value">{affectionPercent}%</span>
+						<span class="tile-label">{stageInfo.name}</span>
 					</div>
-					<Progress value={affectionPercent} variant="affection" size="md" />
-				</div>
-
-				<!-- Core Stats Trio -->
-				<div class="stats-trio">
-					<CircularGauge
-						value={charState.trust}
-						iconName="shield"
-						label="Trust"
-						color="#01B2FF"
-						size={56}
-						strokeWidth={5}
-					/>
-					<CircularGauge
-						value={charState.intimacy}
-						iconName="heart"
-						label="Intimacy"
-						color="#01B2FF"
-						size={56}
-						strokeWidth={5}
-					/>
-					<CircularGauge
-						value={charState.comfort}
-						iconName="home"
-						label="Comfort"
-						color="#01B2FF"
-						size={56}
-						strokeWidth={5}
-					/>
-				</div>
-
-				<!-- Secondary Stats -->
-				<div class="secondary-stats">
-					<div class="stat-row">
-						<Icon name="zap" size={12} />
-						<span class="stat-label">Energy</span>
-						<div class="stat-bar-container">
-							<div
-								class="stat-bar"
-								style="width: {charState.energy}%"
-							></div>
-						</div>
-						<span class="stat-value">{charState.energy}</span>
+					<div class="stat-tile" style="--delay: 1">
+						<span class="tile-icon"><Icon name="shield" size={20} /></span>
+						<span class="tile-value">{charState.trust}</span>
+						<span class="tile-label">Trust</span>
 					</div>
-					<div class="stat-row">
-						<Icon name="award" size={12} />
-						<span class="stat-label">Respect</span>
-						<div class="stat-bar-container">
-							<div
-								class="stat-bar"
-								style="width: {charState.respect}%"
-							></div>
-						</div>
-						<span class="stat-value">{charState.respect}</span>
+					<div class="stat-tile" style="--delay: 2">
+						<span class="tile-icon"><Icon name="sparkles" size={20} /></span>
+						<span class="tile-value">{charState.intimacy}</span>
+						<span class="tile-label">Intimacy</span>
+					</div>
+					<!-- Row 2 -->
+					<div class="stat-tile" style="--delay: 3">
+						<span class="tile-icon"><Icon name="home" size={20} /></span>
+						<span class="tile-value">{charState.comfort}</span>
+						<span class="tile-label">Comfort</span>
+					</div>
+					<div class="stat-tile" style="--delay: 4">
+						<span class="tile-icon"><Icon name="zap" size={20} /></span>
+						<span class="tile-value">{charState.energy}</span>
+						<span class="tile-label">Energy</span>
+					</div>
+					<div class="stat-tile" style="--delay: 5">
+						<span class="tile-icon"><Icon name="award" size={20} /></span>
+						<span class="tile-value">{charState.respect}</span>
+						<span class="tile-label">Respect</span>
 					</div>
 				</div>
 
@@ -172,7 +132,6 @@
 		border-radius: var(--radius-lg);
 		overflow: hidden;
 		transition: all 0.2s ease-out;
-		min-width: 280px;
 		display: flex;
 		flex-direction: column;
 		box-shadow:
@@ -274,106 +233,144 @@
 
 	/* Expanded Content */
 	.status-details {
-		padding: 0.875rem 0.875rem 0.5rem;
+		padding: 0.75rem;
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
-		animation: slideUp 0.2s ease-out;
 	}
 
-	@keyframes slideUp {
-		from {
+	/* Stats Grid - Wii Channel Style */
+	.stats-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 8px;
+	}
+
+	.stats-grid.companion-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	/* Stat Tile - Wii Channel Style */
+	.stat-tile {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 10px 8px;
+		border-radius: 16px;
+		background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+		border: 1px solid rgba(0, 0, 0, 0.06);
+		box-shadow:
+			0 4px 12px rgba(0, 0, 0, 0.08),
+			0 2px 4px rgba(0, 0, 0, 0.04),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+		transition: all 0.2s ease-out;
+		animation: bounceIn 0.35s ease-out backwards;
+		animation-delay: calc(var(--delay, 0) * 50ms);
+		position: relative;
+		min-height: 72px;
+	}
+
+	:global(.dark) .stat-tile {
+		background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+		border-color: rgba(255, 255, 255, 0.08);
+		box-shadow:
+			0 4px 12px rgba(0, 0, 0, 0.25),
+			0 2px 4px rgba(0, 0, 0, 0.15),
+			inset 0 1px 0 rgba(255, 255, 255, 0.05);
+	}
+
+	.stat-tile:hover {
+		transform: scale(1.03) translateY(-2px);
+		box-shadow:
+			0 8px 20px rgba(0, 0, 0, 0.12),
+			0 4px 8px rgba(0, 0, 0, 0.08),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+	}
+
+	:global(.dark) .stat-tile:hover {
+		box-shadow:
+			0 8px 20px rgba(0, 0, 0, 0.35),
+			0 4px 8px rgba(0, 0, 0, 0.2),
+			inset 0 1px 0 rgba(255, 255, 255, 0.08);
+	}
+
+	@keyframes bounceIn {
+		0% {
 			opacity: 0;
-			transform: translateY(10px);
+			transform: scale(0.8) translateY(10px);
 		}
-		to {
+		60% {
+			transform: scale(1.05) translateY(-2px);
+		}
+		100% {
 			opacity: 1;
-			transform: translateY(0);
+			transform: scale(1) translateY(0);
 		}
 	}
 
-	/* Affection Section */
-	.affection-section {
+	.tile-icon {
 		display: flex;
-		flex-direction: column;
-		gap: 0.375rem;
+		color: #01B2FF;
+		margin-bottom: 4px;
+		filter: drop-shadow(0 0 4px rgba(1, 178, 255, 0.3));
 	}
 
-	.affection-label {
-		display: flex;
-		align-items: center;
-		gap: 0.375rem;
-		font-size: 0.75rem;
-	}
-
-	.heart-glow {
-		display: flex;
-		filter: drop-shadow(0 0 4px rgba(1, 178, 255, 0.5));
-	}
-
-	.tier-name {
-		font-weight: 600;
+	.tile-value {
+		font-size: 1rem;
+		font-weight: 700;
 		color: var(--text-primary);
+		line-height: 1.2;
 	}
 
-	.affection-value {
-		margin-left: auto;
+	.tile-label {
+		font-size: 0.55rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
 		color: var(--text-tertiary);
-		font-size: 0.7rem;
+		margin-top: 2px;
 	}
 
-	/* Stats Trio */
-	.stats-trio {
-		display: flex;
-		justify-content: space-around;
-		padding: 0.375rem 0;
-	}
-
-	/* Secondary Stats */
-	.secondary-stats {
-		display: flex;
-		flex-direction: column;
-		gap: 0.375rem;
-	}
-
-	.stat-row {
-		display: flex;
-		align-items: center;
-		gap: 0.375rem;
-		font-size: 0.7rem;
-		color: var(--text-secondary);
-	}
-
-	.stat-label {
-		width: 3.5rem;
-	}
-
-	.stat-bar-container {
-		flex: 1;
+	/* Mini bar for energy tile in companion mode */
+	.tile-bar-container {
+		width: 100%;
 		height: 6px;
 		background: linear-gradient(180deg, #e0e0e0 0%, #d0d0d0 100%);
 		border-radius: 3px;
 		overflow: hidden;
 		box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+		margin: 4px 0;
 	}
 
-	:global(.dark) .stat-bar-container {
-		background: linear-gradient(180deg, #2a2a2a 0%, #222222 100%);
+	:global(.dark) .tile-bar-container {
+		background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
 		box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
 	}
 
-	.stat-bar {
+	.tile-bar {
 		height: 100%;
 		border-radius: 3px;
-		transition: width 0.3s ease;
 		background: linear-gradient(180deg, #4dd0ff 0%, #01B2FF 100%);
 		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+		transition: width 0.3s ease;
 	}
 
-	.stat-value {
-		width: 1.5rem;
-		text-align: right;
-		font-weight: 500;
+	/* Streak badge for companion mode */
+	.streak-badge {
+		position: absolute;
+		top: 4px;
+		right: 4px;
+		display: flex;
+		align-items: center;
+		gap: 2px;
+		padding: 2px 5px;
+		font-size: 0.55rem;
+		font-weight: 600;
+		color: white;
+		background: linear-gradient(180deg, #4dd0ff 0%, #01B2FF 100%);
+		border-radius: 8px;
+		box-shadow: 0 1px 3px rgba(1, 178, 255, 0.4);
 	}
 
 	/* Quick Stats */
@@ -381,7 +378,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem;
-		padding-top: 0.25rem;
+		justify-content: center;
 	}
 
 	.quick-stat {
@@ -436,21 +433,5 @@
 		box-shadow:
 			0 4px 12px rgba(1, 178, 255, 0.4),
 			inset 0 1px 0 rgba(255, 255, 255, 0.4);
-	}
-
-	/* Companion Mode Header */
-	.companion-header {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		padding-bottom: 0.5rem;
-		border-bottom: 1px solid var(--border-light);
-		margin-bottom: 0.25rem;
-	}
-
-	.companion-title {
-		font-size: 0.8rem;
-		font-weight: 600;
-		color: #01B2FF;
 	}
 </style>

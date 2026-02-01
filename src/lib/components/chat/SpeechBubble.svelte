@@ -10,19 +10,23 @@
 
 	let { message, isTyping = false, onHide }: Props = $props();
 
-	// Design language colors (matching --bg-primary tokens)
+	// Design language colors - skeuomorphic style
 	const BUBBLE_COLORS = {
 		light: {
-			background: '#ffffff',
+			background: 'linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%)',
 			border: 'rgba(0, 0, 0, 0.08)',
 			text: '#1a1a1a',
-			dots: '#9ca3af'
+			dots: '#01B2FF',
+			shadow: '0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9)',
+			tailColor: '#f5f5f5'
 		},
 		dark: {
-			background: '#0a0a0a',
+			background: 'linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%)',
 			border: 'rgba(255, 255, 255, 0.1)',
 			text: '#fafafa',
-			dots: '#6b7280'
+			dots: '#01B2FF',
+			shadow: '0 4px 16px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+			tailColor: '#1f1f1f'
 		}
 	};
 
@@ -46,6 +50,12 @@
 	});
 	const glassBorder = $derived(() => {
 		return isDark ? BUBBLE_COLORS.dark.border : BUBBLE_COLORS.light.border;
+	});
+	const glassShadow = $derived(() => {
+		return isDark ? BUBBLE_COLORS.dark.shadow : BUBBLE_COLORS.light.shadow;
+	});
+	const tailColor = $derived(() => {
+		return isDark ? BUBBLE_COLORS.dark.tailColor : BUBBLE_COLORS.light.tailColor;
 	});
 	const textColor = $derived(() => {
 		return isDark ? BUBBLE_COLORS.dark.text : BUBBLE_COLORS.light.text;
@@ -101,7 +111,7 @@
 			class="speech-bubble"
 			class:dark={isDark}
 			onclick={handleClick}
-			style="background: {glassBackground()}; border-color: {glassBorder()};"
+			style="background: {glassBackground()}; border-color: {glassBorder()}; box-shadow: {glassShadow()};"
 		>
 			<div class="speech-bubble-content">
 				{#if isTyping}
@@ -114,7 +124,7 @@
 					<p class="message" style="color: {textColor()}">{message}</p>
 				{/if}
 			</div>
-			<div class="bubble-tail" style="border-right-color: {glassBackground()}"></div>
+			<div class="bubble-tail" style="border-right-color: {tailColor()}"></div>
 		</div>
 	</div>
 {/if}
@@ -149,14 +159,14 @@
 		backdrop-filter: blur(16px);
 		-webkit-backdrop-filter: blur(16px);
 		border: 1px solid;
-		border-radius: 1rem;
-		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+		border-radius: 16px;
 		pointer-events: auto;
 		cursor: pointer;
+		transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
 	}
 
-	.speech-bubble.dark {
-		box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+	.speech-bubble:hover {
+		transform: scale(1.02) translateY(-1px);
 	}
 
 	.speech-bubble-content {
@@ -205,16 +215,19 @@
 
 	.typing-indicator {
 		display: flex;
-		gap: 3px;
+		gap: 4px;
 		padding: 0.125rem 0;
 	}
 
 	.typing-indicator span {
-		width: 6px;
-		height: 6px;
-		background: var(--dot-color);
+		width: 8px;
+		height: 8px;
+		background: linear-gradient(180deg, #4dd0ff 0%, var(--dot-color) 100%);
 		border-radius: 50%;
 		animation: bounce 1.4s ease-in-out infinite;
+		box-shadow:
+			0 2px 4px rgba(1, 178, 255, 0.3),
+			inset 0 1px 0 rgba(255, 255, 255, 0.4);
 	}
 
 	.typing-indicator span:nth-child(1) {
