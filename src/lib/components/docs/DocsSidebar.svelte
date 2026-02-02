@@ -31,14 +31,22 @@
 	.sidebar {
 		width: 240px;
 		min-width: 240px;
-		max-height: calc(100vh - 3.5rem);
+		max-height: calc(100vh - 3.5rem - 2rem);
 		position: sticky;
-		top: 3.5rem;
+		top: calc(3.5rem + 1rem);
 		align-self: flex-start;
 		overflow-y: auto;
-		padding: 1.5rem 0.75rem;
-		border-right: 1px solid var(--docs-border);
-		background: var(--docs-bg);
+		padding: 1rem 0.75rem;
+		margin: 1rem;
+		margin-right: 0;
+		background: var(--docs-glass-bg);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
+		border: 1px solid var(--docs-glass-border);
+		border-radius: 1rem;
+		box-shadow:
+			0 1px 0 var(--docs-inner-highlight) inset,
+			0 4px 16px rgba(0, 0, 0, 0.06);
 	}
 
 	.sidebar-search {
@@ -50,6 +58,7 @@
 	.sidebar-nav {
 		display: flex;
 		flex-direction: column;
+		gap: 0.25rem;
 	}
 
 	@media (max-width: 768px) {
@@ -61,7 +70,14 @@
 			bottom: 0;
 			z-index: 20;
 			max-height: calc(100vh - 3.5rem);
-			box-shadow: 4px 0 16px rgba(0, 0, 0, 0.15);
+			margin: 0;
+			border-radius: 0;
+			border-left: none;
+			border-top: none;
+			border-bottom: none;
+			box-shadow:
+				0 1px 0 var(--docs-inner-highlight) inset,
+				8px 0 32px rgba(0, 0, 0, 0.2);
 		}
 
 		.sidebar.mobile-open {

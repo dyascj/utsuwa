@@ -69,11 +69,11 @@
 	}
 
 	:global(.docs .prose h1) {
-		font-size: 2rem;
+		font-size: 2.25rem;
 		font-weight: 700;
-		margin-bottom: 0.5rem;
+		margin-bottom: 0.75rem;
 		color: var(--docs-text);
-
+		text-shadow: 0 1px 0 var(--docs-inner-highlight);
 	}
 
 	:global(.docs .prose h2) {
@@ -82,7 +82,7 @@
 		margin-top: 2.5rem;
 		margin-bottom: 0.75rem;
 		color: var(--docs-text);
-
+		text-shadow: 0 1px 0 var(--docs-inner-highlight);
 	}
 
 	:global(.docs .prose h3) {
@@ -91,7 +91,6 @@
 		margin-top: 2rem;
 		margin-bottom: 0.5rem;
 		color: var(--docs-text);
-
 	}
 
 	:global(.docs .prose p) {
@@ -101,45 +100,67 @@
 
 	:global(.docs .prose a) {
 		color: var(--docs-accent);
-		text-decoration: underline;
-		text-underline-offset: 2px;
+		text-decoration: none;
+		font-weight: 500;
+		transition: all 0.15s ease;
+		border-bottom: 1px solid transparent;
 	}
 
 	:global(.docs .prose a:hover) {
 		color: var(--docs-accent-hover);
+		border-bottom-color: var(--docs-accent);
+		text-shadow: 0 0 8px var(--docs-glow);
 	}
 
 	:global(.docs .prose code) {
-		background: var(--docs-code-bg);
-		padding: 0.15rem 0.35rem;
-		border-radius: 0.25rem;
+		background: var(--docs-glass-bg);
+		padding: 0.2rem 0.45rem;
+		border-radius: 0.375rem;
 		font-size: 0.875em;
+		border: 1px solid var(--docs-border);
+		box-shadow: 0 1px 2px var(--docs-inner-shadow) inset;
 	}
 
 	:global(.docs .prose pre) {
-		background: var(--docs-code-bg);
-		padding: 1rem 1.25rem;
-		border-radius: 0.5rem;
+		background: var(--docs-glass-bg);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+		padding: 1.25rem 1.5rem;
+		border-radius: 0.875rem;
 		overflow-x: auto;
 		margin: 1.5rem 0;
 		position: relative;
+		border: 1px solid var(--docs-glass-border);
+		box-shadow:
+			0 2px 4px var(--docs-inner-shadow) inset,
+			0 4px 16px rgba(0, 0, 0, 0.06);
+	}
+
+	:global(.docs .prose pre:hover) {
+		box-shadow:
+			0 2px 4px var(--docs-inner-shadow) inset,
+			0 0 12px var(--docs-glow),
+			0 4px 16px rgba(0, 0, 0, 0.08);
 	}
 
 	:global(.copy-btn) {
 		position: absolute;
-		top: 0.5rem;
-		right: 0.5rem;
-		padding: 0.375rem;
+		top: 0.75rem;
+		right: 0.75rem;
+		padding: 0.5rem;
 		background: var(--docs-surface);
 		border: 1px solid var(--docs-border);
-		border-radius: 0.25rem;
+		border-radius: 0.5rem;
 		cursor: pointer;
 		opacity: 0;
-		transition: opacity 0.15s, background 0.15s;
+		transition: all 0.2s ease;
 		color: var(--docs-text-muted);
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		box-shadow:
+			0 1px 0 var(--docs-inner-highlight) inset,
+			0 1px 2px rgba(0, 0, 0, 0.05);
 	}
 
 	:global(.docs .prose pre:hover .copy-btn) {
@@ -147,18 +168,24 @@
 	}
 
 	:global(.copy-btn:hover) {
-		background: var(--docs-border);
-		color: var(--docs-text);
+		background: var(--docs-surface-solid);
+		color: var(--docs-accent);
+		border-color: var(--docs-accent);
+		box-shadow:
+			0 1px 0 var(--docs-inner-highlight) inset,
+			0 0 8px var(--docs-glow);
 	}
 
 	:global(.docs .prose pre code) {
 		background: none;
 		padding: 0;
+		border: none;
+		box-shadow: none;
 	}
 
 	/* Shiki dual theme support - use docs theme bg, Shiki colors for syntax */
 	:global(.shiki) {
-		background-color: var(--docs-code-bg) !important;
+		background-color: transparent !important;
 	}
 
 	:global(.shiki span) {
@@ -194,6 +221,7 @@
 		display: inline-block;
 		width: 1em;
 		margin-left: -1em;
+		text-shadow: 0 0 6px var(--docs-glow);
 	}
 
 	:global(.docs .prose ol) {
@@ -221,43 +249,97 @@
 	:global(.docs .prose img) {
 		max-width: 100%;
 		height: auto;
-		border-radius: 0.5rem;
-		border: 1px solid var(--docs-border);
-		margin: 1rem 0;
+		border-radius: 0.875rem;
+		border: 1px solid var(--docs-glass-border);
+		margin: 1.5rem 0;
+		box-shadow:
+			0 4px 16px rgba(0, 0, 0, 0.08),
+			0 0 0 1px var(--docs-border);
+		transition: all 0.2s ease;
+	}
+
+	:global(.docs .prose img:hover) {
+		box-shadow:
+			0 0 20px var(--docs-glow),
+			0 8px 24px rgba(0, 0, 0, 0.12);
+		transform: scale(1.01);
 	}
 
 	:global(.docs .prose blockquote) {
-		border-left: 3px solid var(--docs-border);
-		padding-left: 1rem;
-		color: var(--docs-text-muted);
+		position: relative;
+		border: none;
+		padding: 1.25rem 1.5rem;
+		padding-left: 1.75rem;
+		color: var(--docs-text);
 		margin: 1.5rem 0;
+		background: var(--docs-glass-bg);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+		border-radius: 0.75rem;
+		box-shadow:
+			0 1px 0 var(--docs-inner-highlight) inset,
+			0 4px 12px rgba(0, 0, 0, 0.05);
+	}
+
+	:global(.docs .prose blockquote::before) {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 4px;
+		background: var(--docs-btn-gradient);
+		border-radius: 4px 0 0 4px;
+		box-shadow: 0 0 8px var(--docs-glow);
 	}
 
 	:global(.docs .prose hr) {
 		border: none;
-		border-top: 1px solid var(--docs-border);
-		margin: 2rem 0;
+		height: 1px;
+		background: linear-gradient(90deg, transparent, var(--docs-accent), transparent);
+		margin: 2.5rem 0;
+		opacity: 0.5;
 	}
 
 	:global(.docs .prose table) {
 		display: block;
 		width: 100%;
 		overflow-x: auto;
-		border-collapse: collapse;
+		border-collapse: separate;
+		border-spacing: 0;
 		margin: 1.5rem 0;
 		white-space: nowrap;
+		background: var(--docs-glass-bg);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+		border: 1px solid var(--docs-glass-border);
+		border-radius: 0.75rem;
+		box-shadow:
+			0 1px 0 var(--docs-inner-highlight) inset,
+			0 4px 12px rgba(0, 0, 0, 0.05);
 	}
 
 	:global(.docs .prose th),
 	:global(.docs .prose td) {
 		text-align: left;
-		padding: 0.5rem 0.75rem;
+		padding: 0.75rem 1rem;
 		border-bottom: 1px solid var(--docs-border);
 		font-size: 0.8125rem;
 	}
 
 	:global(.docs .prose th) {
-		font-weight: 600;
+		font-weight: 700;
+		background: var(--docs-surface);
+		color: var(--docs-text);
+		text-shadow: 0 1px 0 var(--docs-inner-highlight);
+	}
+
+	:global(.docs .prose tr:last-child td) {
+		border-bottom: none;
+	}
+
+	:global(.docs .prose tr:hover td) {
+		background: var(--docs-surface);
 	}
 
 	@media (max-width: 768px) {
