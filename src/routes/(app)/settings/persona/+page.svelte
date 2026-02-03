@@ -789,57 +789,71 @@
 				</div>
 			{/if}
 
-			<!-- Mood -->
+			<!-- Mood - Sims-style glossy card -->
 			<div class="mood-section">
 				<Tooltip content="Her emotional state right now, influenced by recent interactions and events.">
 					<span class="section-label">Current Mood</span>
 				</Tooltip>
-				<div class="mood-display" style="--mood-color: {moodInfo.color}">
-					<div class="mood-icon-lg">
-						<Icon name={moodInfo.icon} size={28} />
+				<div class="mood-card" style="--mood-color: {moodInfo.color}">
+					<div class="mood-icon-badge">
+						<Icon name={moodInfo.icon} size={24} />
+						<div class="mood-icon-shine"></div>
 					</div>
-					<div class="mood-text">
+					<div class="mood-info">
 						<span class="mood-name">{moodInfo.description}</span>
 						{#if charState.mood.causes.length > 0}
 							<span class="mood-cause">{charState.mood.causes[charState.mood.causes.length - 1]}</span>
 						{/if}
 					</div>
+					<div class="mood-indicator">
+						<div class="mood-pulse"></div>
+					</div>
 				</div>
 			</div>
 
-			<!-- Activity -->
+			<!-- Activity - Sims-style stat tiles -->
 			<div class="activity-section">
 				<span class="section-label">Activity</span>
 				<div class="activity-grid">
-					<div class="activity-item activity-item--streak">
-						<Icon name="flame" size={18} />
-						<span class="activity-value">{charState.currentStreak}</span>
-						<span class="activity-label">Streak</span>
+					<div class="activity-tile" style="--tile-color: #ff8f3f; --tile-glow: rgba(255, 143, 63, 0.4)">
+						<div class="activity-tile-icon">
+							<Icon name="flame" size={16} />
+						</div>
+						<span class="activity-tile-value">{charState.currentStreak}</span>
+						<span class="activity-tile-label">Streak</span>
 					</div>
-					<div class="activity-item activity-item--best">
-						<Icon name="trophy" size={18} />
-						<span class="activity-value">{charState.longestStreak}</span>
-						<span class="activity-label">Best</span>
+					<div class="activity-tile" style="--tile-color: #fbbf24; --tile-glow: rgba(251, 191, 36, 0.4)">
+						<div class="activity-tile-icon">
+							<Icon name="trophy" size={16} />
+						</div>
+						<span class="activity-tile-value">{charState.longestStreak}</span>
+						<span class="activity-tile-label">Best</span>
 					</div>
-					<div class="activity-item activity-item--chats">
-						<Icon name="message-circle" size={18} />
-						<span class="activity-value">{charState.totalInteractions}</span>
-						<span class="activity-label">Chats</span>
+					<div class="activity-tile" style="--tile-color: #4dd0ff; --tile-glow: rgba(77, 208, 255, 0.4)">
+						<div class="activity-tile-icon">
+							<Icon name="message-circle" size={16} />
+						</div>
+						<span class="activity-tile-value">{charState.totalInteractions}</span>
+						<span class="activity-tile-label">Chats</span>
 					</div>
-					<div class="activity-item activity-item--days">
-						<Icon name="calendar" size={18} />
-						<span class="activity-value">{charState.daysKnown}</span>
-						<span class="activity-label">Days</span>
+					<div class="activity-tile" style="--tile-color: #4ade80; --tile-glow: rgba(74, 222, 128, 0.4)">
+						<div class="activity-tile-icon">
+							<Icon name="calendar" size={16} />
+						</div>
+						<span class="activity-tile-value">{charState.daysKnown}</span>
+						<span class="activity-tile-label">Days</span>
 					</div>
 				</div>
 			</div>
 
-			<!-- Events (Dating Sim Mode only, collapsible) -->
+			<!-- Events (Dating Sim Mode only, collapsible) - Sims-style achievements -->
 			{#if isDatingSimMode}
 				<div class="events-section">
 					<button class="events-toggle" onclick={() => eventsExpanded = !eventsExpanded}>
-						<Icon name="star" size={16} />
-						<span>Events</span>
+						<div class="events-toggle-icon">
+							<Icon name="star" size={16} />
+						</div>
+						<span>Achievements</span>
 						{#if achievements.length > 0}
 							<span class="events-count">{achievements.length}</span>
 						{/if}
@@ -850,33 +864,36 @@
 						<div class="events-content">
 							{#if achievements.length > 0}
 								<div class="events-list">
-									{#each achievements as achievement}
+									{#each achievements as achievement, i}
 										{@const config = achievementConfig[achievement.type]}
 										<div
-											class="event-card"
-											style="--event-color: {config.color}; --event-bg: {config.bgColor}"
+											class="achievement-card"
+											style="--event-color: {config.color}; --event-bg: {config.bgColor}; --delay: {i}"
 										>
-											<div class="event-badge">
-												<Icon name={config.icon} size={16} />
+											<div class="achievement-badge">
+												<Icon name={config.icon} size={18} />
+												<div class="achievement-badge-shine"></div>
 											</div>
-											<div class="event-content">
-												<span class="event-name">{achievement.name}</span>
-												<div class="event-meta">
-													<span class="event-type">{config.label}</span>
-													<span class="event-date">{formatAchievementDate(achievement.completedAt)}</span>
+											<div class="achievement-info">
+												<span class="achievement-name">{achievement.name}</span>
+												<div class="achievement-meta">
+													<span class="achievement-type">{config.label}</span>
+													<span class="achievement-date">{formatAchievementDate(achievement.completedAt)}</span>
 												</div>
 											</div>
-											<div class="event-check">
-												<Icon name="check" size={12} strokeWidth={3} />
+											<div class="achievement-check">
+												<Icon name="check" size={14} strokeWidth={3} />
 											</div>
 										</div>
 									{/each}
 								</div>
 							{:else}
 								<div class="events-empty">
-									<Icon name="sparkles" size={24} />
-									<span>No events yet</span>
-									<span class="events-hint">Keep chatting to unlock special moments!</span>
+									<div class="empty-icon">
+										<Icon name="sparkles" size={28} />
+									</div>
+									<span class="empty-title">No achievements yet</span>
+									<span class="empty-hint">Keep chatting to unlock special moments!</span>
 								</div>
 							{/if}
 						</div>
@@ -1747,65 +1764,114 @@
 		width: 100%;
 	}
 
-	/* Mood Section */
+	/* Mood Section - Sims-style glossy card */
 	.mood-section {
 		padding: 1rem 1.25rem;
-		background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
-		border: 1px solid rgba(0, 0, 0, 0.08);
-		border-radius: 14px;
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.98) 0%,
+			rgba(250, 250, 252, 0.95) 50%,
+			rgba(245, 245, 248, 0.98) 100%
+		);
+		border: 1px solid rgba(0, 0, 0, 0.06);
+		border-radius: 16px;
 		box-shadow:
-			0 3px 10px rgba(0, 0, 0, 0.06),
-			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+			0 0 0 1px rgba(0, 0, 0, 0.04),
+			0 4px 16px rgba(0, 0, 0, 0.06),
+			inset 0 1px 0 rgba(255, 255, 255, 1);
 	}
 
 	:global(.dark) .mood-section {
-		background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+		background: linear-gradient(
+			180deg,
+			rgba(45, 45, 50, 0.98) 0%,
+			rgba(38, 38, 42, 0.95) 50%,
+			rgba(32, 32, 36, 0.98) 100%
+		);
 		border-color: rgba(255, 255, 255, 0.08);
 		box-shadow:
-			0 3px 10px rgba(0, 0, 0, 0.25),
-			inset 0 1px 0 rgba(255, 255, 255, 0.05);
+			0 0 0 1px rgba(0, 0, 0, 0.2),
+			0 4px 16px rgba(0, 0, 0, 0.25),
+			inset 0 1px 0 rgba(255, 255, 255, 0.08);
 	}
 
-	.mood-display {
+	.mood-card {
 		display: flex;
 		align-items: center;
-		gap: 0.75rem;
+		gap: 0.875rem;
+		padding: 0.75rem;
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.8) 0%,
+			rgba(250, 250, 252, 0.6) 100%
+		);
+		border: 1px solid rgba(0, 0, 0, 0.04);
+		border-radius: 12px;
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.8),
+			0 2px 8px rgba(0, 0, 0, 0.04);
 	}
 
-	.mood-icon-lg {
+	:global(.dark) .mood-card {
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.06) 0%,
+			rgba(255, 255, 255, 0.03) 100%
+		);
+		border-color: rgba(255, 255, 255, 0.06);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.05),
+			0 2px 8px rgba(0, 0, 0, 0.15);
+	}
+
+	.mood-icon-badge {
+		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: 48px;
 		height: 48px;
-		background: linear-gradient(180deg,
-			color-mix(in srgb, var(--mood-color, #01B2FF) 20%, white) 0%,
-			color-mix(in srgb, var(--mood-color, #01B2FF) 25%, transparent) 100%);
-		border-radius: 50%;
-		color: var(--mood-color, #01B2FF);
+		background: linear-gradient(
+			180deg,
+			color-mix(in srgb, var(--mood-color) 80%, white 40%) 0%,
+			var(--mood-color) 50%,
+			color-mix(in srgb, var(--mood-color) 80%, black 20%) 100%
+		);
+		border-radius: 12px;
+		color: white;
+		flex-shrink: 0;
 		box-shadow:
-			0 2px 6px color-mix(in srgb, var(--mood-color, #01B2FF) 25%, transparent),
-			inset 0 1px 0 rgba(255, 255, 255, 0.5);
+			0 4px 12px color-mix(in srgb, var(--mood-color) 50%, transparent),
+			inset 0 1px 0 rgba(255, 255, 255, 0.4),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+		overflow: hidden;
 	}
 
-	:global(.dark) .mood-icon-lg {
-		background: linear-gradient(180deg,
-			color-mix(in srgb, var(--mood-color, #01B2FF) 25%, transparent) 0%,
-			color-mix(in srgb, var(--mood-color, #01B2FF) 15%, transparent) 100%);
-		box-shadow:
-			0 2px 6px color-mix(in srgb, var(--mood-color, #01B2FF) 30%, transparent),
-			inset 0 1px 0 rgba(255, 255, 255, 0.1);
+	.mood-icon-shine {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 50%;
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.4) 0%,
+			rgba(255, 255, 255, 0) 100%
+		);
+		border-radius: 12px 12px 0 0;
+		pointer-events: none;
 	}
 
-	.mood-text {
+	.mood-info {
+		flex: 1;
 		display: flex;
 		flex-direction: column;
 		gap: 0.125rem;
 	}
 
 	.mood-name {
-		font-size: 0.9rem;
-		font-weight: 600;
+		font-size: 1rem;
+		font-weight: 700;
 		color: var(--text-primary);
 	}
 
@@ -1815,266 +1881,442 @@
 		font-style: italic;
 	}
 
-	/* Activity Section */
+	.mood-indicator {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.mood-pulse {
+		width: 10px;
+		height: 10px;
+		background: var(--mood-color);
+		border-radius: 50%;
+		animation: mood-pulse 2s ease-in-out infinite;
+		box-shadow: 0 0 8px var(--mood-color);
+	}
+
+	@keyframes mood-pulse {
+		0%, 100% {
+			transform: scale(1);
+			opacity: 1;
+		}
+		50% {
+			transform: scale(1.2);
+			opacity: 0.7;
+		}
+	}
+
+	/* Activity Section - Sims-style stat tiles */
 	.activity-section {
 		padding: 1rem 1.25rem;
-		background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
-		border: 1px solid rgba(0, 0, 0, 0.08);
-		border-radius: 14px;
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.98) 0%,
+			rgba(250, 250, 252, 0.95) 50%,
+			rgba(245, 245, 248, 0.98) 100%
+		);
+		border: 1px solid rgba(0, 0, 0, 0.06);
+		border-radius: 16px;
 		box-shadow:
-			0 3px 10px rgba(0, 0, 0, 0.06),
-			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+			0 0 0 1px rgba(0, 0, 0, 0.04),
+			0 4px 16px rgba(0, 0, 0, 0.06),
+			inset 0 1px 0 rgba(255, 255, 255, 1);
 	}
 
 	:global(.dark) .activity-section {
-		background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+		background: linear-gradient(
+			180deg,
+			rgba(45, 45, 50, 0.98) 0%,
+			rgba(38, 38, 42, 0.95) 50%,
+			rgba(32, 32, 36, 0.98) 100%
+		);
 		border-color: rgba(255, 255, 255, 0.08);
 		box-shadow:
-			0 3px 10px rgba(0, 0, 0, 0.25),
-			inset 0 1px 0 rgba(255, 255, 255, 0.05);
+			0 0 0 1px rgba(0, 0, 0, 0.2),
+			0 4px 16px rgba(0, 0, 0, 0.25),
+			inset 0 1px 0 rgba(255, 255, 255, 0.08);
 	}
 
 	.activity-grid {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		gap: 0.5rem;
+		gap: 0.625rem;
 	}
 
-	.activity-item {
+	.activity-tile {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.25rem;
-		padding: 0.75rem 0.5rem;
-		background: linear-gradient(180deg, #f8f8f8 0%, #f0f0f0 100%);
-		border: 1px solid rgba(0, 0, 0, 0.06);
-		border-radius: 12px;
-		transition: all 0.15s ease-out;
+		gap: 0.375rem;
+		padding: 0.875rem 0.5rem;
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.9) 0%,
+			rgba(250, 250, 252, 0.8) 100%
+		);
+		border: 1px solid rgba(0, 0, 0, 0.04);
+		border-radius: 14px;
+		transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 		box-shadow:
-			0 2px 4px rgba(0, 0, 0, 0.04),
+			0 2px 8px rgba(0, 0, 0, 0.04),
 			inset 0 1px 0 rgba(255, 255, 255, 0.9);
 	}
 
-	:global(.dark) .activity-item {
-		background: linear-gradient(180deg, #252525 0%, #1f1f1f 100%);
+	:global(.dark) .activity-tile {
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.08) 0%,
+			rgba(255, 255, 255, 0.04) 100%
+		);
 		border-color: rgba(255, 255, 255, 0.06);
 		box-shadow:
-			0 2px 4px rgba(0, 0, 0, 0.15),
+			0 2px 8px rgba(0, 0, 0, 0.15),
 			inset 0 1px 0 rgba(255, 255, 255, 0.05);
 	}
 
-	.activity-item:hover {
-		transform: translateY(-1px);
+	.activity-tile:hover {
+		transform: translateY(-3px);
 		box-shadow:
+			0 6px 16px var(--tile-glow),
 			0 4px 8px rgba(0, 0, 0, 0.08),
 			inset 0 1px 0 rgba(255, 255, 255, 0.9);
 	}
 
-	:global(.dark) .activity-item:hover {
+	:global(.dark) .activity-tile:hover {
 		box-shadow:
+			0 6px 16px var(--tile-glow),
 			0 4px 8px rgba(0, 0, 0, 0.25),
 			inset 0 1px 0 rgba(255, 255, 255, 0.08);
 	}
 
-	.activity-value {
-		font-size: 1.1rem;
+	.activity-tile-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 32px;
+		height: 32px;
+		background: linear-gradient(
+			180deg,
+			color-mix(in srgb, var(--tile-color) 80%, white 40%) 0%,
+			var(--tile-color) 50%,
+			color-mix(in srgb, var(--tile-color) 80%, black 20%) 100%
+		);
+		border-radius: 10px;
+		color: white;
+		box-shadow:
+			0 3px 8px var(--tile-glow),
+			inset 0 1px 0 rgba(255, 255, 255, 0.4),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+	}
+
+	.activity-tile-value {
+		font-size: 1.25rem;
 		font-weight: 700;
 		color: var(--text-primary);
+		line-height: 1.2;
 	}
 
-	.activity-label {
-		font-size: 0.65rem;
-		color: var(--text-tertiary);
+	.activity-tile-label {
+		font-size: 0.6rem;
+		font-weight: 600;
 		text-transform: uppercase;
-	}
-
-	/* Activity item colors - unified accent */
-	.activity-item--streak { color: #01B2FF; }
-	.activity-item--best { color: #01B2FF; }
-	.activity-item--chats { color: #01B2FF; }
-	.activity-item--days { color: #01B2FF; }
-
-	.activity-item .activity-value,
-	.activity-item .activity-label {
-		color: var(--text-primary);
-	}
-
-	.activity-item .activity-label {
+		letter-spacing: 0.03em;
 		color: var(--text-tertiary);
 	}
 
-	/* Events Section (collapsible) */
+	/* Events/Achievements Section - Sims-style */
 	.events-section {
-		background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
-		border: 1px solid rgba(0, 0, 0, 0.08);
-		border-radius: 14px;
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.98) 0%,
+			rgba(250, 250, 252, 0.95) 50%,
+			rgba(245, 245, 248, 0.98) 100%
+		);
+		border: 1px solid rgba(0, 0, 0, 0.06);
+		border-radius: 16px;
 		overflow: hidden;
 		box-shadow:
-			0 3px 10px rgba(0, 0, 0, 0.06),
-			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+			0 0 0 1px rgba(0, 0, 0, 0.04),
+			0 4px 16px rgba(0, 0, 0, 0.06),
+			inset 0 1px 0 rgba(255, 255, 255, 1);
 	}
 
 	:global(.dark) .events-section {
-		background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+		background: linear-gradient(
+			180deg,
+			rgba(45, 45, 50, 0.98) 0%,
+			rgba(38, 38, 42, 0.95) 50%,
+			rgba(32, 32, 36, 0.98) 100%
+		);
 		border-color: rgba(255, 255, 255, 0.08);
 		box-shadow:
-			0 3px 10px rgba(0, 0, 0, 0.25),
-			inset 0 1px 0 rgba(255, 255, 255, 0.05);
+			0 0 0 1px rgba(0, 0, 0, 0.2),
+			0 4px 16px rgba(0, 0, 0, 0.25),
+			inset 0 1px 0 rgba(255, 255, 255, 0.08);
 	}
 
 	.events-toggle {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: 0.625rem;
 		width: 100%;
-		padding: 0.875rem 1rem;
+		padding: 1rem 1.25rem;
 		background: transparent;
 		border: none;
 		color: var(--text-secondary);
-		font-size: 0.875rem;
-		font-weight: 500;
+		font-size: 0.9rem;
+		font-weight: 600;
 		cursor: pointer;
 		transition: all 0.15s ease-out;
 	}
 
 	.events-toggle:hover {
-		background: rgba(0, 0, 0, 0.03);
+		background: rgba(0, 0, 0, 0.02);
 	}
 
 	:global(.dark) .events-toggle:hover {
-		background: rgba(255, 255, 255, 0.03);
+		background: rgba(255, 255, 255, 0.02);
 	}
 
-	.events-toggle span:first-of-type {
-		flex: 1;
-		text-align: left;
-	}
-
-	.events-count {
-		font-size: 0.65rem;
-		font-weight: 600;
-		color: white;
-		background: linear-gradient(180deg, #4dd0ff 0%, #01B2FF 100%);
-		padding: 0.1875rem 0.5rem;
-		border-radius: 1rem;
-		box-shadow:
-			0 1px 4px rgba(1, 178, 255, 0.3),
-			inset 0 1px 0 rgba(255, 255, 255, 0.3);
-	}
-
-	.events-content {
-		padding: 0 1rem 1rem;
-	}
-
-	.events-list {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
-	.event-card {
-		display: flex;
-		align-items: center;
-		gap: 0.625rem;
-		padding: 0.625rem 0.875rem;
-		background: linear-gradient(180deg, #f8f8f8 0%, #f0f0f0 100%);
-		border: 1px solid rgba(0, 0, 0, 0.06);
-		border-radius: 12px;
-		border-left: 3px solid var(--event-color);
-		transition: all 0.15s ease-out;
-		box-shadow:
-			0 2px 4px rgba(0, 0, 0, 0.04),
-			inset 0 1px 0 rgba(255, 255, 255, 0.9);
-	}
-
-	:global(.dark) .event-card {
-		background: linear-gradient(180deg, #252525 0%, #1f1f1f 100%);
-		border-color: rgba(255, 255, 255, 0.06);
-		box-shadow:
-			0 2px 4px rgba(0, 0, 0, 0.15),
-			inset 0 1px 0 rgba(255, 255, 255, 0.05);
-	}
-
-	.event-card:hover {
-		transform: translateY(-1px);
-		box-shadow:
-			0 4px 8px rgba(0, 0, 0, 0.08),
-			inset 0 1px 0 rgba(255, 255, 255, 0.9);
-	}
-
-	:global(.dark) .event-card:hover {
-		box-shadow:
-			0 4px 8px rgba(0, 0, 0, 0.25),
-			inset 0 1px 0 rgba(255, 255, 255, 0.08);
-	}
-
-	.event-badge {
+	.events-toggle-icon {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: 28px;
 		height: 28px;
-		background: linear-gradient(180deg,
-			color-mix(in srgb, var(--event-bg) 20%, white) 0%,
-			color-mix(in srgb, var(--event-bg) 25%, transparent) 100%);
+		background: linear-gradient(180deg, #ffd966 0%, #fbbf24 50%, #f59e0b 100%);
 		border-radius: 8px;
-		color: var(--event-color);
+		color: white;
+		box-shadow:
+			0 3px 8px rgba(251, 191, 36, 0.4),
+			inset 0 1px 0 rgba(255, 255, 255, 0.4),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+	}
+
+	.events-toggle span {
+		flex: 1;
+		text-align: left;
+	}
+
+	.events-count {
+		font-size: 0.7rem;
+		font-weight: 700;
+		color: white;
+		background: linear-gradient(180deg, #4dd0ff 0%, #01B2FF 100%);
+		padding: 0.25rem 0.625rem;
+		border-radius: 1rem;
+		box-shadow:
+			0 2px 6px rgba(1, 178, 255, 0.4),
+			inset 0 1px 0 rgba(255, 255, 255, 0.3);
+	}
+
+	.events-content {
+		padding: 0 1rem 1.25rem;
+	}
+
+	.events-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.625rem;
+	}
+
+	.achievement-card {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.875rem 1rem;
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.9) 0%,
+			rgba(250, 250, 252, 0.8) 100%
+		);
+		border: 1px solid rgba(0, 0, 0, 0.04);
+		border-radius: 14px;
+		transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+		box-shadow:
+			0 2px 8px rgba(0, 0, 0, 0.04),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+		animation: achievement-slide 0.3s ease-out backwards;
+		animation-delay: calc(var(--delay) * 50ms);
+	}
+
+	@keyframes achievement-slide {
+		from {
+			opacity: 0;
+			transform: translateX(-10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	:global(.dark) .achievement-card {
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.08) 0%,
+			rgba(255, 255, 255, 0.04) 100%
+		);
+		border-color: rgba(255, 255, 255, 0.06);
+		box-shadow:
+			0 2px 8px rgba(0, 0, 0, 0.15),
+			inset 0 1px 0 rgba(255, 255, 255, 0.05);
+	}
+
+	.achievement-card:hover {
+		transform: translateY(-2px) translateX(4px);
+		box-shadow:
+			0 6px 16px color-mix(in srgb, var(--event-color) 30%, transparent),
+			0 4px 8px rgba(0, 0, 0, 0.08),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+	}
+
+	:global(.dark) .achievement-card:hover {
+		box-shadow:
+			0 6px 16px color-mix(in srgb, var(--event-color) 30%, transparent),
+			0 4px 8px rgba(0, 0, 0, 0.25),
+			inset 0 1px 0 rgba(255, 255, 255, 0.08);
+	}
+
+	.achievement-badge {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		background: linear-gradient(
+			180deg,
+			color-mix(in srgb, var(--event-color) 80%, white 40%) 0%,
+			var(--event-color) 50%,
+			color-mix(in srgb, var(--event-color) 80%, black 20%) 100%
+		);
+		border-radius: 12px;
+		color: white;
 		flex-shrink: 0;
 		box-shadow:
-			0 1px 3px color-mix(in srgb, var(--event-bg) 25%, transparent),
-			inset 0 1px 0 rgba(255, 255, 255, 0.5);
+			0 4px 12px color-mix(in srgb, var(--event-color) 50%, transparent),
+			inset 0 1px 0 rgba(255, 255, 255, 0.4),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+		overflow: hidden;
 	}
 
-	:global(.dark) .event-badge {
-		background: linear-gradient(180deg,
-			color-mix(in srgb, var(--event-bg) 30%, transparent) 0%,
-			color-mix(in srgb, var(--event-bg) 20%, transparent) 100%);
-		box-shadow:
-			0 1px 3px color-mix(in srgb, var(--event-bg) 30%, transparent),
-			inset 0 1px 0 rgba(255, 255, 255, 0.1);
+	.achievement-badge-shine {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 50%;
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.4) 0%,
+			rgba(255, 255, 255, 0) 100%
+		);
+		border-radius: 12px 12px 0 0;
+		pointer-events: none;
 	}
 
-	.event-content {
+	.achievement-info {
 		flex: 1;
 		min-width: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 0.125rem;
+		gap: 0.25rem;
 	}
 
-	.event-name {
-		font-size: 0.8rem;
-		font-weight: 500;
+	.achievement-name {
+		font-size: 0.875rem;
+		font-weight: 600;
 		color: var(--text-primary);
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 
-	.event-meta {
+	.achievement-meta {
 		display: flex;
 		align-items: center;
-		gap: 0.375rem;
-		font-size: 0.65rem;
+		gap: 0.5rem;
+		font-size: 0.7rem;
 	}
 
-	.event-type {
+	.achievement-type {
 		color: var(--event-color);
-		font-weight: 500;
+		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 0.03em;
 	}
 
-	.event-date {
+	.achievement-date {
 		color: var(--text-tertiary);
 	}
 
-	.event-date::before {
+	.achievement-date::before {
 		content: '•';
-		margin-right: 0.375rem;
+		margin-right: 0.5rem;
 		opacity: 0.5;
 	}
 
+	.achievement-check {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 26px;
+		height: 26px;
+		background: linear-gradient(180deg, #4ade80 0%, #22c55e 50%, #16a34a 100%);
+		border-radius: 50%;
+		color: white;
+		flex-shrink: 0;
+		box-shadow:
+			0 3px 8px rgba(34, 197, 94, 0.4),
+			inset 0 1px 0 rgba(255, 255, 255, 0.4);
+	}
+
+	.events-empty {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.625rem;
+		padding: 2rem 1rem;
+		text-align: center;
+	}
+
+	.empty-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 56px;
+		height: 56px;
+		background: linear-gradient(
+			180deg,
+			rgba(0, 0, 0, 0.04) 0%,
+			rgba(0, 0, 0, 0.02) 100%
+		);
+		border-radius: 16px;
+		color: var(--text-tertiary);
+	}
+
+	:global(.dark) .empty-icon {
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.06) 0%,
+			rgba(255, 255, 255, 0.03) 100%
+		);
+	}
+
+	.empty-title {
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: var(--text-secondary);
+	}
+
+	.empty-hint {
+		font-size: 0.75rem;
+		color: var(--text-tertiary);
+	}
+
+	/* Legacy event-check for backwards compatibility */
 	.event-check {
 		display: flex;
 		align-items: center;
