@@ -76,22 +76,34 @@
 		justify-content: space-between;
 		width: 100%;
 		padding: 0.625rem 0.875rem;
-		background: var(--color-neutral-50);
-		border: 2px solid var(--color-neutral-200);
+		background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
+		border: 1px solid rgba(0, 0, 0, 0.08);
 		border-radius: 0.625rem;
-		color: var(--color-neutral-900);
+		color: var(--text-primary);
 		font-size: 0.875rem;
 		cursor: pointer;
 		transition: all 0.15s ease-out;
 		outline: none;
+		box-shadow:
+			0 2px 6px rgba(0, 0, 0, 0.06),
+			0 1px 2px rgba(0, 0, 0, 0.04),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
 	}
 
 	:global(.select-trigger:hover:not(:disabled)) {
-		border-color: var(--color-neutral-300);
+		background: linear-gradient(180deg, #f8f8f8 0%, #f0f0f0 100%);
+		box-shadow:
+			0 3px 8px rgba(0, 0, 0, 0.08),
+			0 1px 3px rgba(0, 0, 0, 0.05),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
 	}
 
 	:global(.select-trigger:focus-visible) {
-		border-color: var(--color-primary-400);
+		border-color: #01B2FF;
+		box-shadow:
+			0 2px 6px rgba(0, 0, 0, 0.06),
+			0 0 0 3px rgba(1, 178, 255, 0.15),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
 	}
 
 	:global(.select-trigger[data-disabled]) {
@@ -100,13 +112,17 @@
 	}
 
 	:global(.dark .select-trigger) {
-		background: var(--color-neutral-900);
-		border-color: var(--color-neutral-700);
-		color: var(--color-neutral-100);
+		background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+		border-color: rgba(255, 255, 255, 0.08);
+		color: var(--text-primary);
+		box-shadow:
+			0 2px 6px rgba(0, 0, 0, 0.25),
+			0 1px 2px rgba(0, 0, 0, 0.15),
+			inset 0 1px 0 rgba(255, 255, 255, 0.06);
 	}
 
 	:global(.dark .select-trigger:hover:not(:disabled)) {
-		border-color: var(--color-neutral-600);
+		background: linear-gradient(180deg, #333333 0%, #282828 100%);
 	}
 
 	:global(.select-value.placeholder) {
@@ -127,19 +143,24 @@
 		min-width: 12rem;
 		max-height: 20rem;
 		overflow-y: auto;
-		background: var(--color-neutral-50);
-		border: 2px solid var(--color-neutral-200);
-		border-radius: 0.625rem;
+		background: linear-gradient(180deg, #ffffff 0%, #f8f8f8 100%);
+		border: 1px solid rgba(0, 0, 0, 0.1);
+		border-radius: 0.75rem;
 		padding: 0.375rem;
 		box-shadow:
-			0 10px 38px -10px rgba(0, 0, 0, 0.15),
-			0 10px 20px -15px rgba(0, 0, 0, 0.1);
+			0 8px 24px rgba(0, 0, 0, 0.15),
+			0 4px 8px rgba(0, 0, 0, 0.08),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
 		animation: select-in 0.15s ease-out;
 	}
 
 	:global(.dark .select-content) {
-		background: var(--color-neutral-900);
-		border-color: var(--color-neutral-700);
+		background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+		border-color: rgba(255, 255, 255, 0.1);
+		box-shadow:
+			0 8px 24px rgba(0, 0, 0, 0.4),
+			0 4px 8px rgba(0, 0, 0, 0.25),
+			inset 0 1px 0 rgba(255, 255, 255, 0.06);
 	}
 
 	@keyframes select-in {
@@ -168,7 +189,7 @@
 
 	:global(.select-item:hover),
 	:global(.select-item[data-highlighted]) {
-		background: var(--color-neutral-100);
+		background: linear-gradient(180deg, rgba(1, 178, 255, 0.08) 0%, rgba(1, 178, 255, 0.12) 100%);
 	}
 
 	:global(.select-item[data-state='checked']) {
@@ -187,7 +208,7 @@
 
 	:global(.dark .select-item:hover),
 	:global(.dark .select-item[data-highlighted]) {
-		background: var(--color-neutral-800);
+		background: linear-gradient(180deg, rgba(1, 178, 255, 0.1) 0%, rgba(1, 178, 255, 0.15) 100%);
 	}
 
 	:global(.dark .select-item[data-state='checked']) {

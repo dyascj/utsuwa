@@ -42,15 +42,34 @@
 	}
 
 	.user .bubble {
-		background: #01B2FF;
+		background: linear-gradient(180deg, #4dd0ff 0%, #01B2FF 60%, #0099dd 100%);
 		color: white;
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 		border-bottom-right-radius: 0.25rem;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		box-shadow:
+			0 3px 10px rgba(1, 178, 255, 0.3),
+			0 1px 3px rgba(0, 0, 0, 0.1),
+			inset 0 1px 0 rgba(255, 255, 255, 0.3);
 	}
 
 	.assistant .bubble {
-		background: var(--bg-secondary);
+		background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
 		color: var(--text-primary);
 		border-bottom-left-radius: 0.25rem;
-		border: 1px solid var(--border-light);
+		border: 1px solid rgba(0, 0, 0, 0.06);
+		box-shadow:
+			0 2px 8px rgba(0, 0, 0, 0.06),
+			0 1px 2px rgba(0, 0, 0, 0.04),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+	}
+
+	:global(.dark) .assistant .bubble {
+		background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+		border-color: rgba(255, 255, 255, 0.08);
+		box-shadow:
+			0 2px 8px rgba(0, 0, 0, 0.25),
+			0 1px 2px rgba(0, 0, 0, 0.15),
+			inset 0 1px 0 rgba(255, 255, 255, 0.06);
 	}
 </style>
