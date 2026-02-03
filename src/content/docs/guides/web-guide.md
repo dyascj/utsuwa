@@ -75,4 +75,4 @@ All data is stored locally in your browser.
 
 ## Themes
 
-Utsuwa supports multiple color themes with light and dark modes. Go to **Settings > Display** to change your theme.
+Utsuwa supports light and dark modes with automatic system preference detection. Go to **Settings > Display** to change your appearance mode.

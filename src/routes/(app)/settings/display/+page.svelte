@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { Icon } from '$lib/components/ui';
-	import { themeStore, THEMES } from '$lib/stores/theme.svelte';
 	import { displayStore } from '$lib/stores/display.svelte';
 
 	type ColorMode = 'system' | 'light' | 'dark';
@@ -53,21 +52,6 @@
 		mediaQuery.addEventListener('change', handler);
 		return () => mediaQuery.removeEventListener('change', handler);
 	});
-
-	function selectTheme(themeId: string) {
-		themeStore.setTheme(themeId);
-	}
-
-	// Get preview colors for a theme based on current mode
-	function getPreviewColors(theme: typeof THEMES[0]) {
-		return [
-			theme.colors.accent,
-			theme.colors.green,
-			theme.colors.blue,
-			theme.colors.yellow,
-			theme.colors.mauve
-		];
-	}
 </script>
 
 <div class="page">
@@ -111,37 +95,6 @@
 						<span>Dark</span>
 					</button>
 				</div>
-			</div>
-		</section>
-
-		<!-- Color Theme Selector -->
-		<section class="section">
-			<h3>Color Theme</h3>
-			<div class="theme-grid">
-				{#each THEMES as theme (theme.id)}
-					<button
-						class="theme-card"
-						class:selected={themeStore.currentThemeId === theme.id}
-						onclick={() => selectTheme(theme.id)}
-					>
-						<div class="theme-content">
-							<div class="theme-info">
-								<span class="theme-name">{theme.name}</span>
-								<span class="theme-desc">{theme.description}</span>
-							</div>
-							<div class="theme-colors">
-								{#each getPreviewColors(theme) as color}
-									<span class="color-dot" style="background: {color}"></span>
-								{/each}
-							</div>
-						</div>
-						{#if themeStore.currentThemeId === theme.id}
-							<div class="selected-badge">
-								<Icon name="check" size={14} strokeWidth={3} />
-							</div>
-						{/if}
-					</button>
-				{/each}
 			</div>
 		</section>
 
@@ -318,133 +271,6 @@
 			inset 0 1px 0 rgba(255, 255, 255, 0.08);
 	}
 
-	/* Theme Grid */
-	.theme-grid {
-		display: flex;
-		flex-direction: column;
-		gap: 0.75rem;
-	}
-
-	.theme-card {
-		position: relative;
-		display: flex;
-		align-items: center;
-		padding: 1rem 1.25rem;
-		background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
-		border: 2px solid rgba(0, 0, 0, 0.06);
-		border-radius: 14px;
-		cursor: pointer;
-		transition: all 0.15s ease-out;
-		text-align: left;
-		font-family: inherit;
-		box-shadow:
-			0 3px 10px rgba(0, 0, 0, 0.06),
-			0 1px 3px rgba(0, 0, 0, 0.04),
-			inset 0 1px 0 rgba(255, 255, 255, 0.9);
-	}
-
-	:global(.dark) .theme-card {
-		background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
-		border-color: rgba(255, 255, 255, 0.08);
-		box-shadow:
-			0 3px 10px rgba(0, 0, 0, 0.25),
-			0 1px 3px rgba(0, 0, 0, 0.15),
-			inset 0 1px 0 rgba(255, 255, 255, 0.05);
-	}
-
-	.theme-card:hover {
-		transform: translateY(-2px);
-		border-color: rgba(0, 0, 0, 0.1);
-		box-shadow:
-			0 6px 16px rgba(0, 0, 0, 0.1),
-			0 2px 6px rgba(0, 0, 0, 0.06),
-			inset 0 1px 0 rgba(255, 255, 255, 0.9);
-	}
-
-	:global(.dark) .theme-card:hover {
-		border-color: rgba(255, 255, 255, 0.12);
-		box-shadow:
-			0 6px 16px rgba(0, 0, 0, 0.35),
-			0 2px 6px rgba(0, 0, 0, 0.2),
-			inset 0 1px 0 rgba(255, 255, 255, 0.08);
-	}
-
-	.theme-card.selected {
-		border-color: rgba(1, 178, 255, 0.5);
-		background: linear-gradient(180deg, #e8f7ff 0%, #d8f0ff 100%);
-		box-shadow:
-			0 3px 12px rgba(1, 178, 255, 0.2),
-			0 1px 3px rgba(1, 178, 255, 0.1),
-			0 0 0 2px rgba(1, 178, 255, 0.15),
-			inset 0 1px 0 rgba(255, 255, 255, 0.9);
-	}
-
-	:global(.dark) .theme-card.selected {
-		background: linear-gradient(180deg, #1a3040 0%, #152530 100%);
-		box-shadow:
-			0 3px 12px rgba(1, 178, 255, 0.25),
-			0 1px 3px rgba(1, 178, 255, 0.15),
-			0 0 0 2px rgba(1, 178, 255, 0.2),
-			inset 0 1px 0 rgba(255, 255, 255, 0.05);
-	}
-
-	.theme-content {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		flex: 1;
-		gap: 1rem;
-	}
-
-	.theme-info {
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-	}
-
-	.theme-name {
-		font-weight: 600;
-		font-size: 0.9rem;
-		color: var(--text-primary);
-	}
-
-	.theme-desc {
-		font-size: 0.75rem;
-		color: var(--text-tertiary);
-	}
-
-	.theme-colors {
-		display: flex;
-		gap: 0.375rem;
-		flex-shrink: 0;
-	}
-
-	.color-dot {
-		width: 20px;
-		height: 20px;
-		border-radius: 50%;
-		box-shadow:
-			0 2px 4px rgba(0, 0, 0, 0.15),
-			inset 0 1px 0 rgba(255, 255, 255, 0.3);
-	}
-
-	.selected-badge {
-		position: absolute;
-		top: 0.75rem;
-		right: 0.75rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 24px;
-		height: 24px;
-		background: linear-gradient(180deg, #4dd0ff 0%, #01B2FF 100%);
-		color: white;
-		border-radius: 50%;
-		box-shadow:
-			0 2px 6px rgba(1, 178, 255, 0.4),
-			inset 0 1px 0 rgba(255, 255, 255, 0.3);
-	}
-
 	/* Slider - Skeuomorphic */
 	.slider-container {
 		display: flex;
@@ -553,35 +379,4 @@
 		}
 	}
 
-	@media (max-width: 480px) {
-		.theme-card {
-			padding: 0.875rem;
-		}
-
-		.theme-content {
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 0.625rem;
-		}
-
-		.theme-colors {
-			align-self: flex-start;
-		}
-
-		.color-dot {
-			width: 18px;
-			height: 18px;
-		}
-
-		.theme-name {
-			font-size: 0.875rem;
-		}
-
-		.selected-badge {
-			top: 0.625rem;
-			right: 0.625rem;
-			width: 22px;
-			height: 22px;
-		}
-	}
 </style>

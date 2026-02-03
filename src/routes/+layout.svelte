@@ -3,7 +3,6 @@
 	import { browser } from '$app/environment';
 	import { modulesStore } from '$lib/stores/modules.svelte';
 	import { moduleRegistry } from '$lib/services/modules';
-	import { themeStore } from '$lib/stores/theme.svelte';
 
 	let { children } = $props();
 
@@ -12,8 +11,6 @@
 			modulesStore.registerModule(mod);
 		}
 	}
-
-	const _theme = themeStore.currentThemeId;
 </script>
 
 <svelte:head>
