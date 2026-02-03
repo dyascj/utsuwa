@@ -3,13 +3,6 @@
 </script>
 
 <div class="hero">
-	<!-- Animated gradient orbs -->
-	<div class="orb-container">
-		<div class="orb orb-1"></div>
-		<div class="orb orb-2"></div>
-		<div class="orb orb-3"></div>
-	</div>
-
 	<div class="hero-content">
 		<DocsVersionChip />
 		<img src="/brand-assets/logo.svg" alt="Utsuwa" class="hero-logo" />
@@ -33,61 +26,6 @@
 		text-align: center;
 		position: relative;
 		overflow: hidden;
-	}
-
-	.orb-container {
-		position: absolute;
-		inset: 0;
-		pointer-events: none;
-		overflow: hidden;
-	}
-
-	.orb {
-		position: absolute;
-		border-radius: 50%;
-		filter: blur(80px);
-		opacity: 0.35;
-		animation: float 8s ease-in-out infinite;
-	}
-
-	.orb-1 {
-		width: 350px;
-		height: 350px;
-		background: radial-gradient(circle at 30% 30%, #4dd0ff 0%, #01B2FF 50%, #0088cc 100%);
-		top: 10%;
-		left: 50%;
-		transform: translateX(-50%);
-		animation-delay: 0s;
-	}
-
-	.orb-2 {
-		width: 280px;
-		height: 280px;
-		background: radial-gradient(circle at 30% 30%, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
-		top: 30%;
-		left: 20%;
-		animation-delay: -2.5s;
-	}
-
-	.orb-3 {
-		width: 220px;
-		height: 220px;
-		background: radial-gradient(circle at 30% 30%, #22d3ee 0%, #06b6d4 50%, #0891b2 100%);
-		top: 25%;
-		right: 15%;
-		animation-delay: -5s;
-	}
-
-	@keyframes float {
-		0%, 100% {
-			transform: translate(0, 0) scale(1);
-		}
-		33% {
-			transform: translate(20px, -20px) scale(1.05);
-		}
-		66% {
-			transform: translate(-15px, 10px) scale(0.95);
-		}
 	}
 
 	.hero-content {
@@ -197,8 +135,5 @@
 			justify-content: center;
 		}
 
-		.orb {
-			opacity: 0.3;
-		}
 	}
 </style>
