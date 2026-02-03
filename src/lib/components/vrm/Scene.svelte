@@ -111,36 +111,45 @@ import { EffectComposer, RenderPass, EffectPass, BloomEffect } from 'postprocess
 		});
 	});
 
-	onMount(() => {
+	// Set up post-processing when camera is ready
+	$effect(() => {
+		if (!renderer || !scene || !camera.current) return;
+
 		// Configure renderer for vibrant colors
-		if (renderer) {
-			renderer.outputColorSpace = SRGBColorSpace;
-			renderer.toneMapping = ACESFilmicToneMapping;
-			renderer.toneMappingExposure = 1.0;
-		}
+		renderer.outputColorSpace = SRGBColorSpace;
+		renderer.toneMapping = ACESFilmicToneMapping;
+		renderer.toneMappingExposure = 1.0;
 
-		// Set up post-processing with bloom
-		if (renderer && scene && camera.current) {
-			// Disable Threlte's auto-render so we can use the composer
-			autoRender.set(false);
+		// Disable Threlte's auto-render so we can use the composer
+		autoRender.set(false);
 
-			composer = new EffectComposer(renderer, {
-				frameBufferType: HalfFloatType
-			});
+		// Create new composer
+		composer = new EffectComposer(renderer, {
+			frameBufferType: HalfFloatType
+		});
 
-			// Add render pass
-			composer.addPass(new RenderPass(scene, camera.current));
+		// Add render pass
+		composer.addPass(new RenderPass(scene, camera.current));
 
-			// Add bloom effect - subtle glow on bright areas
-			const bloomEffect = new BloomEffect({
-				intensity: 0.5,
-				luminanceThreshold: 0.8,
-				luminanceSmoothing: 0.3,
-				mipmapBlur: true
-			});
-			composer.addPass(new EffectPass(camera.current, bloomEffect));
-		}
+		// Add bloom effect - subtle glow on bright areas
+		const bloomEffect = new BloomEffect({
+			intensity: 0.5,
+			luminanceThreshold: 0.8,
+			luminanceSmoothing: 0.3,
+			mipmapBlur: true
+		});
+		composer.addPass(new EffectPass(camera.current, bloomEffect));
 
+		// Set initial size
+		composer.setSize(renderer.domElement.clientWidth, renderer.domElement.clientHeight);
+
+		return () => {
+			composer?.dispose();
+			composer = null;
+		};
+	});
+
+	onMount(() => {
 		const checkDesktop = () => {
 			isDesktop = window.innerWidth > 768;
 		};
@@ -182,7 +191,6 @@ import { EffectComposer, RenderPass, EffectPass, BloomEffect } from 'postprocess
 			window.removeEventListener('resize', handleResize);
 			observer.disconnect();
 			screenshotStore.unregister();
-			composer?.dispose();
 		};
 	});
 
