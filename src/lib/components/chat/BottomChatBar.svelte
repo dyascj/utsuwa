@@ -17,7 +17,7 @@
 	const displayTranscript = $derived(sttStore.displayTranscript);
 	const sttError = $derived(sttStore.error);
 
-	// Track if there's content to send (for orb/send morphing)
+	// Track if there's content to send
 	const hasContent = $derived(inputValue.trim().length > 0 || displayTranscript.trim().length > 0);
 
 	function handleSubmit(e: SubmitEvent) {
@@ -71,7 +71,6 @@
 
 	function handleSendClick() {
 		if (isListening && displayTranscript.trim()) {
-			// Send the current transcript and stop listening
 			const text = displayTranscript.trim();
 			sttStore.cancel();
 			onSend(text);
@@ -97,7 +96,7 @@
 
 <div class="bottom-chat-bar">
 	<form class="chat-form" onsubmit={handleSubmit}>
-		<div class="input-wrapper" class:recording={isListening}>
+		<div class="input-wrapper" class:recording={isListening} class:focused={hasContent}>
 			{#if isListening}
 				<button
 					type="button"
@@ -137,14 +136,10 @@
 				disabled={disabled || !hasContent}
 				aria-label={hasContent ? "Send message" : "Waiting for input"}
 			>
-				<span class="orb-container">
-					<span class="orb orb-blue"></span>
-					<span class="orb orb-purple"></span>
-					<span class="orb orb-pink"></span>
-				</span>
 				<span class="send-icon">
 					<Icon name="send" size={20} />
 				</span>
+				<span class="btn-shine"></span>
 			</button>
 		</div>
 	</form>
@@ -173,15 +168,18 @@
 		padding: 0.75rem 1rem;
 		width: fit-content;
 		max-width: 600px;
-		background: var(--color-error);
-		backdrop-filter: blur(8px);
-		-webkit-backdrop-filter: blur(8px);
-		border-radius: var(--radius-md);
+		background: linear-gradient(180deg, #ff6b6b 0%, #ee5a5a 100%);
+		border: 1px solid rgba(0, 0, 0, 0.1);
+		border-radius: 16px;
 		color: white;
 		font-size: 0.875rem;
 		cursor: pointer;
 		z-index: 50;
 		animation: slideDownShake 0.5s ease-out;
+		box-shadow:
+			0 4px 20px rgba(238, 90, 90, 0.4),
+			inset 0 1px 0 rgba(255, 255, 255, 0.3);
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 	}
 
 	@keyframes slideDownShake {
@@ -216,77 +214,121 @@
 	}
 
 	.dismiss-btn {
-		background: none;
+		background: rgba(255, 255, 255, 0.2);
 		border: none;
 		padding: 0.25rem;
+		border-radius: 6px;
 		cursor: pointer;
 		color: white;
-		opacity: 0.8;
+		opacity: 0.9;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		transition: all 0.15s ease;
 	}
 
 	.dismiss-btn:hover {
 		opacity: 1;
+		background: rgba(255, 255, 255, 0.3);
 	}
 
 	.chat-form {
 		width: 100%;
 	}
 
+	/* PS2/Y2K style glossy input wrapper */
 	.input-wrapper {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		background: linear-gradient(180deg, #ffffff 0%, #f8f8f8 100%);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
-		border: 1px solid rgba(0, 0, 0, 0.1);
-		border-radius: var(--radius-full);
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.98) 0%,
+			rgba(250, 250, 252, 0.95) 50%,
+			rgba(245, 245, 248, 0.98) 100%
+		);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border: 2px solid rgba(255, 255, 255, 0.8);
+		border-radius: 28px;
 		padding: 0.5rem;
 		min-height: 56px;
+		/* Layered shadows for depth */
 		box-shadow:
-			0 4px 16px rgba(0, 0, 0, 0.1),
-			0 2px 6px rgba(0, 0, 0, 0.06),
-			inset 0 1px 0 rgba(255, 255, 255, 0.9);
-		transition: border-color 0.2s, box-shadow 0.2s;
+			0 0 0 1px rgba(0, 0, 0, 0.06),
+			0 4px 20px rgba(0, 0, 0, 0.08),
+			0 8px 32px rgba(0, 0, 0, 0.06),
+			inset 0 1px 0 rgba(255, 255, 255, 1),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+		transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	:global(.dark) .input-wrapper {
-		background: linear-gradient(180deg, #252525 0%, #1a1a1a 100%);
+		background: linear-gradient(
+			180deg,
+			rgba(45, 45, 50, 0.98) 0%,
+			rgba(38, 38, 42, 0.95) 50%,
+			rgba(32, 32, 36, 0.98) 100%
+		);
 		border-color: rgba(255, 255, 255, 0.1);
 		box-shadow:
-			0 4px 16px rgba(0, 0, 0, 0.4),
-			0 2px 6px rgba(0, 0, 0, 0.3),
-			inset 0 1px 0 rgba(255, 255, 255, 0.05);
+			0 0 0 1px rgba(0, 0, 0, 0.3),
+			0 4px 20px rgba(0, 0, 0, 0.3),
+			0 8px 32px rgba(0, 0, 0, 0.2),
+			inset 0 1px 0 rgba(255, 255, 255, 0.08),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.2);
 	}
 
-	.input-wrapper:focus-within {
-		border-color: #01B2FF;
+	.input-wrapper:focus-within,
+	.input-wrapper.focused {
+		border-color: rgba(1, 178, 255, 0.5);
 		box-shadow:
-			0 4px 16px rgba(0, 0, 0, 0.1),
-			0 2px 6px rgba(0, 0, 0, 0.06),
-			0 0 0 3px rgba(1, 178, 255, 0.2),
-			0 0 20px rgba(1, 178, 255, 0.15),
-			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+			0 0 0 1px rgba(1, 178, 255, 0.2),
+			0 0 0 4px rgba(1, 178, 255, 0.1),
+			0 4px 20px rgba(0, 0, 0, 0.08),
+			0 0 30px rgba(1, 178, 255, 0.15),
+			inset 0 1px 0 rgba(255, 255, 255, 1);
 	}
 
-	:global(.dark) .input-wrapper:focus-within {
+	:global(.dark) .input-wrapper:focus-within,
+	:global(.dark) .input-wrapper.focused {
+		border-color: rgba(1, 178, 255, 0.4);
 		box-shadow:
-			0 4px 16px rgba(0, 0, 0, 0.4),
-			0 0 0 3px rgba(1, 178, 255, 0.25),
-			0 0 24px rgba(1, 178, 255, 0.2),
-			inset 0 1px 0 rgba(255, 255, 255, 0.05);
+			0 0 0 1px rgba(1, 178, 255, 0.3),
+			0 0 0 4px rgba(1, 178, 255, 0.15),
+			0 4px 20px rgba(0, 0, 0, 0.3),
+			0 0 40px rgba(1, 178, 255, 0.2),
+			inset 0 1px 0 rgba(255, 255, 255, 0.08);
 	}
 
 	.input-wrapper.recording {
-		border-color: #01B2FF;
+		border-color: rgba(1, 178, 255, 0.6);
 		box-shadow:
-			0 4px 16px rgba(0, 0, 0, 0.1),
-			0 0 0 3px rgba(1, 178, 255, 0.2),
-			0 0 20px rgba(1, 178, 255, 0.15),
-			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+			0 0 0 1px rgba(1, 178, 255, 0.3),
+			0 0 0 4px rgba(1, 178, 255, 0.15),
+			0 4px 20px rgba(0, 0, 0, 0.08),
+			0 0 30px rgba(1, 178, 255, 0.2),
+			inset 0 1px 0 rgba(255, 255, 255, 1);
+		animation: pulse-glow 2s ease-in-out infinite;
+	}
+
+	@keyframes pulse-glow {
+		0%, 100% {
+			box-shadow:
+				0 0 0 1px rgba(1, 178, 255, 0.3),
+				0 0 0 4px rgba(1, 178, 255, 0.15),
+				0 4px 20px rgba(0, 0, 0, 0.08),
+				0 0 30px rgba(1, 178, 255, 0.2),
+				inset 0 1px 0 rgba(255, 255, 255, 1);
+		}
+		50% {
+			box-shadow:
+				0 0 0 1px rgba(1, 178, 255, 0.4),
+				0 0 0 6px rgba(1, 178, 255, 0.1),
+				0 4px 20px rgba(0, 0, 0, 0.08),
+				0 0 40px rgba(1, 178, 255, 0.3),
+				inset 0 1px 0 rgba(255, 255, 255, 1);
+		}
 	}
 
 	textarea {
@@ -312,177 +354,215 @@
 		cursor: not-allowed;
 	}
 
+	/* Glossy Y2K buttons */
 	.mic-btn,
 	.send-btn {
-		width: 40px;
-		height: 40px;
+		width: 44px;
+		height: 44px;
 		border: none;
 		border-radius: 50%;
 		cursor: pointer;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		transition: all 0.2s;
+		transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 		flex-shrink: 0;
+		position: relative;
+		overflow: hidden;
 	}
 
 	.mic-btn {
-		background: linear-gradient(180deg, #f5f5f5 0%, #e8e8e8 100%);
+		background: linear-gradient(
+			180deg,
+			#ffffff 0%,
+			#f0f0f2 50%,
+			#e8e8ea 100%
+		);
 		color: var(--text-tertiary);
+		border: 1px solid rgba(0, 0, 0, 0.08);
 		box-shadow:
-			0 2px 4px rgba(0, 0, 0, 0.08),
-			inset 0 1px 0 rgba(255, 255, 255, 0.8);
+			0 2px 8px rgba(0, 0, 0, 0.08),
+			inset 0 1px 0 rgba(255, 255, 255, 1),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.04);
 	}
 
 	:global(.dark) .mic-btn {
-		background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+		background: linear-gradient(
+			180deg,
+			#3a3a3e 0%,
+			#2e2e32 50%,
+			#262628 100%
+		);
+		border-color: rgba(255, 255, 255, 0.1);
 		box-shadow:
-			0 2px 4px rgba(0, 0, 0, 0.3),
-			inset 0 1px 0 rgba(255, 255, 255, 0.1);
+			0 2px 8px rgba(0, 0, 0, 0.3),
+			inset 0 1px 0 rgba(255, 255, 255, 0.1),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.2);
 	}
 
 	.mic-btn:hover:not(:disabled) {
-		background: linear-gradient(180deg, #e8e8e8 0%, #d8d8d8 100%);
 		color: var(--text-primary);
-		transform: translateY(-1px);
+		transform: translateY(-2px);
 		box-shadow:
-			0 4px 8px rgba(0, 0, 0, 0.12),
-			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+			0 4px 12px rgba(0, 0, 0, 0.12),
+			inset 0 1px 0 rgba(255, 255, 255, 1),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.04);
 	}
 
 	:global(.dark) .mic-btn:hover:not(:disabled) {
-		background: linear-gradient(180deg, #444444 0%, #333333 100%);
+		box-shadow:
+			0 4px 12px rgba(0, 0, 0, 0.4),
+			inset 0 1px 0 rgba(255, 255, 255, 0.12);
+	}
+
+	.mic-btn:active:not(:disabled) {
+		transform: translateY(0) scale(0.96);
 	}
 
 	.mic-btn.recording {
-		background: linear-gradient(180deg, #4dd0ff 0%, #01B2FF 50%, #0099dd 100%);
+		background: linear-gradient(
+			180deg,
+			#66d9ff 0%,
+			#4dd0ff 30%,
+			#01B2FF 70%,
+			#0099dd 100%
+		);
 		color: white;
-		animation: pulse-recording 1.5s ease-in-out infinite;
+		border-color: rgba(0, 0, 0, 0.1);
+		animation: recording-pulse 1.5s ease-in-out infinite;
 		box-shadow:
-			0 4px 12px rgba(1, 178, 255, 0.4),
-			inset 0 1px 0 rgba(255, 255, 255, 0.3);
+			0 4px 16px rgba(1, 178, 255, 0.5),
+			inset 0 1px 0 rgba(255, 255, 255, 0.4),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 	}
 
 	.mic-btn.recording:hover {
-		background: linear-gradient(180deg, #66d9ff 0%, #1ebfff 50%, #00a6e6 100%);
+		background: linear-gradient(
+			180deg,
+			#80e0ff 0%,
+			#66d9ff 30%,
+			#1ebfff 70%,
+			#00a6e6 100%
+		);
 	}
 
-	@keyframes pulse-recording {
-		0%,
-		100% {
-			box-shadow: 0 0 0 0 rgba(1, 178, 255, 0.4);
+	@keyframes recording-pulse {
+		0%, 100% {
+			box-shadow:
+				0 4px 16px rgba(1, 178, 255, 0.5),
+				0 0 0 0 rgba(1, 178, 255, 0.4),
+				inset 0 1px 0 rgba(255, 255, 255, 0.4);
 		}
 		50% {
-			box-shadow: 0 0 0 8px rgba(1, 178, 255, 0);
+			box-shadow:
+				0 4px 16px rgba(1, 178, 255, 0.5),
+				0 0 0 8px rgba(1, 178, 255, 0),
+				inset 0 1px 0 rgba(255, 255, 255, 0.4);
 		}
 	}
 
+	/* Send button - starts subtle, becomes vibrant when has content */
 	.send-btn {
-		position: relative;
-		background: transparent;
-		color: white;
+		background: linear-gradient(
+			180deg,
+			#e8e8ea 0%,
+			#dcdcde 50%,
+			#d0d0d2 100%
+		);
+		color: var(--text-tertiary);
+		border: 1px solid rgba(0, 0, 0, 0.06);
+		box-shadow:
+			0 2px 6px rgba(0, 0, 0, 0.06),
+			inset 0 1px 0 rgba(255, 255, 255, 0.8);
 	}
 
-	/* Soft orb container - visible when no content */
-	.orb-container {
-		position: absolute;
-		inset: 0;
-		opacity: 1;
-		transition: opacity 0.3s ease, transform 0.3s ease;
-		pointer-events: none;
-		clip-path: inset(-8px -8px -8px 0);
+	:global(.dark) .send-btn {
+		background: linear-gradient(
+			180deg,
+			#2a2a2e 0%,
+			#242428 50%,
+			#1e1e22 100%
+		);
+		border-color: rgba(255, 255, 255, 0.06);
+		box-shadow:
+			0 2px 6px rgba(0, 0, 0, 0.2),
+			inset 0 1px 0 rgba(255, 255, 255, 0.05);
 	}
 
-	.orb {
-		position: absolute;
-		border-radius: 50%;
-		filter: blur(8px);
-		opacity: 0.9;
-		animation: orb-float 4s ease-in-out infinite;
-	}
-
-	.orb-blue {
-		width: 24px;
-		height: 24px;
-		background: #01B2FF;
-		top: 8px;
-		left: 10px;
-		animation-delay: 0s;
-	}
-
-	.orb-purple {
-		width: 18px;
-		height: 18px;
-		background: #0ea5e9;
-		top: 12px;
-		left: 14px;
-		animation-delay: -1.3s;
-	}
-
-	.orb-pink {
-		width: 14px;
-		height: 14px;
-		background: #0284c7;
-		top: 14px;
-		left: 10px;
-		animation-delay: -2.6s;
-	}
-
-	@keyframes orb-float {
-		0%, 100% {
-			transform: translate(0, 0) scale(1);
-		}
-		33% {
-			transform: translate(4px, -4px) scale(1.1);
-		}
-		66% {
-			transform: translate(-2px, 2px) scale(0.9);
-		}
-	}
-
-	/* Send icon - hidden when no content */
 	.send-icon {
 		position: relative;
 		z-index: 1;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		opacity: 0;
-		transform: scale(0.5) rotate(-45deg);
-		transition: opacity 0.3s ease, transform 0.3s ease;
+		transition: all 0.2s ease;
 	}
 
-	/* When has content: morph to send button */
+	.btn-shine {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 50%;
+		height: 50%;
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.4) 0%,
+			rgba(255, 255, 255, 0) 100%
+		);
+		border-radius: 50% 50% 0 0;
+		pointer-events: none;
+		opacity: 0;
+		transition: opacity 0.2s ease;
+	}
+
+	/* Active send button with content */
 	.send-btn.has-content {
-		background: linear-gradient(180deg, #4dd0ff 0%, #01B2FF 40%, #0099dd 100%);
+		background: linear-gradient(
+			180deg,
+			#66d9ff 0%,
+			#4dd0ff 25%,
+			#01B2FF 60%,
+			#0099dd 100%
+		);
+		color: white;
+		border-color: rgba(0, 0, 0, 0.1);
 		box-shadow:
-			0 4px 12px rgba(1, 178, 255, 0.4),
+			0 4px 16px rgba(1, 178, 255, 0.45),
 			0 2px 4px rgba(0, 0, 0, 0.1),
-			inset 0 1px 0 rgba(255, 255, 255, 0.4);
+			inset 0 1px 0 rgba(255, 255, 255, 0.4),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 	}
 
-	.send-btn.has-content .orb-container {
-		opacity: 0;
-		transform: scale(0);
-	}
-
-	.send-btn.has-content .send-icon {
+	.send-btn.has-content .btn-shine {
 		opacity: 1;
-		transform: scale(1) rotate(0deg);
 	}
 
 	.send-btn.has-content:hover:not(:disabled) {
-		background: linear-gradient(180deg, #66d9ff 0%, #1ebfff 40%, #00a6e6 100%);
+		background: linear-gradient(
+			180deg,
+			#80e0ff 0%,
+			#66d9ff 25%,
+			#1ebfff 60%,
+			#00a6e6 100%
+		);
 		transform: translateY(-2px);
 		box-shadow:
-			0 6px 18px rgba(1, 178, 255, 0.5),
+			0 6px 24px rgba(1, 178, 255, 0.55),
 			0 3px 6px rgba(0, 0, 0, 0.12),
-			inset 0 1px 0 rgba(255, 255, 255, 0.5);
+			inset 0 1px 0 rgba(255, 255, 255, 0.5),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 	}
 
 	.send-btn.has-content:active:not(:disabled) {
-		transform: scale(0.95);
-		background: linear-gradient(180deg, #0099dd 0%, #0088cc 100%);
+		transform: translateY(0) scale(0.96);
+		background: linear-gradient(
+			180deg,
+			#01B2FF 0%,
+			#0099dd 50%,
+			#0088cc 100%
+		);
 		box-shadow:
 			inset 0 2px 4px rgba(0, 0, 0, 0.2),
 			0 1px 2px rgba(0, 0, 0, 0.1);
@@ -493,7 +573,7 @@
 	}
 
 	.send-btn.has-content:disabled {
-		opacity: 0.4;
+		opacity: 0.5;
 		cursor: not-allowed;
 	}
 

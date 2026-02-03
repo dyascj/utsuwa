@@ -674,72 +674,77 @@
 					</div>
 				</div>
 
-				<!-- Relationship Stats (Dating Sim Mode only) -->
+				<!-- Relationship Stats (Dating Sim Mode only) - Sims-style vertical bars -->
 				<div class="stats-section">
 					<Tooltip content="Core relationship attributes that evolve based on your interactions.">
 						<span class="section-label">Relationship Stats</span>
 					</Tooltip>
-					<div class="stat-bars">
-						<div class="stat-bar stat-bar--trust">
-							<Tooltip content="How much she relies on and believes in you. Built through honesty and keeping promises." side="left">
-								<div class="stat-info">
+					<div class="sims-stat-bars">
+						<Tooltip content="How much she relies on and believes in you. Built through honesty and keeping promises.">
+							<div class="sims-stat" style="--bar-color: #4dd0ff; --bar-glow: rgba(77, 208, 255, 0.5)">
+								<div class="sims-bar-track">
+									<div class="sims-bar-fill" style="height: {charState.trust}%">
+										<div class="sims-bar-shine"></div>
+									</div>
+								</div>
+								<div class="sims-stat-icon">
 									<Icon name="shield" size={14} />
-									<span class="stat-name">Trust</span>
 								</div>
-							</Tooltip>
-							<div class="stat-track">
-								<div class="stat-fill" style="width: {charState.trust}%"></div>
+								<span class="sims-stat-label">Trust</span>
 							</div>
-							<span class="stat-value">{charState.trust}%</span>
-						</div>
-						<div class="stat-bar stat-bar--intimacy">
-							<Tooltip content="Emotional closeness and vulnerability. Grows from meaningful conversations and shared experiences." side="left">
-								<div class="stat-info">
+						</Tooltip>
+						<Tooltip content="Emotional closeness and vulnerability. Grows from meaningful conversations and shared experiences.">
+							<div class="sims-stat" style="--bar-color: #c084fc; --bar-glow: rgba(192, 132, 252, 0.5)">
+								<div class="sims-bar-track">
+									<div class="sims-bar-fill" style="height: {charState.intimacy}%">
+										<div class="sims-bar-shine"></div>
+									</div>
+								</div>
+								<div class="sims-stat-icon">
 									<Icon name="heart" size={14} />
-									<span class="stat-name">Intimacy</span>
 								</div>
-							</Tooltip>
-							<div class="stat-track">
-								<div class="stat-fill" style="width: {charState.intimacy}%"></div>
+								<span class="sims-stat-label">Intimacy</span>
 							</div>
-							<span class="stat-value">{charState.intimacy}%</span>
-						</div>
-						<div class="stat-bar stat-bar--comfort">
-							<Tooltip content="How at ease she feels around you. Increases with consistent, supportive presence." side="left">
-								<div class="stat-info">
+						</Tooltip>
+						<Tooltip content="How at ease she feels around you. Increases with consistent, supportive presence.">
+							<div class="sims-stat" style="--bar-color: #4ade80; --bar-glow: rgba(74, 222, 128, 0.5)">
+								<div class="sims-bar-track">
+									<div class="sims-bar-fill" style="height: {charState.comfort}%">
+										<div class="sims-bar-shine"></div>
+									</div>
+								</div>
+								<div class="sims-stat-icon">
 									<Icon name="home" size={14} />
-									<span class="stat-name">Comfort</span>
 								</div>
-							</Tooltip>
-							<div class="stat-track">
-								<div class="stat-fill" style="width: {charState.comfort}%"></div>
+								<span class="sims-stat-label">Comfort</span>
 							</div>
-							<span class="stat-value">{charState.comfort}%</span>
-						</div>
-						<div class="stat-bar stat-bar--respect">
-							<Tooltip content="How much she admires and values you. Earned through thoughtful actions and integrity." side="left">
-								<div class="stat-info">
+						</Tooltip>
+						<Tooltip content="How much she admires and values you. Earned through thoughtful actions and integrity.">
+							<div class="sims-stat" style="--bar-color: #60a5fa; --bar-glow: rgba(96, 165, 250, 0.5)">
+								<div class="sims-bar-track">
+									<div class="sims-bar-fill" style="height: {charState.respect}%">
+										<div class="sims-bar-shine"></div>
+									</div>
+								</div>
+								<div class="sims-stat-icon">
 									<Icon name="award" size={14} />
-									<span class="stat-name">Respect</span>
 								</div>
-							</Tooltip>
-							<div class="stat-track">
-								<div class="stat-fill" style="width: {charState.respect}%"></div>
+								<span class="sims-stat-label">Respect</span>
 							</div>
-							<span class="stat-value">{charState.respect}%</span>
-						</div>
-						<div class="stat-bar stat-bar--energy">
-							<Tooltip content="Her current energy level. Affects mood and responsiveness. Replenishes over time." side="left">
-								<div class="stat-info">
+						</Tooltip>
+						<Tooltip content="Her current energy level. Affects mood and responsiveness. Replenishes over time.">
+							<div class="sims-stat" style="--bar-color: #fbbf24; --bar-glow: rgba(251, 191, 36, 0.5)">
+								<div class="sims-bar-track">
+									<div class="sims-bar-fill" style="height: {charState.energy}%">
+										<div class="sims-bar-shine"></div>
+									</div>
+								</div>
+								<div class="sims-stat-icon">
 									<Icon name="zap" size={14} />
-									<span class="stat-name">Energy</span>
 								</div>
-							</Tooltip>
-							<div class="stat-track">
-								<div class="stat-fill" style="width: {charState.energy}%"></div>
+								<span class="sims-stat-label">Energy</span>
 							</div>
-							<span class="stat-value">{charState.energy}%</span>
-						</div>
+						</Tooltip>
 					</div>
 				</div>
 			{:else}
@@ -752,19 +757,20 @@
 					<p class="companion-description">Relationship stats and events are disabled. Only mood and energy are tracked.</p>
 				</div>
 
-				<!-- Energy bar (Companion Mode) -->
-				<div class="stats-section">
+				<!-- Energy bar (Companion Mode) - Sims-style -->
+				<div class="stats-section companion-energy">
 					<span class="section-label">Energy</span>
-					<div class="stat-bars">
-						<div class="stat-bar stat-bar--energy">
-							<div class="stat-info">
-								<Icon name="zap" size={14} />
-								<span class="stat-name">Energy</span>
+					<div class="sims-stat-bars single">
+						<div class="sims-stat" style="--bar-color: #fbbf24; --bar-glow: rgba(251, 191, 36, 0.5)">
+							<div class="sims-bar-track tall">
+								<div class="sims-bar-fill" style="height: {charState.energy}%">
+									<div class="sims-bar-shine"></div>
+								</div>
 							</div>
-							<div class="stat-track">
-								<div class="stat-fill" style="width: {charState.energy}%"></div>
+							<div class="sims-stat-icon">
+								<Icon name="zap" size={16} />
 							</div>
-							<span class="stat-value">{charState.energy}%</span>
+							<span class="sims-stat-label">Energy</span>
 						</div>
 					</div>
 				</div>
@@ -1484,79 +1490,134 @@
 			inset 0 1px 0 rgba(255, 255, 255, 0.05);
 	}
 
-	.stat-bars {
+	/* Sims-style Vertical Stat Bars */
+	.sims-stat-bars {
+		display: flex;
+		justify-content: center;
+		gap: 0.75rem;
+		padding: 0.5rem 0;
+	}
+
+	.sims-stat-bars.single {
+		justify-content: center;
+	}
+
+	.sims-stat {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
-	}
-
-	.stat-bar {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-	}
-
-	.stat-info {
-		display: flex;
 		align-items: center;
 		gap: 0.375rem;
-		width: 90px;
-		flex-shrink: 0;
 	}
 
-	.stat-name {
-		font-size: 0.8rem;
-		color: var(--text-secondary);
-	}
-
-	.stat-track {
-		flex: 1;
-		height: 8px;
-		background: linear-gradient(180deg, #d0d0d0 0%, #e0e0e0 100%);
-		border-radius: 4px;
+	.sims-bar-track {
+		width: 22px;
+		height: 80px;
+		background: linear-gradient(
+			180deg,
+			rgba(0, 0, 0, 0.15) 0%,
+			rgba(0, 0, 0, 0.1) 50%,
+			rgba(0, 0, 0, 0.08) 100%
+		);
+		border-radius: 11px;
+		position: relative;
 		overflow: hidden;
 		box-shadow:
-			inset 0 1px 3px rgba(0, 0, 0, 0.1),
-			0 1px 0 rgba(255, 255, 255, 0.8);
+			inset 0 2px 4px rgba(0, 0, 0, 0.15),
+			inset 0 0 0 1px rgba(0, 0, 0, 0.05),
+			0 1px 0 rgba(255, 255, 255, 0.5);
 	}
 
-	:global(.dark) .stat-track {
-		background: linear-gradient(180deg, #1a1a1a 0%, #252525 100%);
+	.sims-bar-track.tall {
+		height: 100px;
+		width: 28px;
+		border-radius: 14px;
+	}
+
+	:global(.dark) .sims-bar-track {
+		background: linear-gradient(
+			180deg,
+			rgba(0, 0, 0, 0.4) 0%,
+			rgba(0, 0, 0, 0.3) 50%,
+			rgba(0, 0, 0, 0.25) 100%
+		);
 		box-shadow:
-			inset 0 1px 3px rgba(0, 0, 0, 0.3),
+			inset 0 2px 4px rgba(0, 0, 0, 0.4),
+			inset 0 0 0 1px rgba(0, 0, 0, 0.2),
 			0 1px 0 rgba(255, 255, 255, 0.05);
 	}
 
-	.stat-fill {
-		height: 100%;
-		border-radius: 4px;
-		transition: width 0.3s ease-out;
-		background: linear-gradient(180deg, #4dd0ff 0%, #01B2FF 100%);
-		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+	.sims-bar-fill {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: linear-gradient(
+			180deg,
+			color-mix(in srgb, var(--bar-color) 100%, white 30%) 0%,
+			var(--bar-color) 40%,
+			color-mix(in srgb, var(--bar-color) 100%, black 15%) 100%
+		);
+		border-radius: 9px;
+		transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+		box-shadow:
+			0 0 12px var(--bar-glow),
+			0 0 4px var(--bar-glow),
+			inset 0 0 0 1px rgba(255, 255, 255, 0.3);
 	}
 
-	/* Stat bar colors - unified accent */
-	.stat-bar--trust .stat-info { color: #01B2FF; }
-	.stat-bar--trust .stat-fill { background: #01B2FF; }
+	.sims-bar-shine {
+		position: absolute;
+		top: 0;
+		left: 2px;
+		right: 50%;
+		height: 100%;
+		background: linear-gradient(
+			90deg,
+			rgba(255, 255, 255, 0.4) 0%,
+			rgba(255, 255, 255, 0.1) 100%
+		);
+		border-radius: 7px 0 0 7px;
+		pointer-events: none;
+	}
 
-	.stat-bar--intimacy .stat-info { color: #01B2FF; }
-	.stat-bar--intimacy .stat-fill { background: #01B2FF; }
+	.sims-stat-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 26px;
+		height: 26px;
+		background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+		border-radius: 8px;
+		color: var(--bar-color);
+		box-shadow:
+			0 2px 4px rgba(0, 0, 0, 0.1),
+			inset 0 1px 0 rgba(255, 255, 255, 0.9);
+		filter: drop-shadow(0 0 3px var(--bar-glow));
+	}
 
-	.stat-bar--comfort .stat-info { color: #01B2FF; }
-	.stat-bar--comfort .stat-fill { background: #01B2FF; }
+	:global(.dark) .sims-stat-icon {
+		background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+		box-shadow:
+			0 2px 4px rgba(0, 0, 0, 0.3),
+			inset 0 1px 0 rgba(255, 255, 255, 0.08);
+	}
 
-	.stat-bar--respect .stat-info { color: #01B2FF; }
-	.stat-bar--respect .stat-fill { background: #01B2FF; }
-
-	.stat-bar--energy .stat-info { color: #01B2FF; }
-	.stat-bar--energy .stat-fill { background: #01B2FF; }
-
-	.stat-value {
-		width: 40px;
-		text-align: right;
-		font-size: 0.8rem;
+	.sims-stat-label {
+		font-size: 0.6rem;
 		font-weight: 600;
-		color: var(--text-secondary);
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		color: var(--text-tertiary);
+	}
+
+	.companion-energy {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.companion-energy .sims-stat-bars {
+		width: 100%;
 	}
 
 	/* Mood Section */
