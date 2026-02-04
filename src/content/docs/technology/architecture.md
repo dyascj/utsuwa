@@ -246,6 +246,52 @@ When relationship thresholds are crossed:
 4. UI displays event content (if any)
 5. Event ID is added to `completedEvents`
 
+## Desktop Application (Tauri)
+
+The desktop app wraps the same SvelteKit application in a native shell using Tauri v2.
+
+### Platform Layer
+
+A platform abstraction layer allows code to behave differently on web vs desktop:
+
+**Key files:**
+- `src/lib/services/platform/platform.ts` — `isTauri()` / `isWeb()` detection
+- `src/lib/services/platform/window.ts` — Window management (position, drag, click-through)
+- `src/lib/services/platform/hotkeys.ts` — Global shortcut registration
+
+**Detection pattern:**
+```typescript
+import { isTauri } from '$lib/services/platform';
+
+if (isTauri()) {
+  // Desktop-only code
+  await startDragging();
+}
+```
+
+### Multi-Window Architecture
+
+The desktop app uses two windows:
+
+| Window | Purpose |
+|--------|---------|
+| `main` | Full application with all features |
+| `overlay` | Transparent, always-on-top companion view |
+
+**Switching logic:**
+- Main → Overlay: Invoke `show_overlay` command, hide main window
+- Overlay → Main: Show main window, hide overlay
+
+### Overlay Rendering
+
+For transparent backgrounds in overlay mode:
+1. Tauri window configured with `transparent: true`, `decorations: false`
+2. HTML/body backgrounds set to transparent via CSS
+3. Three.js renderer uses `alpha: true` and `setClearColor(0x000000, 0)`
+4. Scene background set to `null` (no skybox)
+
+**Key file:** `src/routes/overlay/+page.svelte`
+
 ## Technologies
 
 | Category | Technology |
@@ -255,6 +301,7 @@ When relationship thresholds are crossed:
 | 3D Rendering | Three.js + Threlte |
 | VRM Support | @pixiv/three-vrm |
 | LLM Integration | xsAI SDK |
+| Desktop | Tauri v2 |
 | Styling | Tailwind CSS 4 |
 | Database | IndexedDB (Dexie.js) |
 | Embeddings | Transformers.js |

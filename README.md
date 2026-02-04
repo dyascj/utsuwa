@@ -29,6 +29,7 @@
 - **Memory Graph**: Interactive visualization showing how memories connect semantically
 - **Data Export/Import**: Download your data as a save file, restore anytime
 - **Theming**: Light and dark mode support with system preference detection
+- **Desktop App** *(beta)*: Native macOS app with transparent overlay mode — your companion floats on your desktop
 
 ### Local-First Storage
 
@@ -51,6 +52,19 @@ Build a meaningful relationship with your AI companion through a dating sim-insp
 - **Time-Aware**: Your companion notices when you've been away and reacts accordingly
 
 See the [Companion System Architecture](https://utsuwa.ai/docs/technology/companion-system) for full details.
+
+### Desktop Application (Beta)
+
+> Available on the `feature/desktop` branch. Currently tested on macOS only.
+
+A native desktop app built with Tauri that includes all web features plus:
+
+- **Overlay Mode**: Your companion floats on your desktop with a transparent background, always visible over other apps
+- **Draggable Positioning**: Click and drag the character to reposition anywhere on screen
+- **Floating Chat**: Expandable chat input that appears when you click the chat icon
+- **Window Switching**: Seamlessly switch between the full app and overlay mode
+
+The desktop app uses the same codebase as the web version — your save files are compatible between both.
 
 ## Supported Providers
 
@@ -109,6 +123,23 @@ pnpm dev
 ```
 
 The app will be available at `http://localhost:5173`
+
+#### Running the Desktop App (Beta)
+
+The desktop app is available on the `feature/desktop` branch:
+
+```bash
+# Switch to desktop branch
+git checkout feature/desktop
+
+# Install Rust (if not already installed)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Run the desktop app
+pnpm tauri dev
+```
+
+> **Note:** Currently tested on macOS only. Windows and Linux support is planned.
 
 #### Configuration
 
@@ -196,6 +227,7 @@ pnpm lint      # Type-check and lint the project
 
 ### In Progress / Planned
 
+- [x] **Desktop Application** - Native macOS app with transparent overlay mode (`feature/desktop` branch)
 - [ ] **Companion Gender System** - Gender selection with male/female specific animations and behaviors
 - [ ] **Multi-provider STT** - Support for additional speech-to-text providers beyond Web Speech API
 - [ ] **Enhanced User Controls** - More granular control over companion behavior and responses
@@ -207,7 +239,7 @@ pnpm lint      # Type-check and lint the project
 
 ### Future
 
-- [ ] **Desktop Application** - Native app for Windows, macOS, and Linux with enhanced features
+- [ ] **Windows/Linux Desktop** - Desktop app support for Windows and Linux (currently macOS only)
 
 ## Contributing
 
@@ -234,6 +266,7 @@ Utsuwa is built on the shoulders of these excellent projects:
 - **[Three.js](https://github.com/mrdoob/three.js)** - 3D graphics engine
 - **[Threlte](https://github.com/threlte/threlte)** - Svelte components for Three.js
 - **[SvelteKit](https://github.com/sveltejs/kit)** - Web application framework
+- **[Tauri](https://github.com/tauri-apps/tauri)** - Desktop application framework
 - **[Tailwind CSS](https://github.com/tailwindlabs/tailwindcss)** - Utility-first CSS framework
 - **[Transformers.js](https://github.com/xenova/transformers.js)** - In-browser ML for semantic memory embeddings
 

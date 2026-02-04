@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - Desktop App (feature/desktop branch)
+
+### Added
+- Tauri desktop application for macOS (Windows/Linux untested)
+- Transparent overlay mode with always-on-top window
+- Draggable companion character positioning
+- Floating chat icon with expandable input bar
+- Window switching between main app and overlay mode
+- Platform detection layer (`isTauri()` / `isWeb()`)
+- Global hotkey infrastructure (Ctrl+Shift shortcuts)
+
+### Technical
+- `src-tauri/` - Tauri v2 project with Rust backend
+- `src/lib/services/platform/` - Platform abstraction layer
+- `src/routes/overlay/` - Overlay mode route and components
+- `src/lib/stores/overlay.svelte.ts` - Overlay state management
+
 ## [0.2.2] - 2026-01-31
 
 ### Added

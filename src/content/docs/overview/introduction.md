@@ -11,6 +11,7 @@ description: What is Utsuwa and how to get started.
 - Load a VRM model, connect any LLM provider, and bring your AI companion to life
 - Voice, memory, and a relationship system built in
 - Local-first — your data stays on your device
+- Desktop app with transparent overlay mode (beta, `feature/desktop` branch)
 
 ## What is Utsuwa?
 
