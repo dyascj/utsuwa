@@ -1,7 +1,7 @@
 import { browser } from '$app/environment';
 
 const STORAGE_KEY = 'utsuwa-display';
-const DEFAULT_CAMERA_DISTANCE = 2.6;
+const DEFAULT_CAMERA_DISTANCE = 2.0;
 
 function createDisplayStore() {
 	let cameraDistance = $state(DEFAULT_CAMERA_DISTANCE);
