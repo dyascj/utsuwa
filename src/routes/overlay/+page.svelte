@@ -270,10 +270,10 @@
 </script>
 
 <div class="overlay-container">
-	<!-- VRM Scene (fills the overlay) -->
+	<!-- VRM Scene (fills the overlay) - locked to prevent rotation when dragging -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div class="scene-container" onmousedown={handleDragStart}>
-		<VrmScene overlay={true} />
+		<VrmScene overlay={true} locked={true} />
 	</div>
 
 	<!-- Exit button (return to main app) -->
