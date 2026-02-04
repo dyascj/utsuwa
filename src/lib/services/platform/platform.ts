@@ -4,7 +4,8 @@ import { browser } from '$app/environment';
  * Check if running in a Tauri desktop environment
  */
 export function isTauri(): boolean {
-	return browser && '__TAURI__' in window;
+	// Tauri 2.x uses __TAURI_INTERNALS__, Tauri 1.x uses __TAURI__
+	return browser && ('__TAURI_INTERNALS__' in window || '__TAURI__' in window);
 }
 
 /**
