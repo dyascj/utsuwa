@@ -1,15 +1,36 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { Icon } from '$lib/components/ui';
+	import { isTauri } from '$lib/services/platform';
+	import { onMount } from 'svelte';
 
 	interface Props {
 		onInfoClick: () => void;
 	}
 
 	let { onInfoClick }: Props = $props();
+	let showOverlayBtn = $state(false);
+
+	onMount(() => {
+		showOverlayBtn = isTauri();
+	});
+
+	async function launchOverlay() {
+		try {
+			const { invoke } = await import('@tauri-apps/api/core');
+			await invoke('show_overlay');
+		} catch (e) {
+			console.error('Failed to launch overlay:', e);
+		}
+	}
 </script>
 
 <div class="top-right-buttons">
+	{#if showOverlayBtn}
+		<button class="icon-btn overlay-btn" onclick={launchOverlay} aria-label="Launch overlay" title="Launch Overlay Mode">
+			<Icon name="monitor" size={20} />
+		</button>
+	{/if}
 	<button class="icon-btn" onclick={onInfoClick} aria-label="App info">
 		<Icon name="info" size={20} />
 	</button>
@@ -105,5 +126,25 @@
 		box-shadow:
 			0 1px 4px rgba(0, 0, 0, 0.3),
 			inset 0 2px 4px rgba(0, 0, 0, 0.2);
+	}
+
+	/* Overlay button - accent color */
+	.overlay-btn {
+		background: linear-gradient(180deg, #66d9ff 0%, #01B2FF 100%);
+		color: white;
+		border-color: rgba(0, 0, 0, 0.1);
+	}
+
+	.overlay-btn:hover {
+		background: linear-gradient(180deg, #80e0ff 0%, #1ebfff 100%);
+		color: white;
+	}
+
+	:global(.dark) .overlay-btn {
+		background: linear-gradient(180deg, #01B2FF 0%, #0099dd 100%);
+	}
+
+	:global(.dark) .overlay-btn:hover {
+		background: linear-gradient(180deg, #1ebfff 0%, #00a6e6 100%);
 	}
 </style>
