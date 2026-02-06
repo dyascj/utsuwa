@@ -21,11 +21,13 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		min-height: 70vh;
-		padding: 4rem 2rem;
+		min-height: 60vh;
+		padding: 4rem 2rem 3rem;
 		text-align: center;
 		position: relative;
 		overflow: hidden;
+		border-bottom: 1px solid var(--docs-border);
+		margin-bottom: 0;
 	}
 
 	.hero-content {

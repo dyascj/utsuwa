@@ -3,6 +3,14 @@
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
+
+	function formatDate(dateStr: string): string {
+		return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', {
+			year: 'numeric',
+			month: 'short',
+			day: 'numeric'
+		});
+	}
 </script>
 
 <svelte:head>
@@ -13,26 +21,41 @@
 <DocsHero />
 
 {#if data.latestPost}
-	<div class="latest-news">
-		<a href="/blog/{data.latestPost.slug}" class="news-card">
-			<div class="news-image">
-				<img src={data.latestPost.image} alt="" loading="lazy" />
-			</div>
-			<div class="news-body">
-				<span class="news-label">Latest from the Blog</span>
-				<h3 class="news-title">{data.latestPost.title}</h3>
-				<p class="news-desc">{data.latestPost.description}</p>
-				<span class="news-read">Read post &rarr;</span>
-			</div>
-		</a>
-	</div>
+	<section class="news-section">
+		<div class="news-section-inner">
+			<h2 class="news-heading">Latest News</h2>
+			<a href="/blog/{data.latestPost.slug}" class="news-card">
+				<div class="news-image">
+					<img src={data.latestPost.image} alt="" loading="lazy" />
+				</div>
+				<div class="news-body">
+					<time class="news-date" datetime={data.latestPost.date}>{formatDate(data.latestPost.date)}</time>
+					<h3 class="news-title">{data.latestPost.title}</h3>
+					<p class="news-desc">{data.latestPost.description}</p>
+					<span class="news-read">Read post &rarr;</span>
+				</div>
+			</a>
+		</div>
+	</section>
 {/if}
 
 <style>
-	.latest-news {
+	.news-section {
+		padding: 3rem 2rem 4rem;
+		background: var(--docs-surface);
+		border-bottom: 1px solid var(--docs-border);
+	}
+
+	.news-section-inner {
 		max-width: 640px;
 		margin: 0 auto;
-		padding: 0 2rem 4rem;
+	}
+
+	.news-heading {
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: var(--docs-text);
+		margin: 0 0 1.25rem;
 	}
 
 	.news-card {
@@ -61,7 +84,7 @@
 
 	.news-image {
 		flex-shrink: 0;
-		width: 180px;
+		width: 200px;
 		overflow: hidden;
 		background: var(--docs-surface);
 	}
@@ -85,12 +108,10 @@
 		min-width: 0;
 	}
 
-	.news-label {
-		font-size: 0.6875rem;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		color: var(--docs-accent);
+	.news-date {
+		font-size: 0.75rem;
+		font-weight: 500;
+		color: var(--docs-text-muted);
 	}
 
 	.news-title {
