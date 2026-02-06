@@ -36,7 +36,7 @@
 		position: absolute;
 		inset: 0;
 		background: var(--docs-bg);
-		opacity: 0.55;
+		opacity: 0.35;
 		pointer-events: none;
 	}
 
