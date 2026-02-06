@@ -1375,7 +1375,7 @@
 		background: linear-gradient(180deg, #f8f8f8 0%, #f0f0f0 100%);
 		border: 1px solid rgba(0, 0, 0, 0.1);
 		border-radius: 10px;
-		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+		font-family: 'Share Tech Mono', monospace;
 		font-size: 0.8rem;
 		line-height: 1.5;
 		color: var(--text-primary);
@@ -2502,7 +2502,7 @@
 		border: 1px solid rgba(0, 0, 0, 0.1);
 		border-radius: 10px;
 		font-size: 0.8rem;
-		font-family: ui-monospace, monospace;
+		font-family: 'Share Tech Mono', monospace;
 		color: var(--text-primary);
 		box-shadow:
 			inset 0 1px 3px rgba(0, 0, 0, 0.06),

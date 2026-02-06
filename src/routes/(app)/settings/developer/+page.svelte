@@ -692,7 +692,7 @@
 		border: 1px solid rgba(0, 0, 0, 0.06);
 		border-radius: 8px;
 		font-size: 0.75rem;
-		font-family: monospace;
+		font-family: 'Share Tech Mono', monospace;
 		color: var(--text-secondary);
 		box-shadow:
 			0 1px 3px rgba(0, 0, 0, 0.04),
@@ -723,7 +723,7 @@
 
 	.slider-row label {
 		font-size: 0.8125rem;
-		font-family: monospace;
+		font-family: 'Share Tech Mono', monospace;
 		color: var(--text-secondary);
 	}
 
@@ -767,7 +767,7 @@
 
 	.slider-row .value {
 		font-size: 0.75rem;
-		font-family: monospace;
+		font-family: 'Share Tech Mono', monospace;
 		color: var(--text-tertiary);
 		text-align: right;
 	}

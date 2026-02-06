@@ -623,7 +623,7 @@
 		border: 1px solid rgba(0, 0, 0, 0.12);
 		border-radius: var(--radius-md);
 		font-size: 0.875rem;
-		font-family: ui-monospace, monospace;
+		font-family: 'Share Tech Mono', monospace;
 		color: var(--text-primary);
 		transition: all 0.2s;
 		box-shadow:

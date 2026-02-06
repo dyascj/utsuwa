@@ -262,12 +262,16 @@ body {
 	margin: 0;
 	padding: 0;
 	height: 100%;
-	font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	font-family: 'M PLUS Rounded 1c', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	background-color: var(--bg-primary);
 	color: var(--text-primary);
 	transition: background-color 0.2s, color 0.2s;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Exo 2', 'M PLUS Rounded 1c', sans-serif;
 }
 
 /* Scrollbar styling */
