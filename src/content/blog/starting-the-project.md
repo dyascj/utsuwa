@@ -24,7 +24,7 @@ The first is **Ani**, xAI's companion for Grok. When it launched in mid-2025 it 
 
 The catch? It's locked behind a $30/month SuperGrok subscription. Your conversations live on xAI's servers. The characters, the avatars, the personality system, all of it is proprietary. You're renting the experience. If xAI decides to change Ani's personality, remove a feature, or shut it down tomorrow, you have zero say in it. They've already had to disable features due to controversy around content moderation. When you don't own the platform, you're always at the mercy of whoever does.
 
-![Razer's Project Ava](/blog/razer-project-ava.png)
+![Razer's Project Ava](/blog/razer-project-ava.jpg)
 
 The second is **Project Ava** from Razer, unveiled at CES 2026. A holographic AI companion that sits on your desk in a physical cylinder. Anime avatars, voice interaction, screen awareness. The hardware concept is genuinely cool. A 5.5" 3D hologram with dual microphones and a camera that can see your screen.
 
@@ -39,14 +39,6 @@ The core loop is straightforward: you load a VRM model, connect an LLM provider,
 Under the hood there's more going on. A memory system that tracks conversation context, a relationship model that evolves over time, and an event engine that drives dynamic interactions. But the surface-level experience should feel simple.
 
 The difference from Ani or Project Ava is that everything here is open source and runs on your machine. You pick the avatar. You pick the AI. You own the conversation history. If you don't like something, you can change it. If the project disappeared tomorrow, you'd still have everything.
-
-## "But you still need an API key?"
-
-Yeah, for now. The reality is that running a capable language model locally still requires hardware most people don't have. So the app supports cloud providers like OpenAI, Anthropic, and Google out of the box because that's what makes it actually usable today.
-
-The key difference is that Utsuwa never sits in the middle. Your API key, your direct connection to the provider. There's no Utsuwa account, no relay server, no analytics. The app doesn't even have a backend. It's a static client that talks directly to whatever provider you point it at. We're not the ones collecting your data. We literally can't.
-
-The long-term goal is local-first. Ollama support is already in, and once the desktop app is solid, running everything on-device (model, TTS, the whole stack) is the endgame. Cloud providers are a bridge, not the destination.
 
 ## Technical choices
 
