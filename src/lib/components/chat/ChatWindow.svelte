@@ -253,10 +253,12 @@
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
-					messages: chatStore.messages.map((m) => ({
-						role: m.role,
-						content: m.content
-					})),
+					messages: chatStore.messages
+						.filter((m) => m.content)
+						.map((m) => ({
+							role: m.role,
+							content: m.content
+						})),
 					provider,
 					model: model || providerMeta?.models?.[0]?.id,
 					apiKey: apiKey || 'not-needed',
@@ -338,6 +340,11 @@
 				});
 			}
 		} catch (err) {
+			// Remove empty assistant placeholder if streaming failed
+			const lastMsg = chatStore.messages[chatStore.messages.length - 1];
+			if (lastMsg?.role === 'assistant' && !lastMsg.content) {
+				chatStore.removeLastMessage();
+			}
 			chatStore.setError(err instanceof Error ? err.message : 'Unknown error');
 			console.error('Chat error:', err);
 		} finally {

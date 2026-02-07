@@ -55,6 +55,12 @@ function createChatStore() {
 		streamingContent = content;
 	}
 
+	function removeLastMessage() {
+		if (messages.length > 0) {
+			messages = messages.slice(0, -1);
+		}
+	}
+
 	function clearMessages() {
 		messages = [];
 	}
@@ -74,6 +80,7 @@ function createChatStore() {
 		},
 		addMessage,
 		updateLastMessage,
+		removeLastMessage,
 		setLoading,
 		setError,
 		setStreamingContent,
