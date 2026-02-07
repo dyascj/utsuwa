@@ -363,10 +363,11 @@
 	<main class="main-content">
 		<!-- VRM Stage (Full Background) -->
 		<div class="stage-container">
-			{#if vrmStore.isLoading}
-				<div class="loading-overlay">
-					<div class="loading-spinner"></div>
-					<span>Loading model...</span>
+			{#if vrmStore.isLoading || !vrmStore.modelUrl}
+				<div class="loading-dots">
+					<span class="dot"></span>
+					<span class="dot"></span>
+					<span class="dot"></span>
 				</div>
 			{/if}
 
@@ -447,33 +448,40 @@
 		z-index: 0;
 	}
 
-	.loading-overlay {
+	.loading-dots {
 		position: absolute;
 		inset: 0;
 		display: flex;
-		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: 1rem;
-		background: rgba(0, 0, 0, 0.3);
-		backdrop-filter: blur(4px);
+		gap: 0.5rem;
 		z-index: 20;
-		color: white;
-		font-size: 0.875rem;
 	}
 
-	.loading-spinner {
-		width: 40px;
-		height: 40px;
-		border: 3px solid rgba(255, 255, 255, 0.2);
-		border-top-color: white;
+	.loading-dots .dot {
+		width: 8px;
+		height: 8px;
 		border-radius: 50%;
-		animation: spin 1s linear infinite;
+		background: var(--text-tertiary);
+		animation: bounce 1.4s ease-in-out infinite;
 	}
 
-	@keyframes spin {
-		to {
-			transform: rotate(360deg);
+	.loading-dots .dot:nth-child(2) {
+		animation-delay: 0.16s;
+	}
+
+	.loading-dots .dot:nth-child(3) {
+		animation-delay: 0.32s;
+	}
+
+	@keyframes bounce {
+		0%, 80%, 100% {
+			opacity: 0.3;
+			transform: scale(0.8);
+		}
+		40% {
+			opacity: 1;
+			transform: scale(1);
 		}
 	}
 

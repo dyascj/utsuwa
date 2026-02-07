@@ -207,11 +207,6 @@ import { EffectComposer, RenderPass, EffectPass, BloomEffect } from 'postprocess
 		return isDarkMode ? SCENE_COLORS.dark.background : SCENE_COLORS.light.background;
 	});
 
-	// Placeholder color from design language
-	const placeholderColor = $derived(() => {
-		return isDarkMode ? SCENE_COLORS.dark.placeholder : SCENE_COLORS.light.placeholder;
-	});
-
 	// Camera always centered (no sidebar offset needed with new bottom chat bar layout)
 	const cameraTargetX = $derived(0);
 	const cameraDistance = $derived(displayStore.cameraDistance);
@@ -315,12 +310,6 @@ import { EffectComposer, RenderPass, EffectPass, BloomEffect } from 'postprocess
 <!-- VRM Model -->
 {#if modelUrl}
 	<VrmModel url={modelUrl} />
-{:else}
-	<!-- Placeholder cube when no model loaded -->
-	<T.Mesh position={[0, 1, 0]}>
-		<T.BoxGeometry args={[0.5, 0.5, 0.5]} />
-		<T.MeshStandardMaterial color={placeholderColor()} />
-	</T.Mesh>
 {/if}
 
 <!-- Ground plane - receives shadows (hidden in overlay mode) -->

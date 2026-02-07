@@ -32,8 +32,8 @@ const vrmStorage = browser
 	: null;
 
 function createVrmStore() {
-	// Current model state - set default synchronously
-	let modelUrl = $state<string | null>(DEFAULT_MODELS[0].url);
+	// Current model state - null until initFromStorage determines the correct model
+	let modelUrl = $state<string | null>(null);
 	let vrm = $state<VRM | null>(null);
 	let isLoading = $state(false);
 	let error = $state<string | null>(null);
@@ -73,6 +73,9 @@ function createVrmStore() {
 	// Emote animations (disabled for now - will be re-enabled later)
 	const availableAnimations: { id: string; name: string; url: string }[] = [];
 
+	// Guard against saveToStorage running before init completes
+	let storageReady = false;
+
 	// Initialize from storage (may override defaults with saved values)
 	if (browser) {
 		initFromStorage();
@@ -82,20 +85,33 @@ function createVrmStore() {
 		try {
 			// Load saved models list
 			const savedModels = await vrmStorage?.getItem<VrmModel[]>('model-list');
-			if (savedModels) {
-				// Merge defaults with saved custom models
+			if (savedModels && savedModels.length > 0) {
 				const customModels = savedModels.filter((m) => !m.isDefault);
-				models = [...DEFAULT_MODELS, ...customModels];
+				const restored: VrmModel[] = [];
+
+				for (const model of customModels) {
+					// Regenerate blob URL from stored blob data
+					const blob = await vrmStorage?.getItem<Blob>(`model-blob-${model.id}`);
+					if (blob) {
+						restored.push({
+							...model,
+							url: URL.createObjectURL(blob)
+						});
+					}
+					// If blob is missing, skip this model (unrecoverable)
+				}
+
+				models = [...DEFAULT_MODELS, ...restored];
 			}
 
-			// Load saved previews for all models
+			// Restore preview thumbnails for all models
 			for (let i = 0; i < models.length; i++) {
 				const savedPreview = await vrmStorage?.getItem<string>(`model-preview-${models[i].id}`);
 				if (savedPreview) {
 					models[i] = { ...models[i], previewUrl: savedPreview };
 				}
 			}
-			// Trigger reactivity after loading all previews
+			// Trigger reactivity
 			models = [...models];
 
 			// Load active model ID
@@ -106,30 +122,29 @@ function createVrmStore() {
 					activeModelId = savedActiveId;
 					modelUrl = activeModel.url;
 				} else {
-					// Saved model not found, fall back to default
 					activeModelId = DEFAULT_MODELS[0].id;
 					modelUrl = DEFAULT_MODELS[0].url;
-					// Clear stale saved ID from storage
 					await vrmStorage?.removeItem('active-model-id');
 				}
 			} else {
-				// Default to first model
 				activeModelId = DEFAULT_MODELS[0].id;
 				modelUrl = DEFAULT_MODELS[0].url;
 			}
 		} catch (e) {
 			console.error('Failed to load VRM storage:', e);
-			// Fallback to default
 			activeModelId = DEFAULT_MODELS[0].id;
 			modelUrl = DEFAULT_MODELS[0].url;
 		}
+		storageReady = true;
 	}
 
 	async function saveToStorage() {
-		if (!vrmStorage) return;
+		if (!vrmStorage || !storageReady) return;
 		try {
-			// Save custom models (not defaults)
-			const customModels = models.filter((m) => !m.isDefault);
+			// Save custom models (not defaults) — strip blob URLs since they're ephemeral
+			const customModels = models
+				.filter((m) => !m.isDefault)
+				.map(({ url, previewUrl, ...rest }) => rest);
 			await vrmStorage.setItem('model-list', customModels);
 			await vrmStorage.setItem('active-model-id', activeModelId);
 		} catch (e) {

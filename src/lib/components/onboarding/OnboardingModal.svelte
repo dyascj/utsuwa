@@ -61,8 +61,9 @@
 	}
 </script>
 
-<div class="modal-overlay">
-	<div class="modal-container">
+<div class="modal-overlay" onclick={handleComplete} role="presentation">
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div class="modal-container" onclick={(e) => e.stopPropagation()}>
 		<!-- Progress dots (hidden on complete step) -->
 		{#if currentStep !== 'complete'}
 			<div class="progress-dots">

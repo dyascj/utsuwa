@@ -13,7 +13,15 @@
 </script>
 
 <div class="complete-wrapper">
-	<div class="complete-layout">
+	<div class="step-header">
+		<div class="header-icon">
+			<Icon name="check" size={24} />
+			<div class="header-icon-shine"></div>
+		</div>
+		<h2 class="title">You're all set!</h2>
+	</div>
+
+	<div class="complete-card">
 		<div class="avatar-box">
 			<div class="avatar-box-shine"></div>
 			{#if activeModel?.previewUrl}
@@ -29,25 +37,90 @@
 		<div class="text-box">
 			<p class="greeting">Hi, I'm <strong>{characterName}</strong>!</p>
 			<p class="tagline">Your new AI companion</p>
-			<button class="start-btn" onclick={onComplete}>
-				<span>Start Chatting</span>
-				<div class="btn-shine"></div>
-			</button>
 		</div>
 	</div>
+
+	<button class="start-btn" onclick={onComplete}>
+		<span>Start Chatting</span>
+		<Icon name="arrow-right" size={16} />
+		<div class="btn-shine"></div>
+	</button>
 </div>
 
 <style>
 	.complete-wrapper {
-		padding: 2rem 1.5rem;
+		padding: 1.5rem;
 		display: flex;
-		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.25rem;
 	}
 
-	.complete-layout {
+	.step-header {
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.header-icon {
+		position: relative;
+		width: 56px;
+		height: 56px;
+		background: linear-gradient(180deg, #4dd0ff 0%, #01B2FF 40%, #0099dd 100%);
+		border-radius: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+		box-shadow:
+			0 6px 20px rgba(1, 178, 255, 0.4),
+			0 3px 8px rgba(0, 0, 0, 0.12),
+			inset 0 1px 0 rgba(255, 255, 255, 0.4),
+			inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+	}
+
+	.header-icon-shine {
+		position: absolute;
+		top: 3px;
+		left: 15%;
+		right: 15%;
+		height: 40%;
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 60%, transparent 100%);
+		border-radius: 0.75rem 0.75rem 50% 50%;
+		pointer-events: none;
+	}
+
+	.title {
+		font-size: 1.125rem;
+		font-weight: 600;
+		color: var(--text-primary);
+		margin: 0;
+		letter-spacing: -0.02em;
+	}
+
+	.complete-card {
 		display: flex;
 		gap: 1.25rem;
 		align-items: center;
+		padding: 1.25rem;
+		width: 100%;
+		background: linear-gradient(180deg, #f8f9fa 0%, #f0f1f3 100%);
+		border: 1px solid rgba(0, 0, 0, 0.06);
+		border-radius: var(--radius-lg);
+		box-shadow:
+			0 2px 6px rgba(0, 0, 0, 0.06),
+			inset 0 1px 0 rgba(255, 255, 255, 0.8);
+	}
+
+	:global(.dark) .complete-card {
+		background: linear-gradient(180deg, #252525 0%, #1a1a1a 100%);
+		border-color: rgba(255, 255, 255, 0.08);
+		box-shadow:
+			0 2px 6px rgba(0, 0, 0, 0.3),
+			inset 0 1px 0 rgba(255, 255, 255, 0.05);
 	}
 
 	.avatar-box {
@@ -156,7 +229,11 @@
 
 	.start-btn {
 		position: relative;
-		margin-top: 0.75rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		width: 100%;
 		padding: 0.875rem 2rem;
 		background: linear-gradient(180deg, #4dd0ff 0%, #01B2FF 40%, #0099dd 100%);
 		color: white;
@@ -171,7 +248,6 @@
 			0 3px 6px rgba(0, 0, 0, 0.12),
 			inset 0 1px 0 rgba(255, 255, 255, 0.4);
 		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-		width: fit-content;
 		overflow: hidden;
 	}
 
