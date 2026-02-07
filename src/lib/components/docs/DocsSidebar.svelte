@@ -3,7 +3,8 @@
 	import DocsSearch from './DocsSearch.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
 	import { docsNav } from '$lib/config/docs-nav';
-	import { browser } from '$app/environment';
+	import { cycleTheme, getIconName, getLabel } from '$lib/config/docs-theme-toggle.svelte';
+	import { GITHUB_REPO } from '$lib/config/site';
 
 	interface Props {
 		mobileOpen?: boolean;
@@ -17,33 +18,8 @@
 		searchComponent?.focus();
 	}
 
-	// Theme toggle
-	type Theme = 'light' | 'dark' | 'system';
-	let theme = $state<Theme>('system');
-
-	if (browser) {
-		theme = (localStorage.getItem('colorMode') as Theme) || 'system';
-	}
-
-	function cycleTheme() {
-		const order: Theme[] = ['light', 'dark', 'system'];
-		const next = order[(order.indexOf(theme) + 1) % order.length];
-		theme = next;
-		if (!browser) return;
-		const root = document.documentElement;
-		if (next === 'system') {
-			root.removeAttribute('data-docs-theme');
-		} else {
-			root.setAttribute('data-docs-theme', next);
-		}
-		// Sync .dark class for the main app
-		const isDark = next === 'dark' || (next === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-		root.classList.toggle('dark', isDark);
-		localStorage.setItem('colorMode', next);
-	}
-
-	const iconName = $derived(theme === 'light' ? 'sun' : theme === 'dark' ? 'moon' : 'monitor');
-	const label = $derived(theme === 'light' ? 'Light' : theme === 'dark' ? 'Dark' : 'System');
+	const iconName = $derived(getIconName());
+	const label = $derived(getLabel());
 </script>
 
 <aside class="sidebar" class:mobile-open={mobileOpen}>
@@ -62,7 +38,7 @@
 			<Icon name={iconName} size={14} />
 			<span>{label}</span>
 		</button>
-		<a href="https://github.com/dyascj/utsuwa" target="_blank" rel="noopener noreferrer" class="footer-btn" title="GitHub">
+		<a href={GITHUB_REPO} target="_blank" rel="noopener noreferrer" class="footer-btn" title="GitHub">
 			<Icon name="github" size={14} />
 		</a>
 	</div>

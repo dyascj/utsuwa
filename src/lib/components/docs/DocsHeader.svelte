@@ -2,7 +2,7 @@
 	import Icon from '$lib/components/ui/Icon.svelte';
 	import DocsSearch from './DocsSearch.svelte';
 	import { page } from '$app/state';
-	import { browser } from '$app/environment';
+	import { cycleTheme, getIconName, getLabel } from '$lib/config/docs-theme-toggle.svelte';
 
 	interface Props {
 		onToggleSidebar?: () => void;
@@ -21,38 +21,8 @@
 		searchComponent?.focus();
 	}
 
-	type Theme = 'light' | 'dark' | 'system';
-
-	let theme = $state<Theme>('system');
-
-	if (browser) {
-		theme = (localStorage.getItem('colorMode') as Theme) || 'system';
-		applyTheme(theme);
-	}
-
-	function applyTheme(t: Theme) {
-		if (!browser) return;
-		const root = document.documentElement;
-		if (t === 'system') {
-			root.removeAttribute('data-docs-theme');
-		} else {
-			root.setAttribute('data-docs-theme', t);
-		}
-		// Sync .dark class for the main app
-		const isDark = t === 'dark' || (t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-		root.classList.toggle('dark', isDark);
-		localStorage.setItem('colorMode', t);
-	}
-
-	function cycleTheme() {
-		const order: Theme[] = ['light', 'dark', 'system'];
-		const next = order[(order.indexOf(theme) + 1) % order.length];
-		theme = next;
-		applyTheme(next);
-	}
-
-	const iconName = $derived(theme === 'light' ? 'sun' : theme === 'dark' ? 'moon' : 'monitor');
-	const label = $derived(theme === 'light' ? 'Light mode' : theme === 'dark' ? 'Dark mode' : 'System theme');
+	const iconName = $derived(getIconName());
+	const label = $derived(getLabel());
 </script>
 
 <header class="docs-header">

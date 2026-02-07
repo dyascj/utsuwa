@@ -1,18 +1,11 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { formatDate } from '$lib/utils/format-date';
 
 	let { data }: { data: PageData } = $props();
 
 	const featuredPost = $derived(data.posts[0]);
 	const restPosts = $derived(data.posts.slice(1));
-
-	function formatDate(dateStr: string): string {
-		return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		});
-	}
 </script>
 
 <svelte:head>

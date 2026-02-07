@@ -20,7 +20,7 @@
 			{@const href = `/docs/${item.slug}`}
 			{@const isActive = page.url.pathname === href}
 			<li>
-				<a {href} class="section-link" class:active={isActive}>
+				<a {href} class="section-link" class:active={isActive} aria-current={isActive ? 'page' : undefined}>
 					{item.title}
 				</a>
 			</li>

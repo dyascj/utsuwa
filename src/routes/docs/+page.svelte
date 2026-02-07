@@ -2,6 +2,7 @@
 	import Icon from '$lib/components/ui/Icon.svelte';
 	import DocsVersionChip from '$lib/components/docs/DocsVersionChip.svelte';
 	import { docsNav } from '$lib/config/docs-nav';
+	import { GITHUB_REPO, GITHUB_RELEASES } from '$lib/config/site';
 
 	const sectionDescriptions: Record<string, string> = {
 		'Overview': 'What Utsuwa is and how it works',
@@ -25,7 +26,7 @@
 			<p class="hero-tagline">A vessel for the soul of your virtual companion.</p>
 			<div class="hero-actions">
 				<a href="/" class="btn-primary">Try Live</a>
-				<a href="https://github.com/dyascj/utsuwa/releases" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+				<a href={GITHUB_RELEASES} target="_blank" rel="noopener noreferrer" class="btn-secondary">
 					<Icon name="download" size={14} />
 					Download
 				</a>
@@ -60,7 +61,7 @@
 		<div class="oss-cta">
 			<p>
 				Utsuwa is open source.
-				<a href="https://github.com/dyascj/utsuwa" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+				<a href={GITHUB_REPO} target="_blank" rel="noopener noreferrer">View on GitHub</a>
 				or <a href="/docs/community/contributing">start contributing</a>.
 			</p>
 		</div>
@@ -78,7 +79,7 @@
 		padding: 6rem 2rem 5rem;
 		text-align: center;
 		overflow: hidden;
-		background: url('/blog/hero-background.png') center 30% / cover no-repeat;
+		background: url('/docs/hero-background.png') center 30% / cover no-repeat;
 	}
 
 	.hero-fade {
@@ -106,8 +107,7 @@
 	.hero-logo {
 		height: 2.5rem;
 		width: auto;
-		filter: var(--docs-logo-filter, none);
-		drop-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+		filter: var(--docs-logo-filter, none) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
 	}
 
 	.hero-tagline {

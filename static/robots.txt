@@ -2,4 +2,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://utsuwa.app/sitemap.xml
+Sitemap: https://utsuwa.ai/sitemap.xml

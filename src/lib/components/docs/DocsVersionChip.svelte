@@ -1,9 +1,10 @@
 <script lang="ts">
+	import { GITHUB_RELEASES } from '$lib/config/site';
+
 	const version = `v${import.meta.env.VITE_APP_VERSION}`;
-	const releaseUrl = 'https://github.com/dyascj/utsuwa/releases';
 </script>
 
-<a href={releaseUrl} target="_blank" rel="noopener noreferrer" class="version-chip">
+<a href={GITHUB_RELEASES} target="_blank" rel="noopener noreferrer" class="version-chip">
 	{version}
 </a>
 

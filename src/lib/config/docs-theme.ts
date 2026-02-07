@@ -10,7 +10,6 @@ export const lightVars: Record<string, string> = {
 	'--docs-code-bg': 'rgba(247, 247, 248, 0.9)',
 	'--docs-accent': '#01B2FF',
 	'--docs-accent-light': '#4dd0ff',
-	'--docs-accent-dark': '#0099dd',
 	'--docs-accent-hover': '#0099dd',
 	'--docs-logo-filter': 'brightness(0)',
 	'--docs-glow': 'rgba(1, 178, 255, 0.35)',
@@ -39,7 +38,6 @@ export const darkVars: Record<string, string> = {
 	'--docs-code-bg': 'rgba(23, 23, 23, 0.95)',
 	'--docs-accent': '#01B2FF',
 	'--docs-accent-light': '#4dd0ff',
-	'--docs-accent-dark': '#0099dd',
 	'--docs-accent-hover': '#33c1ff',
 	'--docs-logo-filter': 'none',
 	'--docs-glow': 'rgba(1, 178, 255, 0.3)',
@@ -68,4 +66,34 @@ export function applyVars(el: HTMLElement, vars: Record<string, string>) {
 	for (const [key, value] of Object.entries(vars)) {
 		el.style.setProperty(key, value);
 	}
+}
+
+export function setupThemeWatcher(getEl: () => HTMLElement | null, isBrowser: boolean) {
+	const el = getEl();
+	if (!el || !isBrowser) return;
+
+	const update = () => {
+		const target = getEl();
+		if (target) applyVars(target, resolveTheme() === 'dark' ? darkVars : lightVars);
+	};
+
+	update();
+
+	const onStorage = () => update();
+	window.addEventListener('storage', onStorage);
+
+	const mql = window.matchMedia('(prefers-color-scheme: dark)');
+	mql.addEventListener('change', update);
+
+	const observer = new MutationObserver(update);
+	observer.observe(document.documentElement, {
+		attributes: true,
+		attributeFilter: ['data-docs-theme', 'class']
+	});
+
+	return () => {
+		window.removeEventListener('storage', onStorage);
+		mql.removeEventListener('change', update);
+		observer.disconnect();
+	};
 }

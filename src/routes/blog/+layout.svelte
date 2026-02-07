@@ -1,39 +1,12 @@
 <script lang="ts">
 	import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
-	import { lightVars, darkVars, resolveTheme, applyVars } from '$lib/config/docs-theme';
+	import { setupThemeWatcher } from '$lib/config/docs-theme';
 	import { browser } from '$app/environment';
 
 	let { children } = $props();
 	let blogEl = $state<HTMLDivElement | null>(null);
 
-	function updateTheme() {
-		if (!blogEl) return;
-		applyVars(blogEl, resolveTheme() === 'dark' ? darkVars : lightVars);
-	}
-
-	$effect(() => {
-		if (!blogEl || !browser) return;
-
-		updateTheme();
-
-		const onStorage = () => updateTheme();
-		window.addEventListener('storage', onStorage);
-
-		const mql = window.matchMedia('(prefers-color-scheme: dark)');
-		mql.addEventListener('change', updateTheme);
-
-		const observer = new MutationObserver(updateTheme);
-		observer.observe(document.documentElement, {
-			attributes: true,
-			attributeFilter: ['data-docs-theme', 'class']
-		});
-
-		return () => {
-			window.removeEventListener('storage', onStorage);
-			mql.removeEventListener('change', updateTheme);
-			observer.disconnect();
-		};
-	});
+	$effect(() => setupThemeWatcher(() => blogEl, browser));
 </script>
 
 <div class="docs" bind:this={blogEl}>

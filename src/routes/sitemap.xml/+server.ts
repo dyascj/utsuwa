@@ -1,6 +1,5 @@
 import type { RequestHandler } from './$types';
-
-const SITE_URL = 'https://utsuwa.app';
+import { SITE_URL } from '$lib/config/site';
 
 const blogModules = import.meta.glob('/src/content/blog/*.md', { eager: true });
 const docsModules = import.meta.glob('/src/content/docs/**/*.md', { eager: true });

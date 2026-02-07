@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DocsHeader from '$lib/components/docs/DocsHeader.svelte';
 	import DocsSidebar from '$lib/components/docs/DocsSidebar.svelte';
-	import { lightVars, darkVars, resolveTheme, applyVars } from '$lib/config/docs-theme';
+	import { setupThemeWatcher } from '$lib/config/docs-theme';
 	import { page } from '$app/state';
 	import { browser } from '$app/environment';
 
@@ -37,31 +37,7 @@
 
 	let docsEl = $state<HTMLDivElement | null>(null);
 
-	function updateTheme() {
-		if (!docsEl) return;
-		applyVars(docsEl, resolveTheme() === 'dark' ? darkVars : lightVars);
-	}
-
-	$effect(() => {
-		if (!docsEl || !browser) return;
-
-		updateTheme();
-
-		const onStorage = () => updateTheme();
-		window.addEventListener('storage', onStorage);
-
-		const mql = window.matchMedia('(prefers-color-scheme: dark)');
-		mql.addEventListener('change', updateTheme);
-
-		const observer = new MutationObserver(updateTheme);
-		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-docs-theme', 'class'] });
-
-		return () => {
-			window.removeEventListener('storage', onStorage);
-			mql.removeEventListener('change', updateTheme);
-			observer.disconnect();
-		};
-	});
+	$effect(() => setupThemeWatcher(() => docsEl, browser));
 </script>
 
 <div class="docs" bind:this={docsEl}>
