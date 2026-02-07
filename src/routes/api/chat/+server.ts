@@ -82,11 +82,16 @@ export const POST: RequestHandler = async ({ request }) => {
 			});
 		}
 
-		// Suppress background promise rejections so they don't crash Node
+		// Suppress ALL background promise/stream rejections so they don't crash Node.
+		// xsai rejects every promise and errors every stream when the provider request fails.
 		const silentCatch = () => {};
 		result.messages?.catch?.(silentCatch);
 		result.steps?.catch?.(silentCatch);
 		result.totalUsage?.catch?.(silentCatch);
+		result.usage?.catch?.(silentCatch);
+		// Consume errored ReadableStreams so they don't become unhandled
+		result.fullStream?.getReader().read().catch(silentCatch);
+		result.reasoningTextStream?.getReader().read().catch(silentCatch);
 
 		const { textStream } = result;
 
