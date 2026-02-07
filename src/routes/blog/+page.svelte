@@ -24,11 +24,6 @@
 </svelte:head>
 
 <div class="blog-index">
-	<div class="blog-header">
-		<h1>Blog</h1>
-		<p class="blog-subtitle">Development updates and behind-the-scenes notes.</p>
-	</div>
-
 	{#if featuredPost}
 		<a href="/blog/{featuredPost.slug}" class="featured-card">
 			<img src={featuredPost.image} alt="" class="featured-image" />
@@ -60,22 +55,6 @@
 </div>
 
 <style>
-	.blog-header {
-		margin-bottom: 2.5rem;
-	}
-
-	.blog-header h1 {
-		font-size: 2.25rem;
-		font-weight: 700;
-		color: var(--docs-text);
-		margin-bottom: 0.5rem;
-	}
-
-	.blog-subtitle {
-		color: var(--docs-text-muted);
-		font-size: 1.125rem;
-	}
-
 	/* Featured hero card */
 	.featured-card {
 		position: relative;

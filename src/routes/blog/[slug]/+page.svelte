@@ -46,6 +46,43 @@
 	{#if data.metadata?.description}
 		<meta name="description" content={data.metadata.description} />
 	{/if}
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content={data.metadata?.title || 'Blog'} />
+	{#if data.metadata?.description}
+		<meta property="og:description" content={data.metadata.description} />
+	{/if}
+	{#if data.metadata?.image}
+		<meta property="og:image" content={data.metadata.image} />
+	{/if}
+	<meta property="og:url" content={`https://utsuwa.app/blog/${data.slug}`} />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content={data.metadata?.title || 'Blog'} />
+	{#if data.metadata?.description}
+		<meta name="twitter:description" content={data.metadata.description} />
+	{/if}
+	{#if data.metadata?.image}
+		<meta name="twitter:image" content={data.metadata.image} />
+	{/if}
+	<link rel="canonical" href={`https://utsuwa.app/blog/${data.slug}`} />
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'BlogPosting',
+		headline: data.metadata?.title,
+		description: data.metadata?.description,
+		image: data.metadata?.image ? `https://utsuwa.app${data.metadata.image}` : undefined,
+		datePublished: data.metadata?.date,
+		url: `https://utsuwa.app/blog/${data.slug}`,
+		author: {
+			'@type': 'Organization',
+			name: 'Utsuwa',
+			url: 'https://utsuwa.app'
+		},
+		publisher: {
+			'@type': 'Organization',
+			name: 'Utsuwa',
+			url: 'https://utsuwa.app'
+		}
+	})}</script>`}
 	{@html '<style>html { scroll-padding-top: 6rem; }</style>'}
 </svelte:head>
 

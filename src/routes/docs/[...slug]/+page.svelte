@@ -49,6 +49,19 @@
 	{#if data.metadata?.description}
 		<meta name="description" content={data.metadata.description} />
 	{/if}
+	<link rel="canonical" href={`https://utsuwa.app/docs/${data.slug}`} />
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'TechArticle',
+		headline: data.metadata?.title,
+		description: data.metadata?.description,
+		url: `https://utsuwa.app/docs/${data.slug}`,
+		publisher: {
+			'@type': 'Organization',
+			name: 'Utsuwa',
+			url: 'https://utsuwa.app'
+		}
+	})}</script>`}
 	{@html '<style>html { scroll-padding-top: 6rem; }</style>'}
 </svelte:head>
 
