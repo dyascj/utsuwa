@@ -184,7 +184,6 @@
 	.search-container {
 		position: relative;
 		width: 100%;
-		max-width: 280px;
 	}
 
 	.search-input-wrapper {
@@ -196,7 +195,7 @@
 		backdrop-filter: blur(8px);
 		-webkit-backdrop-filter: blur(8px);
 		border: 1px solid var(--docs-glass-border);
-		border-radius: 999px;
+		border-radius: 0.5rem;
 		color: var(--docs-text-muted);
 		transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 		box-shadow:

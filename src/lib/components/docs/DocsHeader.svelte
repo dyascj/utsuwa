@@ -7,9 +7,11 @@
 	interface Props {
 		onToggleSidebar?: () => void;
 		sidebarOpen?: boolean;
+		hideSearch?: boolean;
+		hideThemeToggle?: boolean;
 	}
 
-	let { onToggleSidebar, sidebarOpen = false }: Props = $props();
+	let { onToggleSidebar, sidebarOpen = false, hideSearch = false, hideThemeToggle = false }: Props = $props();
 
 	const currentPath = $derived(page.url.pathname);
 
@@ -24,7 +26,7 @@
 	let theme = $state<Theme>('system');
 
 	if (browser) {
-		theme = (localStorage.getItem('docs-theme') as Theme) || 'system';
+		theme = (localStorage.getItem('colorMode') as Theme) || 'system';
 		applyTheme(theme);
 	}
 
@@ -36,7 +38,10 @@
 		} else {
 			root.setAttribute('data-docs-theme', t);
 		}
-		localStorage.setItem('docs-theme', t);
+		// Sync .dark class for the main app
+		const isDark = t === 'dark' || (t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+		root.classList.toggle('dark', isDark);
+		localStorage.setItem('colorMode', t);
 	}
 
 	function cycleTheme() {
@@ -60,24 +65,26 @@
 		<a href="/docs" class="logo desktop-logo">
 			<img src="/brand-assets/logo.svg" alt="Utsuwa" class="logo-img" />
 		</a>
-		<nav class="header-nav">
-			<a href="/docs" class="nav-link" class:active={currentPath.startsWith('/docs')}>Docs</a>
-			<a href="/blog" class="nav-link" class:active={currentPath.startsWith('/blog')}>Blog</a>
-		</nav>
 	</div>
-	<div class="header-search">
-		<DocsSearch bind:this={searchComponent} id="header-search" />
-	</div>
+	{#if !hideSearch}
+		<div class="header-search">
+			<DocsSearch bind:this={searchComponent} id="header-search" />
+		</div>
+	{/if}
 	<a href="/docs" class="logo mobile-logo">
 		<img src="/brand-assets/logo.svg" alt="Utsuwa" class="logo-img" />
 	</a>
 	<div class="header-right">
-		<button type="button" class="header-btn" onclick={cycleTheme} aria-label={label} title={label}>
-			<Icon name={iconName} size={18} />
-		</button>
-		<a href="https://github.com/dyascj/utsuwa" target="_blank" rel="noopener noreferrer" class="header-link" aria-label="GitHub">
-			<Icon name="github" size={20} />
-		</a>
+		<nav class="header-nav">
+			<a href="/docs" class="nav-link" class:active={currentPath.startsWith('/docs')}>Docs</a>
+			<a href="/blog" class="nav-link" class:active={currentPath.startsWith('/blog')}>Blog</a>
+		</nav>
+		{#if !hideThemeToggle}
+			<button type="button" class="header-btn" onclick={cycleTheme} aria-label={label} title={label}>
+				<Icon name={iconName} size={18} />
+			</button>
+		{/if}
+		<a href="/" class="try-live-btn">Try Live</a>
 	</div>
 </header>
 
@@ -88,14 +95,8 @@
 		justify-content: space-between;
 		height: 3.5rem;
 		padding: 0 1.5rem;
-		background: var(--docs-glass-bg);
-		backdrop-filter: blur(16px);
-		-webkit-backdrop-filter: blur(16px);
-		border-bottom: 1px solid var(--docs-glass-border);
-		box-shadow:
-			0 1px 0 var(--docs-inner-highlight) inset,
-			0 4px 16px rgba(0, 0, 0, 0.08),
-			0 1px 3px rgba(0, 0, 0, 0.05);
+		background: var(--docs-bg);
+		border-bottom: 1px solid var(--docs-border);
 		position: sticky;
 		top: 0;
 		z-index: 10;
@@ -138,7 +139,6 @@
 		display: flex;
 		align-items: center;
 		gap: 0.25rem;
-		margin-left: 1rem;
 	}
 
 	.nav-link {
@@ -200,29 +200,38 @@
 			0 0 8px var(--docs-glow);
 	}
 
-	.header-link {
-		display: flex;
+	.try-live-btn {
+		display: inline-flex;
 		align-items: center;
-		justify-content: center;
-		padding: 0.5rem;
+		padding: 0.375rem 0.875rem;
+		font-size: 0.8125rem;
+		font-weight: 600;
+		color: white;
+		background: var(--docs-btn-gradient);
+		border: 1px solid rgba(0, 0, 0, 0.1);
 		border-radius: 0.5rem;
-		color: var(--docs-text-muted);
-		background: var(--docs-surface);
-		border: 1px solid var(--docs-border);
+		text-decoration: none;
 		transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 		box-shadow:
-			0 1px 0 var(--docs-inner-highlight) inset,
-			0 2px 4px rgba(0, 0, 0, 0.05);
+			inset 0 1px 0 rgba(255, 255, 255, 0.3),
+			0 2px 6px rgba(1, 178, 255, 0.25);
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 	}
 
-	.header-link:hover {
-		color: var(--docs-text);
-		background: var(--docs-surface-solid);
-		border-color: var(--docs-border-solid);
-		box-shadow:
-			0 1px 0 var(--docs-inner-highlight) inset,
-			0 4px 12px rgba(0, 0, 0, 0.1);
+	.try-live-btn:hover {
+		background: var(--docs-btn-gradient-hover);
 		transform: translateY(-1px);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.4),
+			0 0 16px var(--docs-glow),
+			0 4px 12px rgba(1, 178, 255, 0.3);
+	}
+
+	.try-live-btn:active {
+		transform: translateY(0);
+		box-shadow:
+			inset 0 2px 4px rgba(0, 0, 0, 0.2),
+			0 1px 2px rgba(0, 0, 0, 0.1);
 	}
 
 	.hamburger {
@@ -264,8 +273,12 @@
 		}
 
 		.header-nav {
-			margin-left: 0.5rem;
 			gap: 0.125rem;
+		}
+
+		.try-live-btn {
+			padding: 0.3rem 0.625rem;
+			font-size: 0.75rem;
 		}
 
 		.header-search {

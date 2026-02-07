@@ -7,9 +7,7 @@
 
 	let { children } = $props();
 
-	const isLandingPage = $derived(page.url.pathname === '/docs');
 	let sidebarOpen = $state(false);
-	let headerComponent = $state<DocsHeader | null>(null);
 	let sidebarComponent = $state<DocsSidebar | null>(null);
 
 	// Close sidebar on navigation
@@ -18,7 +16,7 @@
 		sidebarOpen = false;
 	});
 
-	// Keyboard shortcut: Cmd/Ctrl+K to focus search
+	// Keyboard shortcut: Cmd/Ctrl+K to focus search in sidebar
 	$effect(() => {
 		if (!browser) return;
 
@@ -28,10 +26,8 @@
 				const isMobile = window.innerWidth <= 768;
 				if (isMobile) {
 					sidebarOpen = true;
-					setTimeout(() => sidebarComponent?.focusSearch(), 100);
-				} else {
-					headerComponent?.focusSearch();
 				}
+				setTimeout(() => sidebarComponent?.focusSearch(), 50);
 			}
 		}
 
@@ -58,7 +54,7 @@
 		mql.addEventListener('change', updateTheme);
 
 		const observer = new MutationObserver(updateTheme);
-		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-docs-theme'] });
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-docs-theme', 'class'] });
 
 		return () => {
 			window.removeEventListener('storage', onStorage);
@@ -69,16 +65,19 @@
 </script>
 
 <div class="docs" bind:this={docsEl}>
-	<DocsHeader bind:this={headerComponent} onToggleSidebar={() => sidebarOpen = !sidebarOpen} {sidebarOpen} />
+	<DocsHeader
+		onToggleSidebar={() => sidebarOpen = !sidebarOpen}
+		{sidebarOpen}
+		hideSearch
+		hideThemeToggle
+	/>
 	<div class="docs-body">
-		{#if !isLandingPage}
-			{#if sidebarOpen}
-				<!-- svelte-ignore a11y_no_static_element_interactions -->
-				<div class="sidebar-overlay" onclick={() => sidebarOpen = false} onkeydown={(e) => e.key === 'Escape' && (sidebarOpen = false)}></div>
-			{/if}
-			<DocsSidebar bind:this={sidebarComponent} mobileOpen={sidebarOpen} />
+		{#if sidebarOpen}
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div class="sidebar-overlay" onclick={() => sidebarOpen = false} onkeydown={(e) => e.key === 'Escape' && (sidebarOpen = false)}></div>
 		{/if}
-		<div class="docs-main" class:full-width={isLandingPage} data-pagefind-body>
+		<DocsSidebar bind:this={sidebarComponent} mobileOpen={sidebarOpen} />
+		<div class="docs-main" data-pagefind-body>
 			{@render children()}
 		</div>
 	</div>
@@ -94,16 +93,24 @@
 
 	.docs-body {
 		display: flex;
+		height: calc(100vh - 3.5rem);
+		overflow: hidden;
 	}
 
 	.docs-main {
 		flex: 1;
 		min-width: 0;
-		max-width: 100%;
+		background: var(--docs-surface-solid);
+		border-radius: 0.75rem;
+		margin: 0.5rem;
+		margin-left: 0;
+		overflow-y: auto;
+		scrollbar-width: thin;
+		scrollbar-color: transparent transparent;
 	}
 
-	.docs-main.full-width {
-		max-width: 100%;
+	.docs-main:hover {
+		scrollbar-color: rgba(128, 128, 128, 0.3) transparent;
 	}
 
 	.sidebar-overlay {
@@ -111,6 +118,16 @@
 	}
 
 	@media (max-width: 768px) {
+		.docs-body {
+			height: auto;
+			overflow: visible;
+		}
+
+		.docs-main {
+			border-radius: 0;
+			margin: 0;
+		}
+
 		.sidebar-overlay {
 			display: block;
 			position: fixed;
@@ -119,11 +136,6 @@
 			backdrop-filter: blur(4px);
 			-webkit-backdrop-filter: blur(4px);
 			z-index: 19;
-		}
-
-		.docs::before,
-		.docs::after {
-			opacity: 0.25;
 		}
 	}
 </style>

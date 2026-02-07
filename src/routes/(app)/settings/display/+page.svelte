@@ -35,7 +35,14 @@
 			shouldBeDark = mode === 'dark';
 		}
 
-		document.documentElement.classList.toggle('dark', shouldBeDark);
+		const root = document.documentElement;
+		root.classList.toggle('dark', shouldBeDark);
+		// Sync data-docs-theme for docs/blog pages
+		if (mode === 'system') {
+			root.removeAttribute('data-docs-theme');
+		} else {
+			root.setAttribute('data-docs-theme', mode);
+		}
 	}
 
 	// Listen for system theme changes when in system mode

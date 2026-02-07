@@ -40,7 +40,7 @@
 		const observer = new MutationObserver(updateTheme);
 		observer.observe(document.documentElement, {
 			attributes: true,
-			attributeFilter: ['data-docs-theme']
+			attributeFilter: ['data-docs-theme', 'class']
 		});
 
 		return () => {

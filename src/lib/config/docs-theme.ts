@@ -58,7 +58,7 @@ export const darkVars: Record<string, string> = {
 
 export function resolveTheme(): 'light' | 'dark' {
 	if (typeof window === 'undefined') return 'light';
-	const stored = localStorage.getItem('docs-theme');
+	const stored = localStorage.getItem('colorMode');
 	if (stored === 'light') return 'light';
 	if (stored === 'dark') return 'dark';
 	return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';

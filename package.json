@@ -35,6 +35,7 @@
 		"@tailwindcss/typography": "^0.5.19",
 		"@tailwindcss/vite": "^4.1.18",
 		"@tauri-apps/api": "^2.10.1",
+		"@tauri-apps/cli": "^2.10.0",
 		"@tauri-apps/plugin-global-shortcut": "^2.3.1",
 		"@types/three": "^0.182.0",
 		"mdsvex": "^0.12.6",

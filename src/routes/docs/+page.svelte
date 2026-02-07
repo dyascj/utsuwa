@@ -1,19 +1,7 @@
 <script lang="ts">
-	import DocsHero from '$lib/components/docs/DocsHero.svelte';
-	import DocsGetStartedCards from '$lib/components/docs/DocsGetStartedCards.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
+	import DocsVersionChip from '$lib/components/docs/DocsVersionChip.svelte';
 	import { docsNav } from '$lib/config/docs-nav';
-	import type { PageData } from './$types';
-
-	let { data }: { data: PageData } = $props();
-
-	function formatDate(dateStr: string): string {
-		return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		});
-	}
 
 	const sectionDescriptions: Record<string, string> = {
 		'Overview': 'What Utsuwa is and how it works',
@@ -28,303 +16,331 @@
 	<meta name="description" content="Utsuwa documentation - guides, setup instructions, and contribution guidelines." />
 </svelte:head>
 
-<DocsHero />
-
-<!-- Get Started -->
-<section class="section">
-	<div class="section-inner">
-		<h2 class="section-heading">Get Started</h2>
-		<DocsGetStartedCards />
+<div class="landing">
+	<div class="hero">
+		<div class="hero-fade"></div>
+		<div class="hero-content">
+			<DocsVersionChip />
+			<img src="/brand-assets/logo.svg" alt="Utsuwa" class="hero-logo" />
+			<p class="hero-tagline">A vessel for the soul of your virtual companion.</p>
+			<div class="hero-actions">
+				<a href="/" class="btn-primary">Try Live</a>
+				<a href="https://github.com/dyascj/utsuwa/releases" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+					<Icon name="download" size={14} />
+					Download
+				</a>
+			</div>
+		</div>
 	</div>
-</section>
 
-<!-- Explore the Docs -->
-<section class="section section-alt">
-	<div class="section-inner">
-		<h2 class="section-heading">Explore the Docs</h2>
-		<div class="explore-grid">
+	<div class="content">
+		<h2 class="section-title">Explore the Docs</h2>
+		<div class="nav-cards">
 			{#each docsNav as section}
-				<div class="explore-card">
-					<div class="explore-header">
-						<div class="explore-icon">
-							<Icon name={section.icon} size={18} />
+				<div class="nav-card">
+					<div class="nav-card-header">
+						<div class="nav-card-icon">
+							<Icon name={section.icon} size={16} />
 						</div>
-						<h3 class="explore-title">{section.title}</h3>
+						<h3>{section.title}</h3>
 					</div>
-					<p class="explore-desc">{sectionDescriptions[section.title] ?? ''}</p>
-					<ul class="explore-links">
+					<p class="nav-card-desc">{sectionDescriptions[section.title] ?? ''}</p>
+					<div class="nav-card-links">
 						{#each section.items as item}
-							<li><a href="/docs/{item.slug}">{item.title}</a></li>
+							<a href="/docs/{item.slug}" class="nav-card-link">
+								<Icon name="chevron-right" size={10} />
+								{item.title}
+							</a>
 						{/each}
-					</ul>
+					</div>
 				</div>
 			{/each}
 		</div>
-	</div>
-</section>
 
-<!-- Latest News -->
-{#if data.latestPost}
-	<section class="section">
-		<div class="section-inner">
-			<h2 class="section-heading">Latest News</h2>
-			<a href="/blog/{data.latestPost.slug}" class="blog-card">
-				<div class="card-image">
-					<img src={data.latestPost.image} alt="" loading="lazy" />
-				</div>
-				<div class="card-body">
-					<time datetime={data.latestPost.date}>{formatDate(data.latestPost.date)}</time>
-					<h3>{data.latestPost.title}</h3>
-					<p>{data.latestPost.description}</p>
-				</div>
-			</a>
-			<div class="view-all">
-				<a href="/blog">View all posts &rarr;</a>
-			</div>
+		<div class="oss-cta">
+			<p>
+				Utsuwa is open source.
+				<a href="https://github.com/dyascj/utsuwa" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+				or <a href="/docs/community/contributing">start contributing</a>.
+			</p>
 		</div>
-	</section>
-{/if}
-
-<!-- Open Source CTA -->
-<section class="section section-alt cta-section">
-	<div class="section-inner cta-inner">
-		<p class="cta-text">
-			Utsuwa is open source.
-			<a href="https://github.com/charlesdyas/utsuwa" target="_blank" rel="noopener noreferrer">Star us on GitHub</a>
-			or read the <a href="/docs/community/contributing">Contributing Guide</a>.
-		</p>
 	</div>
-</section>
+</div>
 
 <style>
-	/* Shared section styles */
-	.section {
-		padding: 3rem 2rem 4rem;
-		border-bottom: 1px solid var(--docs-border);
+	.landing {
+		min-height: 100%;
 	}
 
-	.section-alt {
-		background: var(--docs-surface);
+	/* Hero — fills full container width */
+	.hero {
+		position: relative;
+		padding: 6rem 2rem 5rem;
+		text-align: center;
+		overflow: hidden;
+		background: url('/blog/hero-background.png') center 30% / cover no-repeat;
 	}
 
-	.section-inner {
-		max-width: 800px;
+	.hero-fade {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to bottom,
+			transparent 0%,
+			transparent 40%,
+			var(--docs-surface-solid) 100%
+		);
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.25rem;
+		max-width: 480px;
 		margin: 0 auto;
 	}
 
-	.section-heading {
-		font-size: 1.25rem;
-		font-weight: 700;
+	.hero-logo {
+		height: 2.5rem;
+		width: auto;
+		filter: var(--docs-logo-filter, none);
+		drop-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	}
+
+	.hero-tagline {
+		font-size: 1rem;
 		color: var(--docs-text);
+		margin: 0;
+		line-height: 1.6;
+		text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+	}
+
+	.hero-actions {
+		display: flex;
+		gap: 0.75rem;
+		margin-top: 0.25rem;
+	}
+
+	.btn-primary,
+	.btn-secondary {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.375rem;
+		padding: 0.625rem 1.5rem;
+		font-size: 0.8125rem;
+		font-weight: 600;
+		border-radius: 0.5rem;
+		text-decoration: none;
+		transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.btn-primary {
+		background: var(--docs-btn-gradient);
+		color: white;
+		border: 1px solid rgba(0, 0, 0, 0.1);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.3),
+			0 2px 6px rgba(1, 178, 255, 0.25);
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+	}
+
+	.btn-primary:hover {
+		background: var(--docs-btn-gradient-hover);
+		transform: translateY(-2px);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.4),
+			0 0 16px var(--docs-glow),
+			0 4px 12px rgba(1, 178, 255, 0.3);
+	}
+
+	.btn-primary:active {
+		transform: translateY(0);
+		box-shadow:
+			inset 0 2px 4px rgba(0, 0, 0, 0.2),
+			0 1px 2px rgba(0, 0, 0, 0.1);
+	}
+
+	.btn-secondary {
+		border: 1px solid var(--docs-border);
+		color: var(--docs-text);
+		background: var(--docs-glass-bg);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+		box-shadow:
+			0 1px 0 var(--docs-inner-highlight) inset,
+			0 2px 6px rgba(0, 0, 0, 0.08);
+	}
+
+	.btn-secondary:hover {
+		border-color: var(--docs-accent);
+		background: var(--docs-surface-solid);
+		transform: translateY(-2px);
+		box-shadow:
+			0 1px 0 var(--docs-inner-highlight) inset,
+			0 0 16px var(--docs-glow),
+			0 4px 12px rgba(0, 0, 0, 0.12);
+	}
+
+	.btn-secondary:active {
+		transform: translateY(0);
+		box-shadow:
+			0 1px 2px var(--docs-inner-shadow) inset,
+			0 0 8px var(--docs-glow);
+	}
+
+	/* Content area below hero */
+	.content {
+		max-width: 44rem;
+		margin: 0 auto;
+		padding: 1.5rem 2rem 3rem;
+	}
+
+	.section-title {
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--docs-text-muted);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
 		margin: 0 0 1.25rem;
 	}
 
-	/* Explore the Docs */
-	.explore-grid {
+	/* Navigation cards — 2x2 grid */
+	.nav-cards {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		gap: 1.25rem;
+		gap: 1rem;
 	}
 
-	.explore-card {
-		border: 1px solid var(--docs-glass-border);
-		border-radius: 1rem;
-		padding: 1.5rem;
-		background: var(--docs-glass-bg);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
-		transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+	.nav-card {
+		padding: 1.25rem;
+		border-radius: 0.75rem;
+		border: 1px solid var(--docs-border);
+		background: var(--docs-surface);
+		transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 		box-shadow:
 			0 1px 0 var(--docs-inner-highlight) inset,
+			0 2px 6px rgba(0, 0, 0, 0.06);
+	}
+
+	.nav-card:hover {
+		border-color: color-mix(in srgb, var(--docs-accent) 40%, transparent);
+		box-shadow:
+			0 1px 0 var(--docs-inner-highlight) inset,
+			0 0 12px var(--docs-glow),
 			0 4px 16px rgba(0, 0, 0, 0.08);
 	}
 
-	.explore-card:hover {
-		border-color: var(--docs-accent);
-		transform: translateY(-4px);
-		box-shadow:
-			0 1px 0 var(--docs-inner-highlight) inset,
-			0 0 20px var(--docs-glow),
-			0 8px 32px rgba(0, 0, 0, 0.12);
-	}
-
-	.explore-header {
+	.nav-card-header {
 		display: flex;
 		align-items: center;
 		gap: 0.625rem;
 		margin-bottom: 0.5rem;
 	}
 
-	.explore-icon {
-		color: var(--docs-accent);
+	.nav-card-header h3 {
+		font-size: 0.8125rem;
+		font-weight: 600;
+		color: var(--docs-text);
+		margin: 0;
+	}
+
+	.nav-card-icon {
 		display: flex;
 		align-items: center;
+		justify-content: center;
+		width: 2rem;
+		height: 2rem;
+		flex-shrink: 0;
+		border-radius: 0.5rem;
+		background: var(--docs-surface-solid);
+		border: 1px solid var(--docs-border);
+		color: var(--docs-accent);
+		box-shadow:
+			0 1px 0 var(--docs-inner-highlight) inset,
+			0 1px 3px rgba(0, 0, 0, 0.06);
 	}
 
-	.explore-title {
-		font-size: 1rem;
-		font-weight: 600;
-		color: var(--docs-text);
-		margin: 0;
-	}
-
-	.explore-desc {
-		font-size: 0.8125rem;
+	.nav-card-desc {
+		font-size: 0.6875rem;
 		color: var(--docs-text-muted);
 		margin: 0 0 0.75rem;
-		line-height: 1.5;
-	}
-
-	.explore-links {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 0.375rem;
-	}
-
-	.explore-links a {
-		font-size: 0.8125rem;
-		color: var(--docs-text-muted);
-		text-decoration: none;
-		transition: color 0.15s ease;
-	}
-
-	.explore-links a:hover {
-		color: var(--docs-accent);
-	}
-
-	/* Blog card (matches blog listing) */
-	.blog-card {
-		display: flex;
-		flex-direction: column;
-		text-decoration: none;
-		border-radius: 1rem;
-		overflow: hidden;
-		border: 1px solid var(--docs-glass-border);
-		background: var(--docs-glass-bg);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
-		transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-		box-shadow:
-			0 1px 0 var(--docs-inner-highlight) inset,
-			0 4px 16px rgba(0, 0, 0, 0.08);
-	}
-
-	.blog-card:hover {
-		border-color: var(--docs-accent);
-		transform: translateY(-4px);
-		box-shadow:
-			0 1px 0 var(--docs-inner-highlight) inset,
-			0 0 24px var(--docs-glow),
-			0 12px 40px rgba(0, 0, 0, 0.15);
-	}
-
-	.card-image {
-		position: relative;
-		aspect-ratio: 16 / 9;
-		overflow: hidden;
-		background: var(--docs-surface);
-	}
-
-	.card-image img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-	}
-
-	.blog-card:hover .card-image img {
-		transform: scale(1.03);
-	}
-
-	.card-body {
-		padding: 1.25rem 1.5rem 1.5rem;
-		display: flex;
-		flex-direction: column;
-		gap: 0.375rem;
-	}
-
-	.card-body time {
-		font-size: 0.75rem;
-		font-weight: 500;
-		color: var(--docs-text-muted);
-	}
-
-	.card-body h3 {
-		font-size: 1.125rem;
-		font-weight: 600;
-		color: var(--docs-text);
-		margin: 0;
-		transition: color 0.15s ease;
 		line-height: 1.4;
 	}
 
-	.blog-card:hover .card-body h3 {
-		color: var(--docs-accent);
+	.nav-card-links {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
 	}
 
-	.card-body p {
-		font-size: 0.8125rem;
-		color: var(--docs-text-muted);
-		line-height: 1.6;
-		margin: 0;
-		display: -webkit-box;
-		-webkit-line-clamp: 3;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-	}
-
-	.view-all {
-		margin-top: 1rem;
-		text-align: right;
-	}
-
-	.view-all a {
-		font-size: 0.8125rem;
-		font-weight: 600;
+	.nav-card-link {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+		font-size: 0.75rem;
+		font-weight: 500;
 		color: var(--docs-text-muted);
 		text-decoration: none;
-		transition: color 0.15s ease;
+		padding: 0.25rem 0.375rem;
+		margin: 0 -0.375rem;
+		border-radius: 0.375rem;
+		transition: all 0.15s ease;
 	}
 
-	.view-all a:hover {
+	.nav-card-link:hover {
 		color: var(--docs-accent);
+		background: var(--docs-surface-solid);
 	}
 
-	/* Open Source CTA */
-	.cta-section {
-		padding: 2rem 2rem 3rem;
-	}
-
-	.cta-inner {
+	/* Open source CTA */
+	.oss-cta {
+		margin-top: 2.5rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--docs-border);
 		text-align: center;
 	}
 
-	.cta-text {
-		font-size: 0.875rem;
+	.oss-cta p {
+		font-size: 0.8125rem;
 		color: var(--docs-text-muted);
 		margin: 0;
+		line-height: 1.6;
 	}
 
-	.cta-text a {
+	.oss-cta a {
 		color: var(--docs-accent);
 		text-decoration: none;
-		font-weight: 600;
+		font-weight: 500;
 	}
 
-	.cta-text a:hover {
+	.oss-cta a:hover {
 		text-decoration: underline;
 	}
 
 	@media (max-width: 640px) {
-		.explore-grid {
-			grid-template-columns: 1fr;
+		.hero {
+			padding: 3.5rem 1.5rem 3rem;
 		}
 
-		.section {
-			padding: 2.5rem 1.25rem 3rem;
+		.hero-actions {
+			flex-direction: column;
+			width: 100%;
+		}
+
+		.btn-primary,
+		.btn-secondary {
+			justify-content: center;
+		}
+
+		.content {
+			padding: 1.5rem 1rem 2rem;
+		}
+
+		.nav-cards {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>
