@@ -18,7 +18,7 @@
 		max = 100,
 		size = 80,
 		strokeWidth = 8,
-		color = 'var(--ctp-pink)',
+		color = '#01B2FF',
 		iconName,
 		label,
 		showPercentage = true,

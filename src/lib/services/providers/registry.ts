@@ -177,5 +177,3 @@ export function getTTSProvider(id: string): ProviderMetadata | undefined {
 	return TTS_PROVIDERS.find((p) => p.id === id);
 }
 
-export type LLMProviderId = (typeof LLM_PROVIDERS)[number]['id'];
-export type TTSProviderId = (typeof TTS_PROVIDERS)[number]['id'];

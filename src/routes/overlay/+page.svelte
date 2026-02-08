@@ -36,8 +36,12 @@
 		hydrateWorkingMemory,
 		memoryApi,
 		determineFactCategory,
-		calculateFactImportance
+		calculateFactImportance,
+		backfillEmbeddings,
+		getEmbeddingBackfillStatus
 	} from '$lib/engine/memory';
+	import { initEmbeddingModel, subscribeToEmbeddingState } from '$lib/services/embeddings';
+	import { debugEventsStore } from '$lib/stores/debugEvents.svelte';
 
 	let latestResponse = $state('');
 	let isTyping = $state(false);
@@ -58,6 +62,32 @@
 				isMemoryReady = true;
 			}
 		})();
+	});
+
+	// Initialize embedding model and backfill facts without embeddings
+	$effect(() => {
+		const unsub = subscribeToEmbeddingState(() => {});
+
+		initEmbeddingModel().then(async (ready) => {
+			if (ready) {
+				const status = await getEmbeddingBackfillStatus();
+				if (status.withoutEmbeddings > 0) {
+					await backfillEmbeddings();
+				}
+			}
+		}).catch((e) => {
+			console.error('Failed to initialize embedding model:', e);
+		});
+
+		return unsub;
+	});
+
+	// Debug events (from developer tools)
+	$effect(() => {
+		const debugEvent = debugEventsStore.consume();
+		if (debugEvent) {
+			activeEvent = debugEvent;
+		}
 	});
 
 	// Handle drag for Tauri window

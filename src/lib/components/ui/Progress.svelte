@@ -65,15 +65,15 @@
 	}
 
 	.progress-fill.variant-energy {
-		background: linear-gradient(to right, var(--ctp-yellow), var(--ctp-green));
+		background: linear-gradient(to right, #f9e154, #40c057);
 	}
 
 	.progress-fill.variant-loneliness {
-		background: linear-gradient(to right, var(--ctp-green), var(--ctp-pink));
+		background: linear-gradient(to right, #40c057, #f06595);
 	}
 
 	.progress-fill.variant-boredom {
-		background: linear-gradient(to right, var(--ctp-blue), var(--ctp-peach));
+		background: linear-gradient(to right, #4dabf7, #fd7e14);
 	}
 
 	.progress-fill.variant-health {
@@ -81,7 +81,7 @@
 	}
 
 	.progress-fill.variant-tier {
-		background: linear-gradient(to right, var(--ctp-pink), var(--ctp-flamingo));
+		background: linear-gradient(to right, #f06595, #ff8787);
 	}
 
 	.progress-fill.variant-affection {
