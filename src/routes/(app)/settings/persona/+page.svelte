@@ -5,6 +5,7 @@
 	import { modulesStore } from '$lib/stores/modules.svelte';
 	import { settingsStore } from '$lib/stores/settings.svelte';
 	import { getLLMProvider, getTTSProvider } from '$lib/services/providers/registry';
+
 	import { Icon, Progress, Tooltip, ProviderDropdown, ModelDropdown } from '$lib/components/ui';
 	import VrmUploader from '$lib/components/vrm/VrmUploader.svelte';
 	import { allEvents } from '$lib/data/events';
@@ -646,6 +647,27 @@
 									{/if}
 								{/if}
 							{/if}
+						</div>
+
+						<!-- STT Config -->
+						<div class="service-group">
+							<div class="service-header">
+								<Icon name="mic" size={14} />
+								<span>Voice Input (STT)</span>
+							</div>
+							<p class="stt-hint">Higher quality voice input via Groq's Whisper API. Required on desktop, optional in browser (falls back to Web Speech API).</p>
+							<div class="api-key-row">
+								<input
+									type="password"
+									class="api-key-input"
+									placeholder="Groq API Key"
+									value={settingsStore.getProviderConfig('groq-stt').apiKey ?? ''}
+									oninput={(e) => {
+										settingsStore.setProviderConfig('groq-stt', { apiKey: e.currentTarget.value });
+										settingsStore.markProviderAdded('groq-stt');
+									}}
+								/>
+							</div>
 						</div>
 					</div>
 				{/if}
@@ -2422,6 +2444,13 @@
 		gap: 0.5rem;
 	}
 
+	.stt-hint {
+		font-size: 0.75rem;
+		color: var(--text-tertiary);
+		margin: 0;
+		line-height: 1.4;
+	}
+
 	.service-header {
 		display: flex;
 		align-items: center;
@@ -2813,14 +2842,6 @@
 
 		.model-name {
 			font-size: 0.7rem;
-		}
-
-		.stat-info {
-			width: 75px;
-		}
-
-		.stat-name {
-			font-size: 0.75rem;
 		}
 	}
 </style>

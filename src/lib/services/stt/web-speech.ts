@@ -2,6 +2,7 @@ export interface SpeechRecognitionCallbacks {
 	onResult: (transcript: string, isFinal: boolean) => void;
 	onEnd: () => void;
 	onError: (error: string) => void;
+	onAudioLevel?: (level: number) => void;
 }
 
 // Type declarations for Web Speech API
@@ -87,15 +88,6 @@ class WebSpeechService {
 
 		this.recognition.onstart = () => {
 			this.isListening = true;
-		};
-
-		this.recognition.onaudiostart = () => {
-		};
-
-		this.recognition.onspeechstart = () => {
-		};
-
-		this.recognition.onspeechend = () => {
 		};
 
 		this.recognition.onresult = (event: SpeechRecognitionEvent) => {

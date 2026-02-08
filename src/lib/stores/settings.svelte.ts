@@ -1,6 +1,6 @@
 import { browser } from '$app/environment';
 import type { ProviderConfig } from '$lib/types';
-import { LLM_PROVIDERS, TTS_PROVIDERS } from '$lib/services/providers/registry';
+import { LLM_PROVIDERS, TTS_PROVIDERS, STT_PROVIDERS } from '$lib/services/providers/registry';
 import { DEFAULT_HOTKEYS, type HotkeyConfig } from '$lib/services/platform/hotkeys';
 
 export type ProviderCategory = 'llm' | 'tts' | 'stt';
@@ -114,7 +114,8 @@ function createSettingsStore() {
 		// Find the provider metadata to check if it requires an API key
 		const llmProvider = LLM_PROVIDERS.find((p) => p.id === providerId);
 		const ttsProvider = TTS_PROVIDERS.find((p) => p.id === providerId);
-		const provider = llmProvider || ttsProvider;
+		const sttProvider = STT_PROVIDERS.find((p) => p.id === providerId);
+		const provider = llmProvider || ttsProvider || sttProvider;
 
 		if (!provider) return false;
 
@@ -128,8 +129,7 @@ function createSettingsStore() {
 
 	// Get all configured providers for a category
 	function getConfiguredProviders(category: ProviderCategory): string[] {
-		const providers = category === 'llm' ? LLM_PROVIDERS : TTS_PROVIDERS;
-		// STT uses TTS provider list for now (many providers support both)
+		const providers = category === 'llm' ? LLM_PROVIDERS : category === 'tts' ? TTS_PROVIDERS : STT_PROVIDERS;
 
 		return providers
 			.filter((p) => {
@@ -142,7 +142,7 @@ function createSettingsStore() {
 
 	// Get all added providers (even if not fully configured)
 	function getAddedProviders(category: ProviderCategory): string[] {
-		const providers = category === 'llm' ? LLM_PROVIDERS : TTS_PROVIDERS;
+		const providers = category === 'llm' ? LLM_PROVIDERS : category === 'tts' ? TTS_PROVIDERS : STT_PROVIDERS;
 
 		return providers.filter((p) => isProviderAdded(p.id)).map((p) => p.id);
 	}

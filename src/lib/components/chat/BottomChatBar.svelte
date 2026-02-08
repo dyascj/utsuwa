@@ -13,6 +13,7 @@
 	let textareaRef: HTMLTextAreaElement;
 
 	const isListening = $derived(sttStore.isListening);
+	const isTranscribing = $derived(sttStore.isTranscribing);
 	const audioLevel = $derived(sttStore.audioLevel);
 	const displayTranscript = $derived(sttStore.displayTranscript);
 	const sttError = $derived(sttStore.error);
@@ -96,16 +97,26 @@
 
 <div class="bottom-chat-bar">
 	<form class="chat-form" onsubmit={handleSubmit}>
-		<div class="input-wrapper" class:recording={isListening} class:focused={hasContent}>
-			{#if isListening}
+		<div class="input-wrapper" class:recording={isListening} class:transcribing={isTranscribing} class:focused={hasContent}>
+			{#if isTranscribing}
 				<button
 					type="button"
 					class="mic-btn recording"
-					onclick={handleCancelRecording}
-					aria-label="Cancel recording"
-					title="Cancel recording"
+					disabled
+					aria-label="Transcribing"
 				>
-					<Icon name="x" size={20} />
+					<Icon name="loader" size={20} />
+				</button>
+				<div class="transcribing-label">Transcribing...</div>
+			{:else if isListening}
+				<button
+					type="button"
+					class="mic-btn recording"
+					onclick={() => sttStore.stopListening()}
+					aria-label="Stop recording"
+					title="Stop recording"
+				>
+					<Icon name="stop" size={16} />
 				</button>
 				<AudioVisualizer {audioLevel} transcript={displayTranscript} />
 			{:else}
@@ -133,7 +144,7 @@
 				class="send-btn"
 				class:has-content={hasContent}
 				onclick={handleSendClick}
-				disabled={disabled || !hasContent}
+				disabled={disabled || isTranscribing || !hasContent}
 				aria-label={hasContent ? "Send message" : "Waiting for input"}
 			>
 				<span class="send-icon">
@@ -329,6 +340,24 @@
 				0 0 40px rgba(1, 178, 255, 0.3),
 				inset 0 1px 0 rgba(255, 255, 255, 1);
 		}
+	}
+
+	.input-wrapper.transcribing {
+		border-color: rgba(1, 178, 255, 0.4);
+	}
+
+	.transcribing-label {
+		flex: 1;
+		padding: 0.625rem 0.5rem;
+		font-size: 0.9rem;
+		color: var(--text-tertiary);
+		font-style: italic;
+	}
+
+	.mic-btn.recording:disabled {
+		opacity: 0.7;
+		cursor: wait;
+		animation: none;
 	}
 
 	textarea {

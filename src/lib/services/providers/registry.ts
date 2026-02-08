@@ -4,7 +4,7 @@ export interface ProviderMetadata {
 	id: string;
 	name: string;
 	description: string;
-	category: 'llm' | 'tts';
+	category: 'llm' | 'tts' | 'stt';
 	icon: string;
 	iconColor?: string;
 	requiresApiKey: boolean;
@@ -152,6 +152,22 @@ export const TTS_PROVIDERS: ProviderMetadata[] = [
 	},
 ];
 
+// ============================================
+// STT PROVIDERS
+// ============================================
+
+export const STT_PROVIDERS: ProviderMetadata[] = [
+	{
+		id: 'groq-stt',
+		name: 'Groq',
+		description: 'Fast speech-to-text via Whisper',
+		category: 'stt',
+		icon: '🎤',
+		requiresApiKey: true,
+		defaultBaseUrl: 'https://api.groq.com/openai/v1/'
+	}
+];
+
 // Helper functions
 export function getLLMProvider(id: string): ProviderMetadata | undefined {
 	return LLM_PROVIDERS.find((p) => p.id === id);
@@ -159,10 +175,6 @@ export function getLLMProvider(id: string): ProviderMetadata | undefined {
 
 export function getTTSProvider(id: string): ProviderMetadata | undefined {
 	return TTS_PROVIDERS.find((p) => p.id === id);
-}
-
-export function getAllProviders(): ProviderMetadata[] {
-	return [...LLM_PROVIDERS, ...TTS_PROVIDERS];
 }
 
 export type LLMProviderId = (typeof LLM_PROVIDERS)[number]['id'];

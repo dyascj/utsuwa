@@ -3,11 +3,13 @@
 	import BottomChatBar from '$lib/components/chat/BottomChatBar.svelte';
 	import SpeechBubble from '$lib/components/chat/SpeechBubble.svelte';
 	import FloatingChatIcon from '$lib/components/overlay/FloatingChatIcon.svelte';
+	import FloatingMicButton from '$lib/components/overlay/FloatingMicButton.svelte';
 	import HotkeyHandler from '$lib/components/overlay/HotkeyHandler.svelte';
 	import CompanionStatus from '$lib/components/ui/CompanionStatus.svelte';
 	import { Icon } from '$lib/components/ui';
 	import { vrmStore } from '$lib/stores/vrm.svelte';
 	import { chatStore } from '$lib/stores/chat.svelte';
+	import { sttStore } from '$lib/stores/stt.svelte';
 	import { settingsStore } from '$lib/stores/settings.svelte';
 	import { modulesStore } from '$lib/stores/modules.svelte';
 	import { ttsStore } from '$lib/stores/tts.svelte';
@@ -17,7 +19,7 @@
 	import { isTauri, startDragging } from '$lib/services/platform';
 	import { getLLMProvider, getTTSProvider } from '$lib/services/providers/registry';
 	import type { TTSProvider } from '$lib/types';
-	import { onMount } from 'svelte';
+
 
 	import { buildSystemPrompt, type PromptContext } from '$lib/ai/prompt-builder';
 	import { parseResponse, validateStateUpdates, extractPotentialFacts } from '$lib/ai/response-parser';
@@ -293,9 +295,12 @@
 		onHide={handleBubbleHide}
 	/>
 
-	<!-- Bottom controls (status + chat icon) -->
+	<!-- Bottom controls (status + mic + chat icon) -->
 	<div class="chat-controls">
 		<CompanionStatus overlay={true} />
+		{#if !chatExpanded}
+			<FloatingMicButton onTranscript={handleSend} />
+		{/if}
 		<FloatingChatIcon />
 	</div>
 
@@ -306,12 +311,19 @@
 		</div>
 	{/if}
 
-	<!-- Error toast -->
+	<!-- Error toasts -->
 	{#if chatStore.error}
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div class="error-toast" onclick={() => chatStore.setError(null)}>
 			<span>{chatStore.error}</span>
+		</div>
+	{/if}
+	{#if sttStore.error}
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div class="error-toast" onclick={() => sttStore.clearError()}>
+			<span>{sttStore.error}</span>
 		</div>
 	{/if}
 
@@ -403,18 +415,20 @@
 
 	.error-toast {
 		position: fixed;
-		top: 1rem;
+		bottom: 5rem;
 		left: 50%;
 		transform: translateX(-50%);
-		padding: 0.75rem 1rem;
+		padding: 0.5rem 0.875rem;
 		background: linear-gradient(180deg, #ff6b6b 0%, #ee5a5a 100%);
 		border: 1px solid rgba(255, 255, 255, 0.2);
-		border-radius: 16px;
+		border-radius: 12px;
 		color: white;
-		font-size: 0.875rem;
+		font-size: 0.75rem;
+		max-width: calc(100% - 2rem);
+		text-align: center;
 		cursor: pointer;
 		z-index: 50;
-		animation: slideDownShake 0.5s ease-out;
+		animation: slideUpShake 0.5s ease-out;
 		box-shadow:
 			0 4px 20px rgba(238, 90, 90, 0.4),
 			0 2px 4px rgba(0, 0, 0, 0.1),
@@ -422,10 +436,10 @@
 		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 	}
 
-	@keyframes slideDownShake {
+	@keyframes slideUpShake {
 		0% {
 			opacity: 0;
-			transform: translateX(-50%) translateY(-8px);
+			transform: translateX(-50%) translateY(8px);
 		}
 		30% {
 			opacity: 1;

@@ -625,10 +625,10 @@
 		pointer-events: none;
 	}
 
-	/* Expanded panel floating above the button */
+	/* Expanded panel floating above the controls, centered in viewport */
 	.overlay-expanded-panel {
-		position: absolute;
-		bottom: calc(100% + 0.75rem);
+		position: fixed;
+		bottom: 5.5rem;
 		left: 50%;
 		transform: translateX(-50%);
 		background: linear-gradient(
