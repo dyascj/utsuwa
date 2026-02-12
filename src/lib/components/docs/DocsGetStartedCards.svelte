@@ -30,7 +30,7 @@
 		</div>
 		<h3 class="card-title">Desktop</h3>
 		<p class="card-desc">
-			Desktop app with transparent overlay mode. Available for Windows, macOS, and Linux.
+			Desktop app with transparent overlay mode. Currently macOS only — Windows and Linux planned.
 		</p>
 		<div class="card-actions">
 			<a href={GITHUB_RELEASES} target="_blank" rel="noopener noreferrer" class="card-btn primary">

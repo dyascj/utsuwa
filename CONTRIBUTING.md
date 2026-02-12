@@ -84,15 +84,18 @@ src/
 │   ├── data/          # Event definitions and static data
 │   ├── db/            # IndexedDB database (Dexie)
 │   ├── engine/        # Companion engine (state, memory, events, heuristics)
-│   ├── services/      # LLM, TTS, and storage services
+│   ├── services/      # LLM, TTS, STT, and storage services
 │   ├── stores/        # Svelte 5 stores for state management
+│   ├── styles/        # Shared CSS (prose, etc.)
 │   ├── types/         # TypeScript type definitions
 │   └── utils/         # Utility functions
 ├── content/
+│   ├── blog/          # Blog post markdown content
 │   └── docs/          # Documentation site markdown content
 ├── routes/
 │   ├── (app)/         # Main application routes
 │   ├── api/           # API routes
+│   ├── blog/          # Blog routes
 │   ├── docs/          # Documentation site routes
 │   └── overlay/       # Desktop overlay route
 └── app.css            # Global styles

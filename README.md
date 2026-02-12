@@ -18,7 +18,7 @@
 - **Model-Centric UI**: Full-screen 3D model with unobtrusive overlay controls
 - **3D Speech Bubbles**: Chat responses appear as bubbles that track the model's head in 3D space
 - **Chat Interface**: Bottom-centered input bar with streaming responses
-- **Voice Input**: Speech-to-text using Web Speech API with real-time audio visualization
+- **Voice Input**: Speech-to-text via Groq (Whisper) or Web Speech API with real-time audio visualization
 - **LLM Integration**: Support for 7 LLM providers including OpenAI, Anthropic, Google, and local options
 - **Text-to-Speech**: Support for ElevenLabs and OpenAI TTS
 - **Lip-sync**: Audio-driven mouth animation synced to TTS playback
@@ -29,7 +29,7 @@
 - **Memory Graph**: Interactive visualization showing how memories connect semantically
 - **Data Export/Import**: Download your data as a save file, restore anytime
 - **Theming**: Light and dark mode support with system preference detection
-- **Desktop App** *(beta)*: Native desktop app with transparent overlay mode — your companion floats on your desktop
+- **Desktop App** *(beta, macOS only)*: Native desktop app with transparent overlay mode — your companion floats on your desktop
 
 ### Local-First Storage
 
@@ -81,13 +81,14 @@ The desktop app uses the same codebase as the web version — your save files ar
 |----------|-----------|
 | **Cloud** | ElevenLabs, OpenAI TTS |
 
-### STT (Speech-to-Text)
+### STT Providers (2)
 
-| Provider | Description |
-|----------|-------------|
-| **Web Speech API** | Native speech recognition via Web Speech API. No API key required. Works in Chrome, Edge, and Safari. |
+| Category | Providers |
+|----------|-----------|
+| **Cloud** | Groq (Whisper) |
+| **Browser** | Web Speech API (no API key required) |
 
-Voice input is accessed via the microphone button in the chat bar. The audio visualizer provides real-time feedback while speaking.
+Voice input is accessed via the microphone button in the chat bar. Groq STT uses Whisper for accurate transcription on any platform (including desktop). Web Speech API works without an API key in Chrome, Edge, and Safari. If a Groq API key is configured, it takes priority automatically.
 
 ## Getting Started
 
@@ -96,7 +97,7 @@ Voice input is accessed via the microphone button in the chat bar. The audio vis
 
 ### Try it Online
 
-Use Utsuwa directly at **[utsuwa.ai](https://utsuwa.ai)** — no installation required. Or download the desktop app from [GitHub Releases](https://github.com/dyascj/utsuwa/releases).
+Use Utsuwa directly at **[utsuwa.ai](https://utsuwa.ai)** — no installation required. Or download the macOS desktop app from [GitHub Releases](https://github.com/dyascj/utsuwa/releases).
 
 ### Self-Hosting
 
@@ -177,15 +178,18 @@ utsuwa/
 │   │   ├── data/           # Event definitions and static data
 │   │   ├── db/             # IndexedDB database (Dexie)
 │   │   ├── engine/         # Companion engine (state, memory, events)
-│   │   ├── services/       # LLM, TTS, storage services
+│   │   ├── services/       # LLM, TTS, STT, storage services
 │   │   ├── stores/         # Svelte 5 stores (state management)
+│   │   ├── styles/         # Shared CSS (prose, etc.)
 │   │   ├── types/          # TypeScript types
 │   │   └── utils/          # Utility functions
 │   ├── content/
-│   │   └── docs/           # Documentation site content
+│   │   ├── blog/           # Blog post markdown content
+│   │   └── docs/           # Documentation site markdown content
 │   └── routes/
 │       ├── (app)/          # Main application routes
 │       ├── api/            # API routes
+│       ├── blog/           # Blog routes
 │       ├── docs/           # Documentation site routes
 │       └── overlay/        # Desktop overlay route
 ├── src-tauri/               # Tauri desktop app (Rust)
@@ -200,7 +204,9 @@ utsuwa/
 pnpm dev          # Start web development server
 pnpm build        # Build web app for production
 pnpm preview      # Preview production build
-pnpm lint         # Type-check and lint the project
+pnpm lint         # Type-check the project (svelte-check)
+pnpm check        # Same as lint (alias)
+pnpm check:watch  # Type-check in watch mode
 pnpm tauri dev    # Run the desktop app in development mode
 pnpm tauri build  # Build desktop app installer
 ```
@@ -222,13 +228,13 @@ pnpm tauri build  # Build desktop app installer
 - [x] Time-based mood and relationship decay/recovery
 - [x] Local-first IndexedDB storage with export/import
 - [x] Theme system with light/dark modes
-- [x] Voice input via Web Speech API
-- [x] Desktop application with transparent overlay mode (Windows, macOS, Linux)
+- [x] Voice input via Groq STT (Whisper) and Web Speech API
+- [x] Desktop application with transparent overlay mode (macOS only, Windows/Linux planned)
 
 ### In Progress / Planned
 
 - [ ] **Companion Gender System** - Gender selection with male/female specific animations and behaviors
-- [ ] **Multi-provider STT** - Support for additional speech-to-text providers beyond Web Speech API
+- [ ] **Multi-provider STT** - Support for additional speech-to-text providers beyond Groq and Web Speech API
 - [ ] **Enhanced User Controls** - More granular control over companion behavior and responses
 - [ ] **Custom Lighting Controls** - Adjust 3D scene lighting, environment, and atmosphere
 - [ ] **LLM-Controlled Expressions** - Dynamic facial animations and emotions driven by LLM responses

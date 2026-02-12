@@ -74,7 +74,16 @@ export function setupThemeWatcher(getEl: () => HTMLElement | null, isBrowser: bo
 
 	const update = () => {
 		const target = getEl();
-		if (target) applyVars(target, resolveTheme() === 'dark' ? darkVars : lightVars);
+		const theme = resolveTheme();
+		if (target) applyVars(target, theme === 'dark' ? darkVars : lightVars);
+
+		// Sync data-docs-theme so Shiki code blocks pick the right colors
+		const stored = localStorage.getItem('colorMode');
+		if (stored === 'light' || stored === 'dark') {
+			document.documentElement.setAttribute('data-docs-theme', stored);
+		} else {
+			document.documentElement.removeAttribute('data-docs-theme');
+		}
 	};
 
 	update();
@@ -88,7 +97,7 @@ export function setupThemeWatcher(getEl: () => HTMLElement | null, isBrowser: bo
 	const observer = new MutationObserver(update);
 	observer.observe(document.documentElement, {
 		attributes: true,
-		attributeFilter: ['data-docs-theme', 'class']
+		attributeFilter: ['class']
 	});
 
 	return () => {

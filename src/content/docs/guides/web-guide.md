@@ -33,8 +33,8 @@ The app will be available at `http://localhost:5173`.
 Your companion needs an LLM to generate responses.
 
 1. Open **Settings** (gear icon in the sidebar)
-2. Navigate to **LLM Providers**
-3. Select a provider and enter your API key
+2. Navigate to the **Character** tab
+3. Enable the LLM toggle, then select a provider from the dropdown and enter your API key
 4. Alternatively, use a local server like Ollama or LM Studio (no API key needed)
 
 All API keys are stored locally on your device and never sent anywhere except the respective provider's API.
@@ -43,7 +43,7 @@ All API keys are stored locally on your device and never sent anywhere except th
 
 Utsuwa comes with a default avatar, but you can load your own:
 
-1. Go to **Settings > Avatar**
+1. Go to **Settings > Character**
 2. Click **Load VRM** to select a local `.vrm` file
 3. Or enter a URL to load a VRM model from the web
 
@@ -51,8 +51,8 @@ Utsuwa comes with a default avatar, but you can load your own:
 
 To have your companion speak responses aloud:
 
-1. Go to **Settings > TTS Providers**
-2. Select a provider (ElevenLabs or OpenAI TTS)
+1. Go to **Settings > Character**
+2. Enable the TTS toggle, then select a provider (ElevenLabs or OpenAI TTS)
 3. Enter your API key and configure voice settings
 
 ## Using the Chat
@@ -63,7 +63,12 @@ If TTS is enabled, the avatar will speak the response with lip-synced animation.
 
 ## Voice Input
 
-Click the microphone button in the chat bar to use speech-to-text. This uses the Web Speech API — no API key required.
+Click the microphone button in the chat bar to use speech-to-text. Two providers are available:
+
+- **Web Speech API** — Built into your browser (Chrome, Edge, Safari). No API key required. This is the default in the browser.
+- **Groq Whisper** — Higher quality transcription via Groq's Whisper API. Requires a Groq API key, which you can add in **Settings > Character** under the Voice Input (STT) section. When a Groq key is configured, it automatically becomes the active STT provider.
+
+On the desktop app, Web Speech API is not available — you'll need to configure a Groq API key for voice input.
 
 ## Data Management
 

@@ -11,7 +11,7 @@ description: What is Utsuwa and how to get started.
 - Load a VRM model, connect any LLM provider, and bring your AI companion to life
 - Voice, memory, and a relationship system built in
 - Local-first — your data stays on your device
-- Desktop app with transparent overlay mode for Windows, macOS, and Linux
+- Desktop app with transparent overlay mode (macOS only, Windows/Linux planned)
 
 ## What is Utsuwa?
 
@@ -19,7 +19,7 @@ Most AI companions today are either text-only chat interfaces or locked behind p
 
 Utsuwa takes a different approach. It gives you a 3D avatar that speaks, remembers your conversations, and develops a relationship with you over time. No accounts, no subscriptions. Your data stays on your device.
 
-Connect any LLM provider you want — OpenAI, Anthropic, Google, DeepSeek, xAI, or a local model through Ollama or LM Studio. Add voice with ElevenLabs or OpenAI TTS. Load any VRM model as your companion's body. Everything is modular and swappable.
+Connect any LLM provider you want — OpenAI, Anthropic, Google, DeepSeek, xAI, or a local model through Ollama or LM Studio. Add voice with ElevenLabs or OpenAI TTS. Use Groq or your browser's built-in speech recognition for voice input. Load any VRM model as your companion's body. Everything is modular and swappable.
 
 "Utsuwa" means "vessel" in Japanese — a container for AI to inhabit visually. The app is the vessel; you choose what goes inside.
 

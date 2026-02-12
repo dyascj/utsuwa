@@ -79,7 +79,16 @@
 		padding: 6rem 2rem 5rem;
 		text-align: center;
 		overflow: hidden;
+	}
+
+	.hero::before {
+		content: '';
+		position: absolute;
+		inset: 0;
 		background: url('/docs/hero-background.png') center 30% / cover no-repeat;
+		filter: blur(12px);
+		opacity: 0.5;
+		scale: 1.1;
 	}
 
 	.hero-fade {

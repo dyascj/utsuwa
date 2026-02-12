@@ -116,6 +116,30 @@ If the avatar's mouth isn't moving:
 1. **Check voice settings** - ElevenLabs and OpenAI TTS have different available voices
 2. **Custom voice ID** - If using ElevenLabs custom voice, verify the voice ID is correct
 
+## Voice Input Issues
+
+### Mic button not responding (desktop)
+
+The desktop app uses Tauri's webview, which does not support the browser's Web Speech API. You need to configure Groq Whisper for voice input on desktop:
+
+1. Go to **Settings > Character**
+2. Under **Voice Input (STT)**, enter your Groq API key
+
+### Mic button not responding (web)
+
+If the mic button shows an error in the browser:
+
+1. **Check browser support** - Web Speech API works in Chrome, Edge, and Safari. Firefox has limited support.
+2. **Allow microphone access** - Your browser may be blocking the microphone permission.
+3. **Use Groq Whisper** - For better quality or broader browser support, add a Groq API key in **Settings > Character** under Voice Input (STT). When configured, it automatically overrides Web Speech API.
+
+### "Microphone access denied"
+
+Your browser or OS is blocking microphone access:
+
+1. **Browser permissions** - Click the lock icon in the address bar and allow microphone access
+2. **System permissions** - On macOS, go to System Settings > Privacy & Security > Microphone and enable access for your browser or Utsuwa
+
 ## Memory & Performance
 
 ### App running slowly

@@ -7,21 +7,15 @@ description: How to install and use the Utsuwa desktop application with overlay 
 
 Utsuwa Desktop is an application that brings your AI companion to your desktop with a transparent overlay mode. Your companion can float over other applications, always visible while you work.
 
-Available for **Windows**, **macOS**, and **Linux**.
+Currently available for **macOS** only. Windows and Linux support is planned.
 
 ## Installation
 
 ### Download
 
-Head to the [GitHub Releases](https://github.com/dyascj/utsuwa/releases) page and grab the latest version for your platform:
+Head to the [GitHub Releases](https://github.com/dyascj/utsuwa/releases) page and download the `.dmg` disk image for macOS.
 
-| Platform | File |
-|----------|------|
-| Windows | `.msi` or `.exe` installer |
-| macOS | `.dmg` disk image |
-| Linux | `.AppImage` or `.deb` package |
-
-Download the file, run the installer, and you're good to go.
+Open the `.dmg`, drag Utsuwa to your Applications folder, and you're good to go.
 
 ### Building from Source
 
@@ -100,9 +94,9 @@ Some features are still being worked on:
 
 | Feature | Status |
 |---------|--------|
-| Windows support | ✅ Available |
 | macOS support | ✅ Available |
-| Linux support | ✅ Available |
+| Windows support | ⏳ Planned |
+| Linux support | ⏳ Planned |
 | Click-through transparency | ❌ Disabled (blocks UI) |
 | Global hotkeys | ✅ Available |
 | Position persistence | ⏳ Planned |
@@ -136,6 +130,10 @@ This can happen if the renderer isn't properly configured. Try:
 ### Character facing wrong direction
 
 The camera is locked in overlay mode. If the character appears rotated, exit overlay and re-enter.
+
+### Voice input not working
+
+The desktop app uses Tauri's webview, which does not support the browser's Web Speech API. You need a Groq API key for voice input on desktop. Add it in **Settings > Character** under the Voice Input (STT) section.
 
 ### Can't interact with overlay UI
 

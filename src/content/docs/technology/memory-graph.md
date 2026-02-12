@@ -20,7 +20,7 @@ Each node represents a stored memory (fact) about you, your relationship, or sha
 **Node Colors:**
 - **Cyan** — User facts (your preferences, background, attributes)
 - **Pink** — Relationship facts (dynamics between you and the companion)
-- **Teal** — Shared experiences (events you've discussed together)
+- **Green** — Shared experiences (events you've discussed together)
 
 ### Connections
 
@@ -49,7 +49,7 @@ Click "Reset View" to zoom out and see the full graph, clearing any selection.
 
 ## Technical Details
 
-The Memory Graph uses **384-dimensional embeddings** (via Transformers.js with the all-MiniLM-L6-v2 model) to compute semantic relationships between memories. Memories with a **cosine similarity > 0.5** are connected.
+The Memory Graph uses **384-dimensional embeddings** (via Transformers.js with the all-MiniLM-L6-v2 model) to compute semantic relationships between memories. Memories with a **cosine similarity >= 0.5** are connected.
 
 **Reference Count** tracks how many times a memory has been retrieved during conversations — higher counts indicate memories that frequently inform responses.
 
@@ -58,8 +58,8 @@ The Memory Graph uses **384-dimensional embeddings** (via Transformers.js with t
 ### Requirements
 
 - Memories must have embeddings to appear in the graph
-- The embedding model is loaded automatically when you first chat
-- Existing memories without embeddings can be backfilled via Settings > Developer
+- The embedding model is loaded automatically on app startup
+- Existing memories without embeddings are backfilled automatically when the embedding model finishes loading
 
 ## Related
 

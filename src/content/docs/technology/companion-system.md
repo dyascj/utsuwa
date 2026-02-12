@@ -28,7 +28,7 @@ Utsuwa supports two distinct modes:
 - Simple AI assistant experience without relationship mechanics
 - Relationship stage is locked to "Companion"
 - No stat progression — affection, trust, intimacy, etc. remain static
-- Dating sim stage is preserved and restored when switching back
+- Dating sim stats are preserved; switching back recalculates the stage
 
 ### Dating Sim Mode (Default)
 
@@ -311,7 +311,7 @@ The LLM responds naturally in character, then optionally outputs a JSON block wi
   "comfort_delta": 1,
   "respect_delta": 0,             // supported by parser, not in prompt template
   "new_memory": "User mentioned they like hiking",
-  "new_inside_joke": "optional string (parsed but not yet implemented)",
+  "new_inside_joke": "optional string (defined in schema but not mapped by parser)",
   "triggered_event": "optional_event_id"
 }
 ```
@@ -338,7 +338,7 @@ Each user message is analyzed for:
 | Emotional content | +2 intimacy, +1 trust, +1 affection |
 | Questions asked | +1 respect, +1 trust |
 | Non-linear affection | Fast early (1.5x), normal middle, slow late (0.7x) |
-| Randomness | +/-20% variance on all deltas |
+| Randomness | +/-20% variance on affection and trust deltas |
 
 ### State Merging
 
