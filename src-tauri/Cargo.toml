@@ -1,6 +1,6 @@
 [package]
 name = "utsuwa"
-version = "0.2.3"
+version = "0.2.4"
 description = "Open Source AI Soul Vessel - VRM Avatar Companion"
 authors = ["Charles Dyas"]
 edition = "2021"

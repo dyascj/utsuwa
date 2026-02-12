@@ -13,9 +13,11 @@ Currently available for **macOS** only. Windows and Linux support is planned.
 
 ### Download
 
-Head to the [GitHub Releases](https://github.com/dyascj/utsuwa/releases) page and download the `.dmg` disk image for macOS.
+Head to the [GitHub Releases](https://github.com/The-Lab-by-Ordinary-Company/utsuwa/releases) page and download the `.dmg` disk image for macOS.
 
 Open the `.dmg`, drag Utsuwa to your Applications folder, and you're good to go.
+
+> **macOS Gatekeeper:** Since Utsuwa isn't signed with an Apple Developer ID, macOS may show a warning when you first open it. See [Gatekeeper Warning](#gatekeeper-warning) below for how to resolve this.
 
 ### Building from Source
 
@@ -29,7 +31,7 @@ If you prefer to build it yourself:
 
 ```bash
 # Clone the repo
-git clone https://github.com/dyascj/utsuwa.git
+git clone https://github.com/The-Lab-by-Ordinary-Company/utsuwa.git
 cd utsuwa
 
 # Install dependencies
@@ -104,6 +106,29 @@ Some features are still being worked on:
 
 ## Troubleshooting
 
+### Gatekeeper Warning
+
+macOS may show **"Utsuwa is damaged and can't be opened"** or **"Utsuwa can't be opened because it is from an unidentified developer"** when launching for the first time. This is because the app isn't signed with an Apple Developer ID certificate.
+
+**Option 1 — Right-click to open:**
+
+1. Find Utsuwa in your Applications folder
+2. **Right-click** (or Control-click) the app
+3. Select **Open** from the context menu
+4. Click **Open** on the dialog that appears
+
+macOS remembers this choice — you only need to do it once.
+
+**Option 2 — Remove the quarantine flag:**
+
+If right-click doesn't work (you see the "damaged" message), run this in Terminal:
+
+```bash
+xattr -cr /Applications/Utsuwa.app
+```
+
+Then open the app normally.
+
 ### App won't start
 
 If you built from source, make sure Rust is installed:
@@ -118,14 +143,14 @@ If not installed, run:
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-If you downloaded a release binary and it won't launch, try downloading it again or check the [GitHub Issues](https://github.com/dyascj/utsuwa/issues) page.
+If you downloaded a release binary and it won't launch, try downloading it again or check the [GitHub Issues](https://github.com/The-Lab-by-Ordinary-Company/utsuwa/issues) page.
 
 ### Overlay background not transparent
 
 This can happen if the renderer isn't properly configured. Try:
 
 1. Exit and relaunch the app
-2. Make sure you're on the latest version from [Releases](https://github.com/dyascj/utsuwa/releases)
+2. Make sure you're on the latest version from [Releases](https://github.com/The-Lab-by-Ordinary-Company/utsuwa/releases)
 
 ### Character facing wrong direction
 
