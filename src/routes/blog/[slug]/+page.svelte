@@ -92,44 +92,44 @@
 		gap: 0.375rem;
 		font-size: 0.8125rem;
 		font-weight: 600;
-		color: rgba(255, 255, 255, 0.5);
+		color: rgba(0, 0, 0, 0.5);
 		text-decoration: none;
 		padding: 0.5rem 1rem;
 		border-radius: 0.625rem;
 		transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 		margin-bottom: 1.25rem;
-		background: linear-gradient(180deg, #1a1a1a 0%, #141414 100%);
-		border: 1px solid rgba(255, 255, 255, 0.08);
+		background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
+		border: 1px solid rgba(0, 0, 0, 0.08);
 		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.04),
-			0 2px 4px rgba(0, 0, 0, 0.2);
+			inset 0 1px 0 rgba(255, 255, 255, 0.8),
+			0 2px 4px rgba(0, 0, 0, 0.06);
 	}
 
 	.back-link:hover {
 		color: #01B2FF;
 		border-color: rgba(1, 178, 255, 0.3);
 		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.06),
-			0 0 12px rgba(1, 178, 255, 0.15),
-			0 2px 8px rgba(0, 0, 0, 0.2);
+			inset 0 1px 0 rgba(255, 255, 255, 0.9),
+			0 0 12px rgba(1, 178, 255, 0.12),
+			0 2px 8px rgba(0, 0, 0, 0.08);
 		transform: translateY(-1px);
 	}
 
 	.back-link:active {
 		transform: translateY(0);
 		box-shadow:
-			inset 0 2px 4px rgba(0, 0, 0, 0.3),
-			0 0 8px rgba(1, 178, 255, 0.1);
+			inset 0 2px 4px rgba(0, 0, 0, 0.06),
+			0 0 8px rgba(1, 178, 255, 0.08);
 	}
 
 	.blog-banner {
 		border-radius: 1rem;
 		overflow: hidden;
 		margin-bottom: 2rem;
-		border: 1px solid rgba(255, 255, 255, 0.08);
+		border: 1px solid rgba(0, 0, 0, 0.08);
 		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.04),
-			0 4px 16px rgba(0, 0, 0, 0.3);
+			inset 0 1px 0 rgba(255, 255, 255, 0.8),
+			0 4px 16px rgba(0, 0, 0, 0.08);
 	}
 
 	.blog-banner img {

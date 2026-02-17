@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { darkVars, applyVars } from '$lib/config/docs-theme';
+	import { lightVars, applyVars } from '$lib/config/docs-theme';
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
 	import { GITHUB_REPO } from '$lib/config/site';
@@ -9,17 +9,16 @@
 
 	const currentPath = $derived(page.url.pathname);
 
-	// Force dark theme for blog (matches landing page)
 	$effect(() => {
 		const el = blogEl;
 		if (!el || !browser) return;
-		applyVars(el, darkVars);
-		document.documentElement.setAttribute('data-docs-theme', 'dark');
+		applyVars(el, lightVars);
+		document.documentElement.setAttribute('data-docs-theme', 'light');
 	});
 </script>
 
 <div class="docs blog-site" bind:this={blogEl}>
-	<!-- Nav (matches landing page) -->
+	<!-- Nav -->
 	<nav class="blog-nav">
 		<a href="/" class="nav-logo-link">
 			<img src="/brand-assets/logo.svg" alt="Utsuwa" class="nav-logo" />
@@ -72,8 +71,8 @@
 <style>
 	.blog-site {
 		min-height: 100vh;
-		background: #0a0a0a;
-		color: #fafafa;
+		background: white;
+		color: #1a1a1a;
 		font-family: 'M PLUS Rounded 1c', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	}
 
@@ -96,7 +95,8 @@
 	.nav-logo {
 		height: 1.125rem;
 		width: auto;
-		filter: brightness(0) invert(1);
+		filter: brightness(0);
+		opacity: 0.8;
 	}
 
 	.nav-links {
@@ -107,13 +107,13 @@
 
 	.nav-link {
 		font-size: 0.875rem;
-		color: rgba(255, 255, 255, 0.6);
+		color: rgba(0, 0, 0, 0.5);
 		text-decoration: none;
 		transition: color 0.15s ease;
 	}
 
 	.nav-link:hover {
-		color: white;
+		color: #1a1a1a;
 	}
 
 	.nav-link.active {
@@ -154,8 +154,8 @@
 
 	/* Footer */
 	.blog-footer {
-		border-top: 1px solid rgba(255, 255, 255, 0.05);
-		background: #171717;
+		border-top: 1px solid rgba(0, 0, 0, 0.05);
+		background: #f5f7fa;
 	}
 
 	.footer-inner {
@@ -174,7 +174,8 @@
 	.footer-brand-logo {
 		height: 1.25rem;
 		width: auto;
-		filter: brightness(0) invert(1);
+		filter: brightness(0);
+		opacity: 0.7;
 	}
 
 	.footer-columns {
@@ -192,7 +193,7 @@
 	.footer-col h3 {
 		font-size: 0.6875rem;
 		font-weight: 600;
-		color: rgba(255, 255, 255, 0.4);
+		color: rgba(0, 0, 0, 0.35);
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
 		margin: 0 0 0.25rem 0;
@@ -201,13 +202,13 @@
 	.footer-col a {
 		font-size: 0.75rem;
 		font-weight: 500;
-		color: rgba(255, 255, 255, 0.7);
+		color: rgba(0, 0, 0, 0.6);
 		text-decoration: none;
 		transition: color 0.15s ease;
 	}
 
 	.footer-col a:hover {
-		color: white;
+		color: #01B2FF;
 	}
 
 	.footer-bottom {
@@ -217,22 +218,22 @@
 		max-width: 80rem;
 		margin: 0 auto;
 		padding: 1.5rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		border-top: 1px solid rgba(0, 0, 0, 0.06);
 	}
 
 	.footer-bottom span {
 		font-size: 0.6875rem;
-		color: rgba(255, 255, 255, 0.35);
+		color: rgba(0, 0, 0, 0.35);
 		font-weight: 500;
 	}
 
 	.footer-bottom a {
-		color: rgba(255, 255, 255, 0.5);
+		color: rgba(0, 0, 0, 0.4);
 		transition: color 0.15s ease;
 	}
 
 	.footer-bottom a:hover {
-		color: white;
+		color: #01B2FF;
 	}
 
 	@media (max-width: 768px) {

@@ -542,53 +542,53 @@
 	</section>
 
 	<!-- Footer -->
-	<footer class="bg-[#171717] border-t border-white/5 pt-20 md:pt-24 overflow-hidden">
+	<footer class="bg-[#f5f7fa] border-t border-black/5 pt-20 md:pt-24 overflow-hidden">
 		<div class="max-w-7xl mx-auto px-6 mb-24 md:mb-32">
 			<div
 				class="flex flex-col md:flex-row justify-between items-start gap-16 md:gap-12"
 			>
 				<!-- Logo -->
 				<div class="shrink-0">
-					<img src="/brand-assets/logo.svg" alt="Utsuwa" class="footer-brand-logo" />
+					<img src="/brand-assets/logo.svg" alt="Utsuwa" class="footer-brand-logo-light" />
 				</div>
 
 				<!-- Link columns -->
 				<div class="flex flex-wrap gap-12 sm:gap-24 lg:gap-32">
 					<div class="flex flex-col gap-4 min-w-[120px]">
-						<h3 class="text-xs font-semibold text-white/40 mb-1">Project</h3>
+						<h3 class="text-xs font-semibold text-black/35 mb-1">Project</h3>
 						<a
 							href="https://github.com/dyascj/utsuwa"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="text-xs font-medium text-white/80 hover:text-white transition-colors"
+							class="text-xs font-medium text-black/60 hover:text-[#01B2FF] transition-colors"
 							>GitHub</a
 						>
 						<a
 							href="https://github.com/dyascj/utsuwa/releases"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="text-xs font-medium text-white/80 hover:text-white transition-colors"
+							class="text-xs font-medium text-black/60 hover:text-[#01B2FF] transition-colors"
 							>Releases</a
 						>
 						<a
 							href="/docs"
-							class="text-xs font-medium text-white/80 hover:text-white transition-colors"
+							class="text-xs font-medium text-black/60 hover:text-[#01B2FF] transition-colors"
 							>Docs</a
 						>
 						<a
 							href="/blog"
-							class="text-xs font-medium text-white/80 hover:text-white transition-colors"
+							class="text-xs font-medium text-black/60 hover:text-[#01B2FF] transition-colors"
 							>Blog</a
 						>
 					</div>
 
 					<div class="flex flex-col gap-4 min-w-[120px]">
-						<h3 class="text-xs font-semibold text-white/40 mb-1">Legal</h3>
+						<h3 class="text-xs font-semibold text-black/35 mb-1">Legal</h3>
 						<a
 							href="https://github.com/dyascj/utsuwa/blob/main/LICENSE"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="text-xs font-medium text-white/80 hover:text-white transition-colors"
+							class="text-xs font-medium text-black/60 hover:text-[#01B2FF] transition-colors"
 							>MIT License</a
 						>
 					</div>
@@ -603,17 +603,17 @@
 			<img
 				src="/brand-assets/logo.svg"
 				alt=""
-				class="footer-giant-logo translate-y-[12%]"
+				class="footer-giant-logo-light translate-y-[12%]"
 			/>
 		</div>
 
 		<!-- Bottom bar -->
-		<div class="w-full border-t border-white/10 bg-[#171717] relative z-10">
+		<div class="w-full border-t border-black/8 bg-[#f5f7fa] relative z-10">
 			<div
 				class="max-w-7xl mx-auto px-6 py-8 md:py-10 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0"
 			>
 				<div
-					class="text-[11px] text-white/40 font-medium tracking-tight order-2 md:order-1"
+					class="text-[11px] text-black/35 font-medium tracking-tight order-2 md:order-1"
 				>
 					&copy; 2026 Ordinary Company Group LLC. Open source under MIT.
 				</div>
@@ -622,7 +622,7 @@
 						href="https://github.com/dyascj/utsuwa"
 						target="_blank"
 						rel="noopener noreferrer"
-						class="text-white/60 hover:text-white transition-opacity"
+						class="text-black/40 hover:text-[#01B2FF] transition-colors"
 						aria-label="GitHub"
 					>
 						<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"
@@ -831,11 +831,26 @@
 		filter: brightness(0) invert(1);
 	}
 
+	.footer-brand-logo-light {
+		height: 1.25rem;
+		width: auto;
+		filter: brightness(0);
+		opacity: 0.7;
+	}
+
 	.footer-giant-logo {
 		width: 80vw;
 		max-width: 1200px;
 		height: auto;
 		filter: brightness(0) invert(1);
+	}
+
+	.footer-giant-logo-light {
+		width: 80vw;
+		max-width: 1200px;
+		height: auto;
+		filter: brightness(0);
+		opacity: 0.06;
 	}
 
 	/* Blog cards — Sims 2000s / Frutiger Aero (light) */
