@@ -145,7 +145,7 @@
 
 			<div class="grid lg:grid-cols-2 gap-12 items-center">
 				<div
-					class="skeu-card-light rounded-xl aspect-video flex items-center justify-center overflow-hidden"
+					class="skeu-card-light rounded-xl aspect-[4/3] flex items-center justify-center overflow-hidden"
 				>
 					<img src="/landing-page/speaking-shot-1.png" alt="3D avatar speaking in browser" class="w-full h-full object-cover" />
 				</div>
@@ -230,7 +230,7 @@
 				</div>
 
 				<div
-					class="skeu-card-light rounded-xl aspect-video flex items-center justify-center overflow-hidden order-1 lg:order-2"
+					class="skeu-card-light rounded-xl aspect-[4/3] flex items-center justify-center overflow-hidden order-1 lg:order-2"
 				>
 					<div class="text-black/20 text-sm">Memory graph</div>
 				</div>
@@ -252,7 +252,7 @@
 
 			<div class="grid lg:grid-cols-2 gap-12 items-center">
 				<div
-					class="skeu-card-light rounded-xl aspect-video flex items-center justify-center overflow-hidden"
+					class="skeu-card-light rounded-xl aspect-[4/3] flex items-center justify-center overflow-hidden"
 				>
 					<div class="text-black/20 text-sm">Chat interface</div>
 				</div>
