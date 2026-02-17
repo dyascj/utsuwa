@@ -17,6 +17,9 @@
 </svelte:head>
 
 <div class="blog-index">
+	<h1 class="blog-title">Blog</h1>
+	<p class="blog-subtitle">Development updates and behind-the-scenes notes.</p>
+
 	{#if featuredPost}
 		<a href="/blog/{featuredPost.slug}" class="featured-card">
 			<img src={featuredPost.image} alt="" class="featured-image" />
@@ -48,6 +51,26 @@
 </div>
 
 <style>
+	.blog-index {
+		max-width: 64rem;
+		margin: 0 auto;
+	}
+
+	.blog-title {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: white;
+		margin: 0 0 0.5rem 0;
+		letter-spacing: -0.03em;
+		font-family: 'Exo 2', sans-serif;
+	}
+
+	.blog-subtitle {
+		font-size: 1rem;
+		color: rgba(255, 255, 255, 0.5);
+		margin: 0 0 2.5rem 0;
+	}
+
 	/* Featured hero card */
 	.featured-card {
 		position: relative;
@@ -57,17 +80,21 @@
 		overflow: hidden;
 		text-decoration: none;
 		margin-bottom: 2rem;
-		border: 1px solid var(--docs-glass-border);
+		background: linear-gradient(180deg, #141414 0%, #0d0d0d 100%);
+		border: 1px solid rgba(255, 255, 255, 0.08);
 		transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.04),
+			0 4px 24px rgba(0, 0, 0, 0.3);
 	}
 
 	.featured-card:hover {
-		border-color: var(--docs-accent);
+		border-color: rgba(1, 178, 255, 0.3);
 		transform: translateY(-4px);
 		box-shadow:
-			0 0 24px var(--docs-glow),
-			0 16px 48px rgba(0, 0, 0, 0.18);
+			inset 0 1px 0 rgba(255, 255, 255, 0.06),
+			0 0 24px rgba(1, 178, 255, 0.15),
+			0 16px 48px rgba(0, 0, 0, 0.3);
 	}
 
 	.featured-image {
@@ -103,7 +130,7 @@
 	.featured-content time {
 		font-size: 0.8125rem;
 		font-weight: 500;
-		color: rgba(255, 255, 255, 0.7);
+		color: rgba(255, 255, 255, 0.6);
 	}
 
 	.featured-content h2 {
@@ -116,7 +143,7 @@
 
 	.featured-content p {
 		font-size: 0.9375rem;
-		color: rgba(255, 255, 255, 0.75);
+		color: rgba(255, 255, 255, 0.65);
 		line-height: 1.6;
 		margin: 0;
 		max-width: 640px;
@@ -139,30 +166,28 @@
 		text-decoration: none;
 		border-radius: 1rem;
 		overflow: hidden;
-		border: 1px solid var(--docs-glass-border);
-		background: var(--docs-glass-bg);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
+		background: linear-gradient(180deg, #141414 0%, #0d0d0d 100%);
+		border: 1px solid rgba(255, 255, 255, 0.08);
 		transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 		box-shadow:
-			0 1px 0 var(--docs-inner-highlight) inset,
-			0 4px 16px rgba(0, 0, 0, 0.08);
+			inset 0 1px 0 rgba(255, 255, 255, 0.04),
+			0 4px 16px rgba(0, 0, 0, 0.3);
 	}
 
 	.blog-card:hover {
-		border-color: var(--docs-accent);
+		border-color: rgba(1, 178, 255, 0.3);
 		transform: translateY(-4px);
 		box-shadow:
-			0 1px 0 var(--docs-inner-highlight) inset,
-			0 0 24px var(--docs-glow),
-			0 12px 40px rgba(0, 0, 0, 0.15);
+			inset 0 1px 0 rgba(255, 255, 255, 0.06),
+			0 0 20px rgba(1, 178, 255, 0.15),
+			0 12px 40px rgba(0, 0, 0, 0.3);
 	}
 
 	.card-image {
 		position: relative;
 		aspect-ratio: 16 / 9;
 		overflow: hidden;
-		background: var(--docs-surface);
+		background: #111;
 	}
 
 	.card-image img {
@@ -187,25 +212,25 @@
 	.card-body time {
 		font-size: 0.75rem;
 		font-weight: 500;
-		color: var(--docs-text-muted);
+		color: rgba(255, 255, 255, 0.4);
 	}
 
 	.card-body h2 {
 		font-size: 1.125rem;
 		font-weight: 600;
-		color: var(--docs-text);
+		color: white;
 		margin: 0;
 		transition: color 0.15s ease;
 		line-height: 1.4;
 	}
 
 	.blog-card:hover .card-body h2 {
-		color: var(--docs-accent);
+		color: #01B2FF;
 	}
 
 	.card-body p {
 		font-size: 0.8125rem;
-		color: var(--docs-text-muted);
+		color: rgba(255, 255, 255, 0.5);
 		line-height: 1.6;
 		margin: 0;
 		display: -webkit-box;
@@ -215,6 +240,10 @@
 	}
 
 	@media (max-width: 640px) {
+		.blog-title {
+			font-size: 2rem;
+		}
+
 		.featured-card {
 			height: 360px;
 		}

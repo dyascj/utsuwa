@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Icon from '$lib/components/ui/Icon.svelte';
 	import '$lib/styles/prose.css';
 	import { formatDate } from '$lib/utils/format-date';
 	import { SITE_URL } from '$lib/config/site';
@@ -61,7 +60,7 @@
 
 <div class="blog-post-wrapper">
 	<a href="/blog" class="back-link">
-		<Icon name="chevron-left" size={14} />
+		<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
 		<span>Back to Blog</span>
 	</a>
 
@@ -93,47 +92,44 @@
 		gap: 0.375rem;
 		font-size: 0.8125rem;
 		font-weight: 600;
-		color: var(--docs-text-muted);
+		color: rgba(255, 255, 255, 0.5);
 		text-decoration: none;
 		padding: 0.5rem 1rem;
 		border-radius: 0.625rem;
 		transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 		margin-bottom: 1.25rem;
-		background: var(--docs-surface);
-		border: 1px solid var(--docs-border);
+		background: linear-gradient(180deg, #1a1a1a 0%, #141414 100%);
+		border: 1px solid rgba(255, 255, 255, 0.08);
 		box-shadow:
-			0 1px 0 var(--docs-inner-highlight) inset,
-			0 -1px 1px var(--docs-inner-shadow) inset,
-			0 2px 4px rgba(0, 0, 0, 0.06);
+			inset 0 1px 0 rgba(255, 255, 255, 0.04),
+			0 2px 4px rgba(0, 0, 0, 0.2);
 	}
 
 	.back-link:hover {
-		color: var(--docs-accent);
-		background: var(--docs-surface-solid);
-		border-color: var(--docs-accent);
+		color: #01B2FF;
+		border-color: rgba(1, 178, 255, 0.3);
 		box-shadow:
-			0 1px 0 var(--docs-inner-highlight) inset,
-			0 -1px 1px var(--docs-inner-shadow) inset,
-			0 0 12px var(--docs-glow),
-			0 2px 8px rgba(0, 0, 0, 0.08);
+			inset 0 1px 0 rgba(255, 255, 255, 0.06),
+			0 0 12px rgba(1, 178, 255, 0.15),
+			0 2px 8px rgba(0, 0, 0, 0.2);
 		transform: translateY(-1px);
 	}
 
 	.back-link:active {
 		transform: translateY(0);
 		box-shadow:
-			0 1px 3px var(--docs-inner-shadow) inset,
-			0 0 8px var(--docs-glow);
+			inset 0 2px 4px rgba(0, 0, 0, 0.3),
+			0 0 8px rgba(1, 178, 255, 0.1);
 	}
 
 	.blog-banner {
 		border-radius: 1rem;
 		overflow: hidden;
 		margin-bottom: 2rem;
-		border: 1px solid var(--docs-glass-border);
+		border: 1px solid rgba(255, 255, 255, 0.08);
 		box-shadow:
-			0 1px 0 var(--docs-inner-highlight) inset,
-			0 4px 16px rgba(0, 0, 0, 0.08);
+			inset 0 1px 0 rgba(255, 255, 255, 0.04),
+			0 4px 16px rgba(0, 0, 0, 0.3);
 	}
 
 	.blog-banner img {
@@ -147,7 +143,7 @@
 		display: block;
 		font-size: 0.8125rem;
 		font-weight: 500;
-		color: var(--docs-accent);
+		color: #01B2FF;
 		margin-bottom: 0.5rem;
 	}
 </style>
