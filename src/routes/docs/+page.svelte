@@ -25,7 +25,7 @@
 			<img src="/brand-assets/logo.svg" alt="Utsuwa" class="hero-logo" />
 			<p class="hero-tagline">A vessel for the soul of your virtual companion.</p>
 			<div class="hero-actions">
-				<a href="/" class="btn-primary">Try Live</a>
+				<a href="/app" class="btn-primary">Try Live</a>
 				<a href={GITHUB_RELEASES} target="_blank" rel="noopener noreferrer" class="btn-secondary">
 					<Icon name="download" size={14} />
 					Download
