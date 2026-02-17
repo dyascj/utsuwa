@@ -71,11 +71,14 @@
 	{/if}
 
 	<article class="blog-post prose">
-		{#if data.metadata?.date}
-			<time class="blog-post-date" datetime={String(data.metadata.date)}
-				>{formatDate(data.metadata.date)}</time
-			>
-		{/if}
+		<div class="blog-post-meta">
+			{#if data.metadata?.date}
+				<time class="blog-post-date" datetime={String(data.metadata.date)}
+					>{formatDate(data.metadata.date)}</time
+				>
+			{/if}
+			<span class="blog-post-author">Charles J. (CJ) Dyas</span>
+		</div>
 		<data.content />
 	</article>
 </div>
@@ -139,11 +142,28 @@
 		object-fit: cover;
 	}
 
+	.blog-post-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-bottom: 0.75rem;
+	}
+
 	.blog-post-date {
-		display: block;
 		font-size: 0.8125rem;
 		font-weight: 500;
 		color: #01B2FF;
-		margin-bottom: 0.5rem;
+	}
+
+	.blog-post-meta .blog-post-date::after {
+		content: '\00b7';
+		margin-left: 0.5rem;
+		color: rgba(0, 0, 0, 0.25);
+	}
+
+	.blog-post-author {
+		font-size: 0.8125rem;
+		font-weight: 500;
+		color: rgba(0, 0, 0, 0.5);
 	}
 </style>
