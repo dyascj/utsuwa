@@ -553,6 +553,7 @@
 						target="_blank"
 						rel="noopener noreferrer"
 						class="text-white/60 hover:text-white transition-opacity"
+						aria-label="GitHub"
 					>
 						<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"
 							><path
