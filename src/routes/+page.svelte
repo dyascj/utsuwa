@@ -8,7 +8,7 @@
 
 <div class="dark bg-[#0a0a0a] text-white overflow-x-hidden">
 	<!-- Hero -->
-	<section class="relative min-h-screen bg-gradient-to-b from-[#f472b6] via-[#8b5cf6] to-[#0a0a0a]">
+	<section class="relative min-h-screen bg-gradient-to-b from-[#4dd0ff] via-[#01B2FF] to-[#0a0a0a]">
 		<!-- Nav -->
 		<nav class="relative z-10 max-w-7xl mx-auto flex items-center justify-between px-6 py-5">
 			<a href="/" class="text-lg font-semibold tracking-tight text-white">Utsuwa</a>
@@ -29,7 +29,7 @@
 
 			<a
 				href="/app"
-				class="bg-white text-black text-xs font-medium px-4 py-2 rounded-full hover:bg-white/90 transition-colors"
+				class="skeu-btn-sm text-xs font-semibold px-4 py-2 rounded-full transition-all"
 			>
 				Try Live
 			</a>
@@ -39,9 +39,9 @@
 		<div class="relative z-10 flex flex-col items-center justify-center mt-16 px-6">
 			<!-- App icon -->
 			<div
-				class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ec4899] to-[#7c3aed] flex items-center justify-center shadow-xl mb-6"
+				class="skeu-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6"
 			>
-				<span class="text-2xl font-bold text-white">器</span>
+				<span class="text-2xl font-bold text-white drop-shadow-sm">器</span>
 			</div>
 
 			<!-- Heading -->
@@ -59,17 +59,14 @@
 
 			<!-- CTA buttons -->
 			<div class="flex flex-wrap items-center justify-center gap-3 mb-12">
-				<a
-					href="/app"
-					class="bg-white text-[#0a0a0a] hover:bg-white/90 text-sm font-bold px-6 py-3 rounded-full shadow-xl transition-all hover:scale-[1.02]"
-				>
+				<a href="/app" class="skeu-btn text-sm font-bold px-6 py-3 rounded-full transition-all">
 					Try Live
 				</a>
 				<a
 					href="https://github.com/dyascj/utsuwa/releases"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="bg-white text-[#0a0a0a] hover:bg-white/90 text-sm font-bold px-6 py-3 rounded-full shadow-xl transition-all hover:scale-[1.02]"
+					class="skeu-btn text-sm font-bold px-6 py-3 rounded-full transition-all"
 				>
 					Download
 				</a>
@@ -85,7 +82,7 @@
 			<div class="max-w-[1067px] w-full mx-auto px-4">
 				<div class="rounded-xl overflow-hidden shadow-2xl border border-white/10">
 					<img
-						src="/brand-assets/thumbnail.png"
+						src="/landing-page/utsuwa-thumbnail.png"
 						alt="Utsuwa app screenshot"
 						class="w-full h-auto"
 					/>
@@ -154,7 +151,7 @@
 
 				<div class="flex flex-col items-start max-w-lg mx-auto lg:mx-0">
 					<div
-						class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1f2937] border border-white/10 text-white/80 text-xs font-medium mb-6"
+						class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#01B2FF]/10 border border-[#01B2FF]/20 text-[#4dd0ff] text-xs font-medium mb-6"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -201,7 +198,7 @@
 			<div class="grid lg:grid-cols-2 gap-12 items-center">
 				<div class="flex flex-col items-start max-w-lg mx-auto lg:mx-0 order-2 lg:order-1">
 					<div
-						class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1f2937] border border-white/10 text-white/80 text-xs font-medium mb-6"
+						class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#01B2FF]/10 border border-[#01B2FF]/20 text-[#4dd0ff] text-xs font-medium mb-6"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -261,7 +258,7 @@
 
 				<div class="flex flex-col items-start max-w-lg mx-auto lg:mx-0">
 					<div
-						class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1f2937] border border-white/10 text-white/80 text-xs font-medium mb-6"
+						class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#01B2FF]/10 border border-[#01B2FF]/20 text-[#4dd0ff] text-xs font-medium mb-6"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -307,7 +304,7 @@
 				<!-- Card 1: Desktop Overlay -->
 				<div class="flex flex-col group cursor-default">
 					<div
-						class="bg-black border border-white/10 rounded-2xl aspect-[16/10] mb-6 flex items-center justify-center relative overflow-hidden shadow-2xl group-hover:border-white/20 transition-colors duration-500"
+						class="bg-black border border-white/10 rounded-2xl aspect-[16/10] mb-6 flex items-center justify-center relative overflow-hidden shadow-2xl group-hover:border-[#01B2FF]/30 transition-colors duration-500"
 					>
 						<!-- Monitor icon -->
 						<svg
@@ -320,7 +317,7 @@
 							stroke-width="1"
 							stroke-linecap="round"
 							stroke-linejoin="round"
-							class="text-white/20 group-hover:text-white/30 transition-colors duration-500"
+							class="text-white/20 group-hover:text-[#01B2FF]/40 transition-colors duration-500"
 						>
 							<rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
 							<path d="M8 21h8" />
@@ -343,7 +340,7 @@
 				<!-- Card 2: Local-First -->
 				<div class="flex flex-col group cursor-default">
 					<div
-						class="bg-black border border-white/10 rounded-2xl aspect-[16/10] mb-6 flex items-center justify-center relative overflow-hidden shadow-2xl group-hover:border-white/20 transition-colors duration-500"
+						class="bg-black border border-white/10 rounded-2xl aspect-[16/10] mb-6 flex items-center justify-center relative overflow-hidden shadow-2xl group-hover:border-[#01B2FF]/30 transition-colors duration-500"
 					>
 						<!-- Database icon -->
 						<svg
@@ -356,7 +353,7 @@
 							stroke-width="1"
 							stroke-linecap="round"
 							stroke-linejoin="round"
-							class="text-white/20 group-hover:text-white/30 transition-colors duration-500"
+							class="text-white/20 group-hover:text-[#01B2FF]/40 transition-colors duration-500"
 						>
 							<ellipse cx="12" cy="5" rx="9" ry="3" />
 							<path d="M3 5V19A9 3 0 0 0 21 19V5" />
@@ -379,7 +376,7 @@
 				<!-- Card 3: Open Source -->
 				<div class="flex flex-col group cursor-default">
 					<div
-						class="bg-black border border-white/10 rounded-2xl aspect-[16/10] mb-6 flex items-center justify-center relative overflow-hidden shadow-2xl group-hover:border-white/20 transition-colors duration-500"
+						class="bg-black border border-white/10 rounded-2xl aspect-[16/10] mb-6 flex items-center justify-center relative overflow-hidden shadow-2xl group-hover:border-[#01B2FF]/30 transition-colors duration-500"
 					>
 						<!-- Code icon -->
 						<svg
@@ -392,7 +389,7 @@
 							stroke-width="1"
 							stroke-linecap="round"
 							stroke-linejoin="round"
-							class="text-white/20 group-hover:text-white/30 transition-colors duration-500"
+							class="text-white/20 group-hover:text-[#01B2FF]/40 transition-colors duration-500"
 						>
 							<polyline points="16 18 22 12 16 6" />
 							<polyline points="8 6 2 12 8 18" />
@@ -417,7 +414,7 @@
 	<!-- Final CTA -->
 	<section class="relative overflow-hidden">
 		<div
-			class="absolute inset-0 bg-gradient-to-b from-[#f472b6] via-[#ec4899] to-[#db2777]"
+			class="absolute inset-0 bg-gradient-to-b from-[#4dd0ff] via-[#01B2FF] to-[#0077cc]"
 		></div>
 		<div
 			class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent opacity-50"
@@ -428,9 +425,9 @@
 		>
 			<!-- App icon -->
 			<div
-				class="w-20 h-20 rounded-2xl bg-gradient-to-b from-[#7c3aed] to-[#4c1d95] shadow-2xl mb-8 flex items-center justify-center ring-1 ring-white/10"
+				class="skeu-icon w-20 h-20 rounded-2xl mb-8 flex items-center justify-center"
 			>
-				<span class="text-3xl font-bold text-white">器</span>
+				<span class="text-3xl font-bold text-white drop-shadow-sm">器</span>
 			</div>
 
 			<h2
@@ -443,7 +440,7 @@
 			<div class="flex flex-wrap items-center justify-center gap-3 mb-6">
 				<a
 					href="/app"
-					class="bg-white text-[#0a0a0a] hover:bg-white/90 text-sm font-bold px-6 py-3 rounded-full shadow-xl transition-all hover:scale-[1.02]"
+					class="skeu-btn text-sm font-bold px-6 py-3 rounded-full transition-all"
 				>
 					Try Live
 				</a>
@@ -451,7 +448,7 @@
 					href="https://github.com/dyascj/utsuwa/releases"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="bg-white text-[#0a0a0a] hover:bg-white/90 text-sm font-bold px-6 py-3 rounded-full shadow-xl transition-all hover:scale-[1.02]"
+					class="skeu-btn text-sm font-bold px-6 py-3 rounded-full transition-all"
 				>
 					Download
 				</a>
@@ -577,5 +574,67 @@
 		backdrop-filter: blur(12px);
 		-webkit-backdrop-filter: blur(12px);
 		border: 1px solid rgba(255, 255, 255, 0.3);
+	}
+
+	.skeu-icon {
+		background: linear-gradient(180deg, #4dd0ff 0%, #01b2ff 40%, #0099dd 100%);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.4),
+			inset 0 -1px 2px rgba(0, 0, 0, 0.15),
+			0 4px 12px rgba(1, 178, 255, 0.4),
+			0 0 20px rgba(1, 178, 255, 0.25);
+		border: 1px solid rgba(255, 255, 255, 0.15);
+	}
+
+	.skeu-btn {
+		color: white;
+		background: linear-gradient(180deg, #4dd0ff 0%, #01b2ff 40%, #0099dd 100%);
+		border: 1px solid rgba(0, 0, 0, 0.1);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.3),
+			0 2px 6px rgba(1, 178, 255, 0.25);
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+	}
+
+	.skeu-btn:hover {
+		background: linear-gradient(180deg, #5dd8ff 0%, #1abcff 40%, #01a8ee 100%);
+		transform: translateY(-1px);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.4),
+			0 0 16px rgba(1, 178, 255, 0.4),
+			0 4px 12px rgba(1, 178, 255, 0.3);
+	}
+
+	.skeu-btn:active {
+		transform: translateY(0);
+		box-shadow:
+			inset 0 2px 4px rgba(0, 0, 0, 0.2),
+			0 1px 2px rgba(0, 0, 0, 0.1);
+	}
+
+	.skeu-btn-sm {
+		color: white;
+		background: linear-gradient(180deg, #4dd0ff 0%, #01b2ff 40%, #0099dd 100%);
+		border: 1px solid rgba(0, 0, 0, 0.1);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.3),
+			0 2px 4px rgba(1, 178, 255, 0.2);
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+	}
+
+	.skeu-btn-sm:hover {
+		background: linear-gradient(180deg, #5dd8ff 0%, #1abcff 40%, #01a8ee 100%);
+		transform: translateY(-1px);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.4),
+			0 0 12px rgba(1, 178, 255, 0.35),
+			0 2px 8px rgba(1, 178, 255, 0.25);
+	}
+
+	.skeu-btn-sm:active {
+		transform: translateY(0);
+		box-shadow:
+			inset 0 2px 3px rgba(0, 0, 0, 0.2),
+			0 1px 2px rgba(0, 0, 0, 0.1);
 	}
 </style>
