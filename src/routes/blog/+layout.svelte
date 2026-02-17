@@ -14,6 +14,10 @@
 		if (!el || !browser) return;
 		applyVars(el, lightVars);
 		document.documentElement.setAttribute('data-docs-theme', 'light');
+
+		return () => {
+			document.documentElement.removeAttribute('data-docs-theme');
+		};
 	});
 </script>
 
@@ -48,13 +52,13 @@
 					<div class="footer-col">
 						<h3>Project</h3>
 						<a href={GITHUB_REPO} target="_blank" rel="noopener noreferrer">GitHub</a>
-						<a href="{GITHUB_REPO}/releases" target="_blank" rel="noopener noreferrer">Releases</a>
+						<a href={`${GITHUB_REPO}/releases`} target="_blank" rel="noopener noreferrer">Releases</a>
 						<a href="/docs">Docs</a>
 						<a href="/blog">Blog</a>
 					</div>
 					<div class="footer-col">
 						<h3>Legal</h3>
-						<a href="{GITHUB_REPO}/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
+						<a href={`${GITHUB_REPO}/blob/main/LICENSE`} target="_blank" rel="noopener noreferrer">MIT License</a>
 					</div>
 				</div>
 			</div>
