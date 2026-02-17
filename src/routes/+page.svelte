@@ -44,20 +44,12 @@
 
 		<!-- Hero content -->
 		<div class="relative z-10 flex flex-col items-center justify-center mt-16 px-6">
-			<!-- App icon -->
-			<div
-				class="skeu-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6"
-			>
-				<span class="text-2xl font-bold text-white drop-shadow-sm">器</span>
-			</div>
-
-			<!-- Heading -->
-			<h1
-				class="text-5xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tight text-center mb-4"
-				style="font-family: 'Exo 2', sans-serif;"
-			>
-				Utsuwa
-			</h1>
+			<!-- Logo -->
+			<img
+				src="/brand-assets/logo.svg"
+				alt="Utsuwa"
+				class="hero-logo mb-6"
+			/>
 
 			<!-- Subtitle -->
 			<p class="text-lg md:text-xl text-white/80 text-center max-w-2xl mb-8">
@@ -510,19 +502,12 @@
 		<div
 			class="relative z-10 flex flex-col items-center justify-center text-center max-w-7xl mx-auto px-6 py-32 md:py-48"
 		>
-			<!-- App icon -->
-			<div
-				class="skeu-icon w-20 h-20 rounded-2xl mb-8 flex items-center justify-center"
-			>
-				<span class="text-3xl font-bold text-white drop-shadow-sm">器</span>
-			</div>
-
-			<h2
-				class="text-4xl md:text-5xl lg:text-6xl font-semibold text-white tracking-tight mb-8"
-				style="font-family: 'Exo 2', sans-serif;"
-			>
-				Download Utsuwa
-			</h2>
+			<img
+				src="/brand-assets/logo.svg"
+				alt="Utsuwa"
+				class="hero-logo mb-4"
+			/>
+			<p class="text-xl md:text-2xl font-medium text-white/80 mb-8">Download</p>
 
 			<div class="flex flex-wrap items-center justify-center gap-3 mb-6">
 				<a
@@ -652,6 +637,13 @@
 </div>
 
 <style>
+	.hero-logo {
+		width: min(80vw, 500px);
+		height: auto;
+		filter: brightness(0) invert(1);
+		drop-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	}
+
 	.glass-panel {
 		background: linear-gradient(
 			180deg,
