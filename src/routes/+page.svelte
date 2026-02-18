@@ -232,7 +232,7 @@
 				<div
 					class="skeu-card-light rounded-xl aspect-[4/3] flex items-center justify-center overflow-hidden order-1 lg:order-2"
 				>
-					<div class="text-black/20 text-sm">Memory graph</div>
+					<img src="/landing-page/memory-graph.png" alt="Semantic memory graph visualization" class="w-full h-full object-cover" />
 				</div>
 			</div>
 		</div>
