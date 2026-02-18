@@ -256,6 +256,7 @@ Utsuwa is built on the shoulders of these excellent projects:
 
 ### Inspiration
 
+- **[Airi](https://github.com/moeru-ai/airi)** - The original inspiration for this project. A beautiful AI companion with VRM avatar support.
 - **[Amica](https://github.com/semperai/amica)** - Open-source AI companion with VRM support and emotional expressions.
 - **[Riko Project](https://github.com/rayenfeng/riko_project)** by [JustRyan](https://www.youtube.com/@JustRayen) - AI waifu project showcasing VRM avatar interactions.
 
