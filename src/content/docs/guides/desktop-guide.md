@@ -13,7 +13,7 @@ Currently available for **macOS** only. Windows and Linux support is planned.
 
 ### Download
 
-Head to the [GitHub Releases](https://github.com/dyascj/utsuwa/releases) page and download the `.dmg` disk image for macOS.
+Head to the [GitHub Releases](https://github.com/The-Lab-by-Ordinary-Company/utsuwa/releases) page and download the `.dmg` disk image for macOS.
 
 Open the `.dmg`, drag Utsuwa to your Applications folder, and you're good to go.
 
@@ -29,7 +29,7 @@ If you prefer to build it yourself:
 
 ```bash
 # Clone the repo
-git clone https://github.com/dyascj/utsuwa.git
+git clone https://github.com/The-Lab-by-Ordinary-Company/utsuwa.git
 cd utsuwa
 
 # Install dependencies
@@ -118,14 +118,14 @@ If not installed, run:
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-If you downloaded a release binary and it won't launch, try downloading it again or check the [GitHub Issues](https://github.com/dyascj/utsuwa/issues) page.
+If you downloaded a release binary and it won't launch, try downloading it again or check the [GitHub Issues](https://github.com/The-Lab-by-Ordinary-Company/utsuwa/issues) page.
 
 ### Overlay background not transparent
 
 This can happen if the renderer isn't properly configured. Try:
 
 1. Exit and relaunch the app
-2. Make sure you're on the latest version from [Releases](https://github.com/dyascj/utsuwa/releases)
+2. Make sure you're on the latest version from [Releases](https://github.com/The-Lab-by-Ordinary-Company/utsuwa/releases)
 
 ### Character facing wrong direction
 

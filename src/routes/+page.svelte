@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { formatDate } from '$lib/utils/format-date';
-	import { SITE_URL } from '$lib/config/site';
+	import { SITE_URL, GITHUB_REPO, GITHUB_RELEASES } from '$lib/config/site';
 	import Icon from '$lib/components/ui/Icon.svelte';
 
 	let { data }: { data: PageData } = $props();
@@ -67,7 +67,7 @@
 				<a href="/docs" class="hover:text-white transition-colors">Docs</a>
 				<a href="/blog" class="hover:text-white transition-colors">Blog</a>
 				<a
-					href="https://github.com/dyascj/utsuwa"
+					href={GITHUB_REPO}
 					target="_blank"
 					rel="noopener noreferrer"
 					class="hover:text-white transition-colors"
@@ -105,7 +105,7 @@
 					Try Live
 				</a>
 				<a
-					href="https://github.com/dyascj/utsuwa/releases"
+					href={GITHUB_RELEASES}
 					target="_blank"
 					rel="noopener noreferrer"
 					class="skeu-btn-glass text-sm font-bold px-6 py-3 rounded-full transition-all"
@@ -503,7 +503,7 @@
 					Try Live
 				</a>
 				<a
-					href="https://github.com/dyascj/utsuwa/releases"
+					href={GITHUB_RELEASES}
 					target="_blank"
 					rel="noopener noreferrer"
 					class="skeu-btn-glass text-sm font-bold px-6 py-3 rounded-full transition-all"
@@ -543,14 +543,14 @@
 					<div class="flex flex-col gap-4 min-w-[120px]">
 						<h3 class="text-xs font-semibold text-black/35 mb-1">Project</h3>
 						<a
-							href="https://github.com/dyascj/utsuwa"
+							href={GITHUB_REPO}
 							target="_blank"
 							rel="noopener noreferrer"
 							class="text-xs font-medium text-black/60 hover:text-[#01B2FF] transition-colors"
 							>GitHub</a
 						>
 						<a
-							href="https://github.com/dyascj/utsuwa/releases"
+							href={GITHUB_RELEASES}
 							target="_blank"
 							rel="noopener noreferrer"
 							class="text-xs font-medium text-black/60 hover:text-[#01B2FF] transition-colors"
@@ -571,7 +571,7 @@
 					<div class="flex flex-col gap-4 min-w-[120px]">
 						<h3 class="text-xs font-semibold text-black/35 mb-1">Legal</h3>
 						<a
-							href="https://github.com/dyascj/utsuwa/blob/main/LICENSE"
+							href={`${GITHUB_REPO}/blob/main/LICENSE`}
 							target="_blank"
 							rel="noopener noreferrer"
 							class="text-xs font-medium text-black/60 hover:text-[#01B2FF] transition-colors"
@@ -605,7 +605,7 @@
 				</div>
 				<div class="flex items-center gap-5 order-1 md:order-2">
 					<a
-						href="https://github.com/dyascj/utsuwa"
+						href={GITHUB_REPO}
 						target="_blank"
 						rel="noopener noreferrer"
 						class="text-black/40 hover:text-[#01B2FF] transition-colors"
