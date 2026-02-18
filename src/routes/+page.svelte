@@ -254,7 +254,7 @@
 				<div
 					class="skeu-card-light rounded-xl aspect-[4/3] flex items-center justify-center overflow-hidden p-4"
 				>
-					<div class="text-black/20 text-sm">Chat interface</div>
+					<img src="/landing-page/ai-services.png" alt="AI service provider settings" class="w-full h-full object-contain rounded-lg" />
 				</div>
 
 				<div class="flex flex-col items-start max-w-lg mx-auto lg:mx-0">
