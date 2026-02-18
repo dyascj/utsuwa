@@ -145,9 +145,9 @@
 
 			<div class="grid lg:grid-cols-2 gap-12 items-center">
 				<div
-					class="skeu-card-light rounded-xl aspect-[4/3] flex items-center justify-center overflow-hidden"
+					class="skeu-card-light rounded-xl aspect-[4/3] flex items-center justify-center overflow-hidden p-4"
 				>
-					<img src="/landing-page/speaking-shot-1.png" alt="3D avatar speaking in browser" class="w-full h-full object-cover" />
+					<img src="/landing-page/speaking-shot-1.png" alt="3D avatar speaking in browser" class="w-full h-full object-contain rounded-lg" />
 				</div>
 
 				<div class="flex flex-col items-start max-w-lg mx-auto lg:mx-0">
@@ -230,9 +230,9 @@
 				</div>
 
 				<div
-					class="skeu-card-light rounded-xl aspect-[4/3] flex items-center justify-center overflow-hidden order-1 lg:order-2"
+					class="skeu-card-light rounded-xl aspect-[4/3] flex items-center justify-center overflow-hidden p-4 order-1 lg:order-2"
 				>
-					<img src="/landing-page/memory-graph.png" alt="Semantic memory graph visualization" class="w-full h-full object-cover" />
+					<img src="/landing-page/memory-graph.png" alt="Semantic memory graph visualization" class="w-full h-full object-contain rounded-lg" />
 				</div>
 			</div>
 		</div>
@@ -252,7 +252,7 @@
 
 			<div class="grid lg:grid-cols-2 gap-12 items-center">
 				<div
-					class="skeu-card-light rounded-xl aspect-[4/3] flex items-center justify-center overflow-hidden"
+					class="skeu-card-light rounded-xl aspect-[4/3] flex items-center justify-center overflow-hidden p-4"
 				>
 					<div class="text-black/20 text-sm">Chat interface</div>
 				</div>
