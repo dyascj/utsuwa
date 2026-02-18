@@ -23,36 +23,33 @@
 	{#if data.metadata?.description}
 		<meta property="og:description" content={data.metadata.description} />
 	{/if}
-	{#if data.metadata?.image}
-		<meta property="og:image" content={data.metadata.image} />
-	{/if}
+	<meta property="og:image" content={data.metadata?.image ? `${SITE_URL}${data.metadata.image}` : `${SITE_URL}/brand-assets/thumbnail.png`} />
 	<meta property="og:url" content={`${SITE_URL}/blog/${data.slug}`} />
+	<meta property="og:site_name" content="Utsuwa" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={data.metadata?.title || 'Blog'} />
 	{#if data.metadata?.description}
 		<meta name="twitter:description" content={data.metadata.description} />
 	{/if}
-	{#if data.metadata?.image}
-		<meta name="twitter:image" content={data.metadata.image} />
-	{/if}
+	<meta name="twitter:image" content={data.metadata?.image ? `${SITE_URL}${data.metadata.image}` : `${SITE_URL}/brand-assets/thumbnail.png`} />
 	<link rel="canonical" href={`${SITE_URL}/blog/${data.slug}`} />
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
 		'@type': 'BlogPosting',
 		headline: data.metadata?.title,
 		description: data.metadata?.description,
-		image: data.metadata?.image ? `${SITE_URL}${data.metadata.image}` : undefined,
+		image: data.metadata?.image ? `${SITE_URL}${data.metadata.image}` : `${SITE_URL}/brand-assets/thumbnail.png`,
 		datePublished: data.metadata?.date,
 		url: `${SITE_URL}/blog/${data.slug}`,
 		author: {
 			'@type': 'Organization',
 			name: 'Utsuwa',
-			url: '${SITE_URL}'
+			url: SITE_URL
 		},
 		publisher: {
 			'@type': 'Organization',
 			name: 'Utsuwa',
-			url: '${SITE_URL}'
+			url: SITE_URL
 		}
 	})}</script>`}
 	{@html '<style>html { scroll-padding-top: 6rem; }</style>'}

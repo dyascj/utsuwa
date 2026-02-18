@@ -493,8 +493,6 @@
 				alt="Utsuwa"
 				class="hero-logo mb-4"
 			/>
-			<p class="text-xl md:text-2xl font-medium text-white/80 mb-8">Download</p>
-
 			<div class="flex flex-wrap items-center justify-center gap-3 mb-6">
 				<a
 					href="/app"
