@@ -1,3 +1,28 @@
 {
-	"framework": "sveltekit"
+	"redirects": [
+		{
+			"source": "/",
+			"has": [{ "type": "host", "value": "app.utsuwa.ai" }],
+			"destination": "https://utsuwa.ai/app",
+			"permanent": true
+		},
+		{
+			"source": "/:path+",
+			"has": [{ "type": "host", "value": "app.utsuwa.ai" }],
+			"destination": "https://utsuwa.ai/app/:path+",
+			"permanent": true
+		},
+		{
+			"source": "/",
+			"has": [{ "type": "host", "value": "docs.utsuwa.ai" }],
+			"destination": "https://utsuwa.ai/docs/overview/introduction",
+			"permanent": true
+		},
+		{
+			"source": "/:path+",
+			"has": [{ "type": "host", "value": "docs.utsuwa.ai" }],
+			"destination": "https://utsuwa.ai/docs/:path+",
+			"permanent": true
+		}
+	]
 }
