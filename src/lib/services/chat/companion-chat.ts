@@ -33,6 +33,7 @@ import { reminderStore } from '$lib/stores/reminders.svelte';
 import { getWorkingMemory, ensureSession } from '$lib/engine/memory';
 import { toOpenAIContent, type ContentPart } from '$lib/services/chat/content';
 import { pseudoCallFromTool } from '$lib/services/tts/speech-compiler';
+import { shouldUseSpeechTools } from '$lib/services/tts/tool-definitions';
 import { isTauri } from '$lib/services/platform';
 import type { LLMProvider, TTSProvider } from '$lib/types';
 import type { EventDefinition } from '$lib/types/events';
@@ -54,14 +55,10 @@ export interface CompanionChatHooks {
 	setPhase?: (phase: ThinkingPhase) => void;
 }
 
-/**
- * Returns true when `text` ends with an incomplete speak/pause/gesture call or
- * an incomplete legacy language tag. Used by the streaming delta cleaner to
- * decide whether it can flush the current chunk or needs to wait for more data.
- */
 async function buildCompanionPrompt(
 	userMessage: string,
 	hasImages: boolean,
+	llmProvider: string,
 	contextSize?: number,
 	systemEvent?: string
 ): Promise<string> {
@@ -86,11 +83,7 @@ async function buildCompanionPrompt(
 		ttsAltEnabled: (speechSettings.enableAltLanguage as boolean) ?? false,
 		// Same gate as the ttsTools injection in sendCompanionMessage: the
 		// speech layer must mandate tool calls exactly when the tools are sent.
-		ttsToolCalling:
-			speechEnabled &&
-			speechSettings.activeProvider === 'omnivoice' &&
-			(speechSettings.enableAltLanguage as boolean) === true &&
-			(speechSettings.enableToolCalling as boolean) !== false
+		ttsToolCalling: shouldUseSpeechTools(llmProvider, speechEnabled, speechSettings)
 	};
 	return buildSystemPrompt(context);
 }
@@ -238,6 +231,7 @@ export async function sendCompanionMessage(
 		const systemPrompt = await buildCompanionPrompt(
 			content,
 			images.length > 0,
+			provider,
 			contextSize,
 			systemEvent ? content : undefined
 		);
@@ -387,10 +381,7 @@ classTemperature: (displaySpeechSettings.classTemperature as number) ?? undefine
 		const altLang = (displaySpeechSettings.altLanguage as string)?.toLowerCase();
 		const toolLanguages = Array.from(new Set([primaryLang, altLang].filter(Boolean))) as string[];
 
-		const ttsTools = speechState?.enabled === true
-			&& displayTtsProvider === 'omnivoice'
-			&& (displaySpeechSettings.enableAltLanguage as boolean) === true
-			&& (displaySpeechSettings.enableToolCalling as boolean) !== false
+		const ttsTools = shouldUseSpeechTools(provider, speechState?.enabled === true, displaySpeechSettings)
 			? [
 					{
 						type: 'function' as const,

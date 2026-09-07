@@ -9,6 +9,7 @@ import {
 	estimateTokens,
 	type PromptContext
 } from './prompt-builder.ts';
+import { shouldUseSpeechTools } from '../services/tts/tool-definitions.ts';
 import type { CharacterState } from '$lib/types/character';
 import type { RelevantContext } from '$lib/types/memory';
 import { getMemoryBudget } from '../types/memory.ts';
@@ -488,4 +489,23 @@ test('truncateChatHistory handles image content placeholders', () => {
 	const result = truncateChatHistory(messages, systemPrompt, 700);
 	assert.ok(result.length > 0);
 	assert.equal(result[result.length - 1].content, 'newest message');
+});
+
+
+test('speech tool policy keeps Anthropic on the inline prompt and honors speech settings', () => {
+	const settings = { activeProvider: 'omnivoice', enableAltLanguage: true };
+	for (const provider of ['anthropic', 'openai', 'ollama', 'openai-compatible']) {
+		const enabled = shouldUseSpeechTools(provider, true, settings);
+		const prompt = buildSystemPrompt(makeContext({
+			ttsProvider: 'omnivoice', ttsLanguage: 'en', ttsAltLanguage: 'es',
+			ttsAltEnabled: true, ttsToolCalling: enabled
+		}));
+		assert.equal(enabled, provider !== 'anthropic');
+		assert.equal(prompt.includes('native tool calls'), enabled);
+		assert.equal(prompt.includes('inline speak() commands'), !enabled);
+	}
+	assert.equal(shouldUseSpeechTools('openai', false, settings), false);
+	assert.equal(shouldUseSpeechTools('openai', true, { ...settings, enableAltLanguage: false }), false);
+	assert.equal(shouldUseSpeechTools('openai', true, { ...settings, enableToolCalling: false }), false);
+	assert.equal(shouldUseSpeechTools('openai', true, { ...settings, activeProvider: 'openai-tts' }), false);
 });

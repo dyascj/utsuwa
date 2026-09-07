@@ -1,5 +1,19 @@
 import type { ToolCall } from './speech-compiler.ts';
 
+/** Both the prompt and request must use the transport's supported speech format. */
+export function shouldUseSpeechTools(
+	llmProvider: string,
+	speechEnabled: boolean,
+	settings: Record<string, unknown>
+): boolean {
+	// Anthropic requests currently use text only; keep the inline speak() fallback.
+	return llmProvider !== 'anthropic'
+		&& speechEnabled
+		&& settings.activeProvider === 'omnivoice'
+		&& settings.enableAltLanguage === true
+		&& settings.enableToolCalling !== false;
+}
+
 export interface SpeakParams {
 	text: string;
 	lang?: string;
