@@ -89,7 +89,7 @@
 			/>
 			<Scene {centered} {locked} {overlay} />
 		</Canvas>
-	{:else if mounted}
+	{:else if webglError}
 		<div class="vrm-scene-fallback">
 			<p>WebGL is unavailable on this device or browser.</p>
 			<button onclick={() => window.location.reload()}>Reload</button>
