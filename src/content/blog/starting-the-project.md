@@ -18,13 +18,27 @@ That's the idea behind Utsuwa. The name means "vessel" in Japanese. A container 
 
 Two products really got me thinking about this space.
 
-![Grok's Ani companion](/blog/grok-ani.jpg)
+<img
+  src="/optimized/blog/grok-ani-1280.webp"
+  srcset="/optimized/blog/grok-ani-96.webp 96w, /optimized/blog/grok-ani-480.webp 480w, /optimized/blog/grok-ani-960.webp 960w, /optimized/blog/grok-ani-1280.webp 1280w"
+  sizes="(max-width: 768px) calc(100vw - 40px), 736px"
+  width="1280" height="720"
+  alt="Grok&#x27;s Ani companion"
+  loading="lazy" decoding="async"
+/>
 
 The first is **Ani**, xAI's companion for Grok. When it launched in mid-2025 it went absolutely viral. Millions of impressions in the first 48 hours. The 3D avatar, the voice, the affection system that evolves as you interact with it. It proved there's a massive appetite for this kind of experience. People genuinely want AI companions that feel alive.
 
 The catch? It's locked behind a $30/month SuperGrok subscription. Your conversations live on xAI's servers. The characters, the avatars, the personality system, all of it is proprietary. You're renting the experience. If xAI decides to change Ani's personality, remove a feature, or shut it down tomorrow, you have zero say in it. They've already had to disable features due to controversy around content moderation. When you don't own the platform, you're always at the mercy of whoever does.
 
-![Razer's Project Ava](/blog/razer-project-ava.jpg)
+<img
+  src="/optimized/blog/razer-project-ava-920.webp"
+  srcset="/optimized/blog/razer-project-ava-96.webp 96w, /optimized/blog/razer-project-ava-480.webp 480w, /optimized/blog/razer-project-ava-920.webp 920w"
+  sizes="(max-width: 768px) calc(100vw - 40px), 736px"
+  width="920" height="518"
+  alt="Razer&#x27;s Project Ava"
+  loading="lazy" decoding="async"
+/>
 
 The second is **Project Ava** from Razer, unveiled at CES 2026. A holographic AI companion that sits on your desk in a physical cylinder. Anime avatars, voice interaction, screen awareness. The hardware concept is genuinely cool. A 5.5" 3D hologram with dual microphones and a camera that can see your screen.
 

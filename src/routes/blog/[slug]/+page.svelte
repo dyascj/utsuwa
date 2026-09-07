@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { marketingImage } from '$lib/utils/marketing-images';
 	import '$lib/styles/prose.css';
 	import { formatDate } from '$lib/utils/format-date';
 	import { SITE_URL } from '$lib/config/site';
@@ -127,7 +128,7 @@
 
 	{#if data.metadata?.image}
 		<div class="blog-banner">
-			<img src={data.metadata.image} alt="" />
+			<img {...marketingImage(data.metadata.image, '(max-width: 1280px) calc(100vw - 40px), 1216px')} fetchpriority="high" alt="" />
 		</div>
 	{/if}
 
@@ -194,9 +195,9 @@
 
 	.post-title {
 		font-size: clamp(2.25rem, 5vw, 3.25rem);
-		font-weight: 700;
+		font-weight: 600;
 		line-height: 1.1;
-		letter-spacing: -0.02em;
+		letter-spacing: -0.035em;
 		color: var(--text-primary);
 		margin: 0 0 1.25rem;
 	}

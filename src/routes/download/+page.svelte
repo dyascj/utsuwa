@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { marketingImage } from '$lib/utils/marketing-images';
 	import SiteNav from '$lib/components/marketing/SiteNav.svelte';
 	import SiteFooter from '$lib/components/marketing/SiteFooter.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
@@ -92,7 +93,7 @@
 		<div class="hero-shot">
 			<img
 				class="shot"
-				src="/marketing/desktop-app.webp"
+				{...marketingImage('/marketing/desktop-app.webp', '(max-width: 859px) calc(100vw - 40px), (max-width: 1280px) 48vw, 616px')}
 				alt="The Utsuwa desktop overlay: a VRM companion floating on a macOS desktop"
 				loading="eager"
 			/>
@@ -152,9 +153,9 @@
 
 <style>
 	main {
-		max-width: 64rem;
+		max-width: 80rem;
 		margin: 0 auto;
-		padding: 0 1.5rem;
+		padding: 0 var(--marketing-gutter);
 	}
 
 	/* Hero: copy left, screenshot right */
@@ -173,7 +174,7 @@
 	.hero-h1 {
 		margin: 0 0 1.25rem;
 		font-size: clamp(2.25rem, 5vw, 3.5rem);
-		font-weight: 600;
+		font-weight: 500;
 		line-height: 1.08;
 		letter-spacing: -0.03em;
 		color: var(--text-primary);
@@ -196,7 +197,7 @@
 	}
 
 	.hero-textlink {
-		margin-left: 0.5rem;
+		margin-left: 0;
 		font-size: 0.95rem;
 		font-weight: 500;
 		color: var(--text-secondary);
@@ -338,20 +339,20 @@
 	}
 
 	.platform-name {
-		font-size: 1.05rem;
+		font-size: 1.0625rem;
 		font-weight: 600;
 		color: var(--text-primary);
 	}
 
 	.platform-note {
-		font-size: 0.85rem;
+		font-size: 0.875rem;
 		color: var(--text-secondary);
 	}
 
 	.platform-foot {
 		margin: 1.5rem 0 0;
-		font-size: 0.85rem;
-		color: var(--text-tertiary);
+		font-size: 0.875rem;
+		color: var(--text-secondary);
 	}
 
 	.inline-link {
@@ -385,7 +386,7 @@
 	.included-body {
 		margin: 0;
 		max-width: 26rem;
-		font-size: 0.9rem;
+		font-size: 1rem;
 		line-height: 1.6;
 		color: var(--text-secondary);
 	}
