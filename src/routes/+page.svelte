@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { marketingImage } from '$lib/utils/marketing-images';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import { formatDate } from '$lib/utils/format-date';
@@ -29,6 +30,8 @@
 			height: 1536
 		}
 	];
+	const heroSizes = '(max-width: 480px) 85vw, (max-width: 1099px) 368px, 550px';
+	const featureSizes = '(max-width: 899px) calc(100vw - 40px), (max-width: 1280px) 52vw, 640px';
 	let activeHeroCharacter = $state(0);
 
 	onMount(() => {
@@ -69,7 +72,7 @@
 	function heroParallax(node: HTMLElement) {
 		const layers = node.querySelectorAll<HTMLElement>('[data-parallax]');
 		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-		const mobile = window.matchMedia('(max-width: 899px)');
+		const mobile = window.matchMedia('(max-width: 1099px)');
 		let frame = 0;
 
 		const render = () => {
@@ -176,7 +179,14 @@
 	/>
 	<link rel="canonical" href={SITE_URL} />
 
-	<link rel="preload" as="image" href="/landing-page/hero-character-1.webp" type="image/webp" />
+	<link
+		rel="preload"
+		as="image"
+		href={heroCharacters[0].src}
+		imagesrcset={marketingImage(heroCharacters[0].src, heroSizes).srcset}
+		imagesizes={heroSizes}
+		type="image/webp"
+	/>
 
 	<!-- Open Graph -->
 	<meta property="og:type" content="website" />
@@ -243,7 +253,7 @@
 						class="hero-character"
 						class:hero-character--active={index === activeHeroCharacter}
 						data-parallax="0.14"
-						src={character.src}
+						{...marketingImage(character.src, heroSizes)}
 						alt=""
 						aria-hidden="true"
 						width={character.width}
@@ -331,7 +341,7 @@
 						<div class="feature-media">
 							<img
 								class="feature-img feature-img--light"
-								src={`/marketing/${f.shot}-light.webp`}
+								{...marketingImage(`/marketing/${f.shot}-light.webp`, featureSizes)}
 								alt={f.alt}
 								width={f.width}
 								height={f.height}
@@ -339,7 +349,7 @@
 							/>
 							<img
 								class="feature-img feature-img--dark"
-								src={`/marketing/${f.shot}-dark.webp`}
+								{...marketingImage(`/marketing/${f.shot}-dark.webp`, featureSizes)}
 								alt={f.alt}
 								width={f.width}
 								height={f.height}
@@ -412,7 +422,7 @@
 					{#each data.posts as post, i}
 						<a use:reveal={(i % 3) * 90} href="/blog/{post.slug}" class="reveal channel-card">
 							<div class="channel-media">
-								<img src={post.image} alt={post.title} loading="lazy" />
+								<img {...marketingImage(post.image, '(max-width: 767px) calc(100vw - 40px), (max-width: 1280px) 31vw, 384px', true)} alt={post.title} loading="lazy" />
 							</div>
 							<div class="channel-body">
 								<time datetime={post.date} class="channel-date">{formatDate(post.date)}</time>
@@ -456,7 +466,6 @@
 
 <style>
 	.page-root {
-		--marketing-gutter: clamp(1.25rem, 3vw, 2rem);
 		background: var(--bg-page);
 		color: var(--text-primary);
 	}
@@ -478,7 +487,7 @@
 	.hero {
 		max-width: 80rem;
 		margin: 0 auto;
-		padding: 0 1.5rem clamp(2rem, 5vw, 4rem);
+		padding: 0 var(--marketing-gutter) clamp(2rem, 5vw, 4rem);
 	}
 
 	.hero-stage {
@@ -580,7 +589,7 @@
 		scale: 1;
 	}
 
-	@media (min-width: 900px) {
+	@media (min-width: 1100px) {
 		.hero-character-wrap {
 			height: 88%;
 			-webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 68%, transparent 98%);
@@ -610,7 +619,7 @@
 		max-width: 18rem;
 		margin: 0;
 		color: var(--hero-muted);
-		font-size: 0.92rem;
+		font-size: 1rem;
 		line-height: 1.55;
 	}
 
@@ -656,16 +665,16 @@
 		transform: translateX(3px);
 	}
 
-	@media (max-width: 899px) {
+	@media (max-width: 1099px) {
 		.hero {
-			padding: 0.5rem 1rem 2.5rem;
+			padding: 0.5rem var(--marketing-gutter) 2.5rem;
 		}
 
 		.hero-stage {
 			display: flex;
 			min-height: 0;
 			flex-direction: column;
-			padding: 1.5rem 1.25rem 1.75rem;
+			padding: 1.5rem 0 1.75rem;
 		}
 
 		.hero-title-piece,
@@ -680,24 +689,27 @@
 			flex-direction: column;
 			align-items: center;
 			width: 100%;
-			margin-top: 2rem;
+			margin-top: 1rem;
 			text-align: center;
 		}
 
 		.hero-title-piece {
-			font-size: clamp(2.65rem, 11vw, 4.5rem);
+			font-size: clamp(2.25rem, 10vw, 4.5rem);
 		}
 
 		.hero-title-right {
 			align-self: auto;
 			margin-top: 0.3rem;
+			text-align: center;
 		}
 
 		.hero-character-wrap {
+			position: relative;
+			inset: auto;
 			align-self: center;
 			height: auto;
-			width: min(100%, 29rem);
-			margin: 1.75rem auto -0.5rem;
+			width: min(85%, 23rem);
+			margin: 1.5rem auto 0;
 			transform: none;
 		}
 
@@ -707,6 +719,7 @@
 		}
 
 		.hero-sub {
+			width: 100%;
 			max-width: 30rem;
 			margin-inline: auto;
 			font-size: 1rem;
@@ -717,6 +730,17 @@
 			justify-content: center;
 			width: 100%;
 			margin-top: 1.5rem;
+		}
+	}
+
+	@media (min-width: 1100px) and (max-width: 1279px) {
+		.hero-character-wrap {
+			height: 80%;
+			left: 47%;
+		}
+
+		.hero-sub {
+			max-width: 14rem;
 		}
 	}
 
@@ -918,7 +942,7 @@
 
 	/* Statement */
 	.statement {
-		padding: clamp(6rem, 10vw, 9rem) 0;
+		padding: clamp(4rem, 6vw, 6rem) 0;
 	}
 
 	.statement-text {
@@ -986,7 +1010,7 @@
 	}
 
 	.home-blog {
-		padding: clamp(6rem, 9vw, 8rem) 0;
+		padding: clamp(5rem, 7vw, 7rem) 0;
 	}
 
 	.home-blog-title {
@@ -1052,9 +1076,9 @@
 	}
 
 	.channel-date {
-		font-size: 0.72rem;
-		font-weight: 600;
-		color: var(--text-tertiary);
+		font-size: 0.75rem;
+		font-weight: 500;
+		color: var(--text-secondary);
 	}
 
 	.channel-title {
@@ -1071,7 +1095,7 @@
 	}
 
 	.closing-cta {
-		padding: clamp(8rem, 12vw, 10.5rem) 0;
+		padding: clamp(6rem, 9vw, 8rem) 0 clamp(3rem, 5vw, 5rem);
 	}
 
 	.closing-cta-inner {

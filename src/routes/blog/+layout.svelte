@@ -33,14 +33,14 @@
 
 	/* The wider editorial canvas matches the shared nav/footer shell. */
 	.blog-main {
-		max-width: 83rem;
+		max-width: 80rem;
 		margin: 0 auto;
-		padding: clamp(4rem, 8vw, 6.5rem) 1.5rem clamp(6rem, 10vw, 9rem);
+		padding: clamp(4rem, 8vw, 6.5rem) var(--marketing-gutter) clamp(4rem, 7vw, 6rem);
 	}
 
 	@media (max-width: 768px) {
 		.blog-main {
-			padding: 3rem 1rem 5rem;
+			padding: 3rem var(--marketing-gutter) 4rem;
 		}
 	}
 </style>

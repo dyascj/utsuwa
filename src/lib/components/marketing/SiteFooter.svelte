@@ -81,7 +81,7 @@
 	.site-footer-inner {
 		max-width: 80rem;
 		margin: 0 auto;
-		padding: clamp(4.5rem, 8vw, 7rem) 1.5rem 2rem;
+		padding: clamp(4rem, 7vw, 6rem) var(--marketing-gutter) 2rem;
 	}
 
 	.site-footer-top {
@@ -104,7 +104,7 @@
 	.site-footer-cols {
 		display: grid;
 		grid-template-columns: repeat(3, minmax(7.5rem, 1fr));
-		gap: 3rem;
+		gap: clamp(1.5rem, 3vw, 3rem);
 	}
 
 	.site-footer-col {
@@ -116,9 +116,9 @@
 
 	.site-footer-col h3 {
 		margin: 0 0 0.375rem;
-		font-size: 0.78rem;
+		font-size: 0.8125rem;
 		font-weight: 500;
-		color: var(--text-tertiary);
+		color: var(--text-secondary);
 	}
 
 	.site-footer-col a {
@@ -143,13 +143,14 @@
 	}
 
 	.site-footer-bottom span {
-		font-size: 0.72rem;
+		font-size: 0.75rem;
 		line-height: 1.5;
-		color: var(--text-tertiary);
+		color: var(--text-secondary);
 	}
 
 	.site-footer-actions {
 		display: flex;
+		flex-shrink: 0;
 		align-items: center;
 		gap: 0.125rem;
 	}
@@ -201,7 +202,7 @@
 		outline-offset: -4px;
 	}
 
-	@media (max-width: 760px) {
+	@media (max-width: 960px) {
 		.site-footer-inner {
 			padding-top: 4rem;
 		}
@@ -214,7 +215,9 @@
 		.site-footer-tagline {
 			max-width: 20rem;
 		}
+	}
 
+	@media (max-width: 600px) {
 		.site-footer-cols {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 			gap: 2.5rem 1.5rem;

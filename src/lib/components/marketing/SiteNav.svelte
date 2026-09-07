@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { marketingImage } from '$lib/utils/marketing-images';
 	import { page } from '$app/state';
 	import Icon from '$lib/components/ui/Icon.svelte';
 	import { sectionUrl, isSection } from '$lib/config/links';
@@ -32,6 +33,13 @@
 		menuOpen = false;
 	});
 
+	$effect(() => {
+		const desktop = window.matchMedia('(min-width: 769px)');
+		const closeOnDesktop = () => { if (desktop.matches) menuOpen = false; };
+		desktop.addEventListener('change', closeOnDesktop);
+		return () => desktop.removeEventListener('change', closeOnDesktop);
+	});
+
 	// Escape closes the mobile menu while it is open.
 	$effect(() => {
 		if (!menuOpen) return;
@@ -43,7 +51,7 @@
 	});
 </script>
 
-<nav class="site-nav" class:scrolled={scrolled || menuOpen} class:menu-open={menuOpen}>
+<nav aria-label="Main navigation" class="site-nav" class:scrolled={scrolled || menuOpen} class:menu-open={menuOpen}>
 	<div class="site-nav-inner">
 		<a href="/" class="site-nav-brand" aria-label="Utsuwa home">
 			<img src="/brand-assets/logo.svg" alt="Utsuwa" class="site-nav-logo" />
@@ -63,7 +71,7 @@
 						<div class="nav-dropdown-card">
 							{#each recentPosts as post (post.slug)}
 								<a href="/blog/{post.slug}" class="nav-dropdown-row">
-									<img class="nav-dropdown-thumb" src={post.image} alt="" loading="lazy" />
+									<img class="nav-dropdown-thumb" {...marketingImage(post.image, '48px', true)} alt="" loading="lazy" />
 									<span class="nav-dropdown-text">
 										<span class="nav-dropdown-title">{post.title}</span>
 										<time class="nav-dropdown-date" datetime={post.date}>{formatDate(post.date)}</time>
@@ -168,7 +176,7 @@
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
 		align-items: center;
-		padding: 0.9rem 1.5rem;
+		padding: 0.9rem var(--marketing-gutter);
 	}
 
 	.site-nav-brand {
@@ -313,8 +321,8 @@
 		display: none;
 		align-items: center;
 		justify-content: center;
-		width: 2.5rem;
-		height: 2.5rem;
+		width: 2.75rem;
+		height: 2.75rem;
 		border-radius: var(--radius-full);
 		color: var(--text-secondary);
 		background: var(--bg-tertiary);
@@ -344,6 +352,9 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+		max-height: calc(100dvh - 4.625rem);
+		overflow-y: auto;
+		overscroll-behavior: contain;
 		padding: 0.625rem 1rem 1.25rem;
 		border-radius: 0 0 var(--radius-xl) var(--radius-xl);
 		background: var(--bg-page);
@@ -446,7 +457,8 @@
 	}
 
 	@media (min-width: 769px) {
-		.site-nav-mobile {
+		.site-nav-mobile,
+		.site-nav-backdrop {
 			display: none;
 		}
 	}

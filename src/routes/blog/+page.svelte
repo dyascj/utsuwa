@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { marketingImage } from '$lib/utils/marketing-images';
 	import type { PageData } from './$types';
 	import { formatDate } from '$lib/utils/format-date';
 	import { SITE_URL } from '$lib/config/site';
@@ -36,7 +37,7 @@
 		<section class="featured-row">
 			<a href="/blog/{featured.slug}" class="post lead">
 				<div class="media media-featured">
-					<img src={featured.image} alt={featured.title} />
+					<img {...marketingImage(featured.image, '(max-width: 960px) calc(100vw - 40px), (max-width: 1280px) 70vw, 896px', true)} fetchpriority="high" alt={featured.title} />
 				</div>
 				<h2 class="lead-title">{featured.title}</h2>
 				<div class="meta">
@@ -49,7 +50,7 @@
 					{#each sidePosts as post}
 						<a href="/blog/{post.slug}" class="post side">
 							<div class="media media-side">
-								<img src={post.image} alt={post.title} loading="lazy" />
+								<img {...marketingImage(post.image, '(max-width: 700px) calc(100vw - 40px), (max-width: 960px) 30vw, 288px', true)} alt={post.title} loading="lazy" />
 							</div>
 							<h3 class="post-title">{post.title}</h3>
 							<div class="meta">
@@ -71,7 +72,7 @@
 				{#each gridPosts as post}
 					<a href="/blog/{post.slug}" class="post">
 						<div class="media media-grid">
-							<img src={post.image} alt={post.title} loading="lazy" />
+							<img {...marketingImage(post.image, '(max-width: 700px) calc(100vw - 40px), (max-width: 1024px) 45vw, 384px', true)} alt={post.title} loading="lazy" />
 						</div>
 						<h3 class="post-title">{post.title}</h3>
 						<div class="meta">

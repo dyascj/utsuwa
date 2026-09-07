@@ -53,9 +53,9 @@
 				<Icon name={iconName} size={18} />
 			</button>
 		{/if}
-		<a href={GITHUB_RELEASES} target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm download-btn">
+		<a href={GITHUB_RELEASES} aria-label="Download Utsuwa" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm download-btn">
 			<Icon name="download" size={14} />
-			Download
+			<span class="download-label">Download</span>
 		</a>
 		<a href={sectionUrl('app')} class="btn btn-primary btn-sm try-live-btn">Try Live</a>
 	</div>
@@ -213,6 +213,11 @@
 
 		.header-right {
 			gap: 0.25rem;
+		}
+	}
+	@media (max-width: 360px) {
+		.download-label {
+			display: none;
 		}
 	}
 </style>
