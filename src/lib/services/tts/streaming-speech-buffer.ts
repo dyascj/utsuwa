@@ -10,7 +10,7 @@ import {
 	type ToolCall
 } from './speech-compiler.ts';
 import { parseToolCall } from './tool-definitions.ts';
-import { stripReasoningLeaks, stripAngleBlocks, cleanSpeechMarkers } from './chat-text.ts';
+import { stripAngleBlocks, cleanSpeechMarkers } from './chat-text.ts';
 import { splitIntoSegments, stripSpeechArtifacts, stripForSpeech, hasStateBlockFragment } from '../../utils/sentences.ts';
 
 export interface StreamingSpeechBufferOptions {
@@ -169,7 +169,7 @@ export class StreamingSpeechBuffer {
 			// over from a stripped fence label) is never speakable.
 			if (cleaned && /[\p{L}\p{N}]/u.test(cleaned)) {
 				for (const seg of splitIntoSegments(
-					stripAngleBlocks(stripReasoningLeaks(cleaned.trim().replace(/<\/speak>/g, ' '))),
+					stripAngleBlocks(cleaned.trim().replace(/<\/speak>/g, ' ')),
 					this.options.defaultLanguage
 				)) {
 					// State-block fragments (e.g. a JSON block the model wrote
@@ -272,9 +272,7 @@ export class StreamingSpeechBuffer {
 			// cleanSpeechMarkers also runs on the plaintext path so legacy
 			// inline language markup ("[lang:es]…[/lang]") never reaches TTS —
 			// the envelope paths clean it, this path did not.
-			stripAngleBlocks(stripReasoningLeaks(
-				cleanSpeechMarkers(cleaned.replace(/<\/speak>/g, ' '))
-			)),
+			stripAngleBlocks(cleanSpeechMarkers(cleaned.replace(/<\/speak>/g, ' '))),
 			this.options.defaultLanguage
 		)) {
 			// State-block fragments must never be spoken, even when they reach
@@ -524,7 +522,7 @@ export class StreamingSpeechBuffer {
 	private segmentsFromPlaintext(block: string): SpeechSegment[] {
 		const { cleaned } = stripForSpeech(block);
 		return splitIntoSegments(
-			stripAngleBlocks(stripReasoningLeaks(cleaned.replace(/<\/speak>/g, ' '))),
+			stripAngleBlocks(cleaned.replace(/<\/speak>/g, ' ')),
 			this.options.defaultLanguage
 		).filter((seg) => !hasStateBlockFragment(seg.text));
 	}

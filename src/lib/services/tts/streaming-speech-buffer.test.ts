@@ -770,3 +770,20 @@ test('flush keeps capitalized prose words but drops lowercase marker names', () 
 	const aborted = collectSegments(['Und dann pause']);
 	assert.equal(aborted.map((seg) => seg.text).join(' '), 'Und dann');
 });
+
+
+test('preserves conversational English in prose and speak calls', () => {
+	const sentences = [
+		'Maybe we can go for a walk together.',
+		'Let me know how your interview goes.',
+		'This is the Spanish word for a dog.'
+	];
+	for (const text of sentences) {
+		for (const input of [text, `speak(${JSON.stringify({ text, lang: 'en' })})`]) {
+			const { buffer, segments } = createBuffer();
+			buffer.feed(input);
+			buffer.flush();
+			assert.equal(segments.map((s) => s.text).join(' '), text);
+		}
+	}
+});

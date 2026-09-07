@@ -3,7 +3,6 @@ import assert from 'node:assert/strict';
 import {
 	cleanSpeechMarkers,
 	cutAtStateFence,
-	stripReasoningLeaks,
 	stripAngleBlocks,
 	hasIncompleteTrailingMarkup,
 	StreamingDisplayCleaner
@@ -113,24 +112,28 @@ test('cleanSpeechMarkers removes legacy tags but keeps the inner text', () => {
 
 // ── reasoning leaks ───────────────────────────────────────
 
-test('stripReasoningLeaks removes leaked reasoning monologue', () => {
-	const text =
-		'User wants: "bitte nochmal wiederholen" (please repeat again). So we need to repeat the conjugation of "ir" as before. Should give same content but concise. Hier ist die Konjugation: Ich gehe, du gehst, er geht.';
-	const result = stripReasoningLeaks(text);
-	assert.equal(result, 'Hier ist die Konjugation: Ich gehe, du gehst, er geht.');
+test('cleanSpeechMarkers preserves ordinary English dialogue and state updates', () => {
+	const sentences = [
+		'Maybe we can go for a walk together.',
+		'Let me know how your interview goes.',
+		'This is the Spanish word for a dog.',
+		'We should try that restaurant tomorrow.'
+	];
+	const state = '\n```json\n{"new_memory":"Their interview is tomorrow"}\n```';
+	for (const text of sentences) {
+		assert.equal(cleanSpeechMarkers(text), text);
+		const call = `speak(${JSON.stringify({ text, lang: 'en' })})`;
+		const parsed = parseResponse(cleanSpeechMarkers(call + state, { keepStateFences: true }));
+		assert.equal(parsed.dialogue, text);
+		assert.equal(parsed.stateUpdates?.newMemory, 'Their interview is tomorrow');
+	}
 });
 
-test('stripReasoningLeaks keeps short marker sentences', () => {
-	// "We need help." is short — never reasoning.
-	const result = stripReasoningLeaks('We need help. Das ist normal.');
-	assert.equal(result, 'We need help. Das ist normal.');
-});
-
-test('cleanSpeechMarkers strips reasoning leaks around speak texts', () => {
-	const result = cleanSpeechMarkers(
-		'Should give same content as earlier but maybe concise. speak({ text: "Hallo!" })'
+test('cleanSpeechMarkers removes explicitly tagged reasoning around speech', () => {
+	assert.equal(
+		cleanSpeechMarkers('<think>We need to plan the reply.</think> speak({ text: "Hallo!" })'),
+		'Hallo!'
 	);
-	assert.equal(result, 'Hallo!');
 });
 
 // ── angle-bracket section markers ──────────────────────────

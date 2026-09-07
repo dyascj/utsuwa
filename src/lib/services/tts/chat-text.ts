@@ -51,28 +51,6 @@ function stripNonVerbalMarkers(text: string): string {
 }
 
 /**
- * Reasoning models (GPT-OSS, DeepSeek-R1 style) occasionally leak their
- * internal monologue into the reply content instead of the reasoning channel.
- * Typical sentences start with planning/self-instruction phrases, are long,
- * and never belong in spoken output. Remove them from the visible text.
- */
-const REASONING_SENTENCE_RE =
-	/^(User wants:|We need to|So we need to|We should|We have|Should (I|we|probably|give|use|say)|Probably|Thus|Let me|Ensure (each|the)|Might need|Maybe|Perhaps|Given (that|the)|The user (wants|asks|said|says)|I think (the|we|it|I)|I('| a)?ll (just|give|say|use|probably|start)|First,|Second,|Third,|Finally,|This (means|is|would|should)|It('| i)s (a|the|probably|important|better|time|like)|In other words|As a reminder|Make sure|Remember to)/i;
-
-/** Strip reasoning-monologue sentences from the visible chat text. */
-export function stripReasoningLeaks(text: string): string {
-	const parts = text.split(/(?<=[.!?])\s+/);
-	const kept = parts.filter((part) => {
-		const trimmed = part.trim();
-		// Short fragments are never reasoning; marker-led sentences of any
-		// length are internal monologue.
-		if (trimmed.length < 25) return true;
-		return !REASONING_SENTENCE_RE.test(trimmed);
-	});
-	return kept.join(' ');
-}
-
-/**
  * Some models emit section markers as angle brackets around the text
  * (`< Hier ist der Text >`) with empty `< >` separators instead of real XML
  * tags. Strip the brackets; real `<speak ...>` tags (no space after `<`) are
@@ -195,7 +173,7 @@ export function cleanSpeechMarkers(
 	const withStateFences = options?.keepStateFences
 		? withLegacy
 		: withLegacy.replace(/```json[\s\S]*?```/gi, '');
-	return stripReasoningLeaks(stripAngleBlocks(withStateFences));
+	return stripAngleBlocks(withStateFences).replace(/(?<=[.!?])\s+/g, ' ');
 }
 
 /**
