@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { SpeechScheduler } from './speech-scheduler.ts';
 import type { CompiledSegment } from './speech-compiler.ts';
 import type { TTSOptions } from './index.ts';
-import type { SpeechSegment } from '../voice-orchestrator.ts';
+import type { SpeechSegment, OrchestratorCallbacks, VoiceOrchestrator } from '../voice-orchestrator.ts';
 
 const baseOptions: TTSOptions = { provider: 'omnivoice', voiceId: 'alloy' };
 
@@ -84,6 +84,27 @@ test('beginPlan handles gesture and pause segments', async () => {
 
 	const stores = s.getStores();
 	assert.equal(stores.gesture.type, 'smile');
+});
+
+test('queued speech forwards the audio analyser for lip sync with every provider', async () => {
+	for (const provider of ['openai-tts', 'elevenlabs', 'local-tts', 'omnivoice'] as const) {
+		const analyser = {} as AnalyserNode;
+		let received: AnalyserNode | null = null;
+		let callbacks: OrchestratorCallbacks | undefined;
+		const mock = {
+			beginSession: (_options: TTSOptions, cb?: OrchestratorCallbacks) => { callbacks = cb; },
+			pushSegment: () => { callbacks?.onAnalyserUpdate?.(analyser); },
+			endSession: async () => { callbacks?.onComplete?.(); }
+		};
+		const scheduler = new SpeechScheduler(mock as unknown as VoiceOrchestrator);
+		await scheduler.beginPlan(
+			[{ type: 'speak', text: 'Hello there.', language: 'en' }],
+			{ provider },
+			(value) => { received = value; }
+		);
+		assert.equal(received, analyser, provider);
+		assert.equal(scheduler.getStores().subtitle.visible, false);
+	}
 });
 
 test('interrupt calls orchestrator.interrupt', () => {

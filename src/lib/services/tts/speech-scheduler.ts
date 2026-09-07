@@ -49,11 +49,16 @@ export class SpeechScheduler {
 		};
 	}
 
-	async beginPlan(segments: CompiledSegment[], options: TTSOptions): Promise<void> {
+	async beginPlan(
+		segments: CompiledSegment[],
+		options: TTSOptions,
+		onAnalyserUpdate?: (analyser: AnalyserNode) => void
+	): Promise<void> {
 		this.abortController = new AbortController();
 		this.clearTimers();
 
 		await this.orchestrator.beginSession(options, {
+			onAnalyserUpdate,
 			onSegmentStart: (segment: SpeechSegment) => {
 				this.storeSubtitle.text = segment.text;
 			},

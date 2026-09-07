@@ -99,7 +99,9 @@ function createTTSStore() {
 			}
 
 			const scheduler = new SpeechScheduler(orchestrator);
-			await scheduler.beginPlan(segments, item.options);
+			await scheduler.beginPlan(segments, item.options, (analyser) => {
+				currentAnalyser = analyser;
+			});
 		},
 		onError: (error) => {
 			console.error('TTS error:', error);
