@@ -93,7 +93,7 @@
 		<div class="hero-shot">
 			<img
 				class="shot"
-				{...marketingImage('/marketing/desktop-app.webp', '(max-width: 859px) calc(100vw - 40px), 488px')}
+				{...marketingImage('/marketing/desktop-app.webp', '(max-width: 859px) calc(100vw - 40px), (max-width: 1280px) 48vw, 616px')}
 				alt="The Utsuwa desktop overlay: a VRM companion floating on a macOS desktop"
 				loading="eager"
 			/>
@@ -153,7 +153,7 @@
 
 <style>
 	main {
-		max-width: 64rem;
+		max-width: 80rem;
 		margin: 0 auto;
 		padding: 0 var(--marketing-gutter);
 	}
