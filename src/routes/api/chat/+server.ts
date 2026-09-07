@@ -165,8 +165,8 @@ export const POST: RequestHandler = async ({ request }) => {
 							const data = `0:${JSON.stringify(value.text)}\n`;
 							controller.enqueue(encoder.encode(data));
 						} else if (value.type === 'tool-call') {
-							// Convert native tool calls to pseudo-call text so the
-							// client-side streaming speech buffer can process them.
+							// Keep native calls separate from text so the client can
+							// process speech even after the textual state fence.
 							// Unknown tools, invalid args or unparsable JSON yield
 							// null and are dropped — identical to the direct client
 							// path. A malformed call must not kill the stream.
@@ -178,7 +178,7 @@ export const POST: RequestHandler = async ({ request }) => {
 									args as Record<string, unknown>
 								);
 								if (pseudo) {
-									controller.enqueue(encoder.encode(`0:${JSON.stringify(pseudo)}\n`));
+									controller.enqueue(encoder.encode(`t:${JSON.stringify({ name: value.toolName, args })}\n`));
 								}
 							} catch {
 								// Malformed tool-call args: drop the call, keep streaming.

@@ -107,11 +107,12 @@ function buildMessages(images: PreparedImage[]) {
 	});
 }
 
-// Consume the server route's 0:/e: SSE framing, buffering partial lines. The
-// reader lock is always released, even on an e: error line (which used to leak).
+// Buffer partial lines from the server's text, tool-call and error events.
+// Always release the reader lock, including when an error event arrives.
 async function streamServerRoute(
 	body: unknown,
-	onDelta: (fullContent: string) => void
+	onDelta: (fullContent: string) => void,
+	onToolCall?: (name: string, args: Record<string, unknown>) => void
 ): Promise<string> {
 	const response = await fetch('/api/chat', {
 		method: 'POST',
@@ -133,6 +134,9 @@ async function streamServerRoute(
 		if (line.startsWith('0:')) {
 			fullContent += JSON.parse(line.slice(2));
 			onDelta(fullContent);
+		} else if (line.startsWith('t:')) {
+			const { name, args } = JSON.parse(line.slice(2));
+			onToolCall?.(name, args);
 		} else if (line.startsWith('e:')) {
 			throw new Error(JSON.parse(line.slice(2)).error);
 		}
@@ -434,6 +438,18 @@ classTemperature: (displaySpeechSettings.classTemperature as number) ?? undefine
 				]
 			: undefined;
 
+		// Tool calls are delivered separately from text and can arrive after the
+		// state fence. Feed them directly so the text cutoff cannot silence them.
+		let nativeContent = '';
+		const onToolCall = ttsTools ? (name: string, args: Record<string, unknown>) => {
+			const pseudo = pseudoCallFromTool(name, args);
+			if (!pseudo) return;
+			nativeContent += pseudo + '\n';
+			displayCleaner.push(pseudo + '\n');
+			chatStore.updateLastMessage(displayCleaner.text);
+			if (streamingTTS) ttsStore.feedStreaming(pseudo);
+		} : undefined;
+
 		if (isTauri() || providerMeta?.isLocal) {
 			// Desktop and local providers call the provider API directly.
 			await new Promise<void>((resolve, reject) => {
@@ -454,15 +470,7 @@ classTemperature: (displaySpeechSettings.classTemperature as number) ?? undefine
 					},
 					(error) => reject(new Error(error)),
 					() => resolve(),
-					// Convert native tool calls to pseudo-call text so the existing
-					// streaming speech buffer can process them.
-					ttsTools ? (name, args) => {
-						const pseudo = pseudoCallFromTool(name, args as Record<string, unknown>);
-						if (pseudo) {
-							fullContent += pseudo;
-							onDelta(fullContent);
-						}
-					} : undefined
+					onToolCall
 				);
 			});
 		} else {
@@ -478,8 +486,18 @@ classTemperature: (displaySpeechSettings.classTemperature as number) ?? undefine
 					tools: ttsTools,
 					...advancedParams
 				},
-				onDelta
+				onDelta,
+				onToolCall
 			);
+		}
+
+		// Keep native dialogue before the state fence in the saved response.
+		// Only transport text goes through onDelta; replaying this assembled
+		// response there would synthesize the native calls a second time.
+		if (nativeContent) {
+			const fenceIndex = fullContent.search(STATE_FENCE_OPEN);
+			const insertAt = fenceIndex === -1 ? fullContent.length : fenceIndex;
+			fullContent = fullContent.slice(0, insertAt) + '\n' + nativeContent + fullContent.slice(insertAt);
 		}
 
 		hooks.setTyping(false);
