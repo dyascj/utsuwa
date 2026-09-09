@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.14.0] - 2026-09-09
+
+### Added
+- OmniVoice can switch languages and voices within a reply. Configure an alternative language with its own preset or cloned voice, speed, and synthesis settings under Settings > Speech (TTS). A test button previews the alternative voice, and its profile warms up in the background. Contributed by @dezihh in [#154](https://github.com/JuiceBoxxGames/utsuwa/pull/154).
+- Optional native speech tool calls require a language for each segment. Local language detection helps validate language tags and route speech to the configured voice. Inline speech markup remains available for models without tool support, including Anthropic.
+
+### Changed
+- The landing, download, blog, and docs pages have updated layouts and navigation, with responsive images and smaller image downloads.
+- OmniVoice prepares short foreign-language segments to reduce silent or swallowed words and supports expressive speech markers without displaying them in chat.
+
+### Fixed
+- Streaming chat and speech now handle fragmented markup, reasoning blocks, internal state, and reminder tags without leaking control text into dialogue. Ordinary dialogue, apostrophes, and decimal numbers survive speech cleanup.
+- Queued speech playback keeps avatar lip-sync working.
+- The avatar view shows a fallback when WebGL is unavailable instead of crashing during renderer creation.
+
+### Upgrade notes
+- Update and restart your local OmniVoice proxy to use the new synthesis parameters. Docker users should rebuild the image after pulling the updated source. See the [OmniVoice guide](https://docs.utsuwa.ai/docs/guides/omnivoice#updating-the-proxy-after-code-changes).
+- Multilingual speech is in beta, with the most testing in German, Spanish, and English. Other languages are less mature, and very short foreign words can still produce weak or missing audio.
+- If your model rejects speech tools or speaks mixed text/tool replies out of order, disable **Force language per segment** in OmniVoice settings.
+
 ## [0.13.2] - 2026-08-25
 
 ### Fixed
