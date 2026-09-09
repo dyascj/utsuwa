@@ -9,6 +9,7 @@ import {
 	estimateTokens,
 	type PromptContext
 } from './prompt-builder.ts';
+import { shouldUseSpeechTools } from '../services/tts/tool-definitions.ts';
 import type { CharacterState } from '$lib/types/character';
 import type { RelevantContext } from '$lib/types/memory';
 import { getMemoryBudget } from '../types/memory.ts';
@@ -68,6 +69,109 @@ test('dating-sim prompt includes stage guidance and state', () => {
 	assert.ok(prompt.includes('Stage: friend'));
 	// friend-stage instruction text is present
 	assert.ok(prompt.includes("You're comfortable around them"));
+});
+
+test('OmniVoice speech layer is only injected for the omnivoice provider', () => {
+	const prompt = buildSystemPrompt(makeContext());
+	assert.ok(!prompt.includes('<speech_output_control>'));
+});
+
+test('OmniVoice speech layer marks the speak() calls as text commands', () => {
+	const prompt = buildSystemPrompt(
+		makeContext({ ttsProvider: 'omnivoice', ttsLanguage: 'de' })
+	);
+	assert.ok(prompt.includes('speak() commands'));
+	assert.ok(prompt.includes('<speech_output_control>'));
+});
+
+test('OmniVoice speech layer omits alternative-language rules when disabled', () => {
+	const prompt = buildSystemPrompt(
+		makeContext({ ttsProvider: 'omnivoice', ttsLanguage: 'de', ttsAltLanguage: 'es' })
+	);
+	// No alt-language rules when alt is not enabled
+	assert.ok(!prompt.includes('get their own speak({ lang: "es" }) call'));
+	// The base rules stay active
+	assert.ok(prompt.includes('Group same-language words into one natural phrase per call'));
+});
+
+test('OmniVoice speech layer includes generic alternative-language rules when enabled', () => {
+	const prompt = buildSystemPrompt(
+		makeContext({ ttsProvider: 'omnivoice', ttsLanguage: 'de', ttsAltLanguage: 'fr', ttsAltEnabled: true })
+	);
+	assert.ok(prompt.includes('get their own speak({ lang: "fr" }) call'));
+	assert.ok(prompt.includes('even single words'));
+	assert.ok(prompt.includes('Pattern: speak({ text:'));
+	assert.ok(prompt.includes('<explain in de>'));
+	assert.ok(prompt.includes('<fr word or phrase>'));
+});
+
+test('OmniVoice tool-calling layer mandates tool calls instead of inline syntax', () => {
+	const prompt = buildSystemPrompt(
+		makeContext({
+			ttsProvider: 'omnivoice',
+			ttsLanguage: 'de',
+			ttsAltLanguage: 'es',
+			ttsAltEnabled: true,
+			ttsToolCalling: true
+		})
+	);
+	assert.ok(prompt.includes('speak_segment calls'));
+	assert.ok(prompt.includes('pause_segment'));
+	assert.ok(prompt.includes('gesture_segment'));
+	assert.ok(prompt.includes('NEVER write speak(), pause() or gesture() commands'));
+	// The inline syntax must NOT be taught alongside the tool mandate.
+	assert.ok(!prompt.includes('speak({ text:'));
+	// The alt rule stays language-neutral (the alt voice may be any language).
+	assert.ok(prompt.includes('Prefer a short phrase, or include the article/function word'));
+	assert.ok(prompt.includes('End with the JSON state block'));
+});
+
+test('OmniVoice tool-calling layer omits alt rules when alt is disabled', () => {
+	const prompt = buildSystemPrompt(
+		makeContext({ ttsProvider: 'omnivoice', ttsLanguage: 'de', ttsToolCalling: true })
+	);
+	assert.ok(!prompt.includes('get their own speak_segment call'));
+	assert.ok(prompt.includes('speak_segment calls'));
+});
+
+test('OmniVoice inline layer is kept when tool calling is not active', () => {
+	const prompt = buildSystemPrompt(
+		makeContext({ ttsProvider: 'omnivoice', ttsLanguage: 'de', ttsToolCalling: false })
+	);
+	// The inline teaching stays the documented fallback.
+	assert.ok(prompt.includes('speak() commands'));
+	assert.ok(!prompt.includes('NEVER write speak(), pause() or gesture() commands'));
+});
+
+test('OmniVoice speech layer ignores alt rules without a configured language', () => {
+	const prompt = buildSystemPrompt(
+		makeContext({ ttsProvider: 'omnivoice', ttsLanguage: 'de', ttsAltEnabled: true })
+	);
+	assert.ok(!prompt.includes('get their own speak({ lang:'));
+});
+
+test('OmniVoice speech layer names the primary language and hard rules', () => {
+	const prompt = buildSystemPrompt(
+		makeContext({ ttsProvider: 'omnivoice', ttsLanguage: 'de', ttsAltLanguage: 'es', ttsAltEnabled: true })
+	);
+	assert.ok(prompt.includes('<speech_output_control>'));
+	assert.ok(prompt.includes('Primary language: "de"'));
+	assert.ok(prompt.includes('EVERYTHING in speak() calls'));
+	assert.ok(prompt.includes('no plain text outside them'));
+	assert.ok(prompt.includes('never a bare word alone'));
+	assert.ok(prompt.includes('its own speak({ lang:') || prompt.includes('get their own speak({ lang:'));
+	assert.ok(prompt.includes('No quote marks inside text'));
+});
+
+test('OmniVoice speech layer sends taught single words to the alternative voice', () => {
+	// A language teacher explains single foreign words mid-sentence; those must
+	// get their own alt-language call, not stay in the primary call.
+	const prompt = buildSystemPrompt(
+		makeContext({ ttsProvider: 'omnivoice', ttsLanguage: 'de', ttsAltLanguage: 'es', ttsAltEnabled: true })
+	);
+	assert.ok(prompt.includes('even single words'));
+	// A concrete call pattern teaches the model the expected shape.
+	assert.ok(prompt.includes('Pattern: speak({ text:'));
 });
 
 test('empty memories fall back to an explicit no-memory block', () => {
@@ -385,4 +489,23 @@ test('truncateChatHistory handles image content placeholders', () => {
 	const result = truncateChatHistory(messages, systemPrompt, 700);
 	assert.ok(result.length > 0);
 	assert.equal(result[result.length - 1].content, 'newest message');
+});
+
+
+test('speech tool policy keeps Anthropic on the inline prompt and honors speech settings', () => {
+	const settings = { activeProvider: 'omnivoice', enableAltLanguage: true };
+	for (const provider of ['anthropic', 'openai', 'ollama', 'openai-compatible']) {
+		const enabled = shouldUseSpeechTools(provider, true, settings);
+		const prompt = buildSystemPrompt(makeContext({
+			ttsProvider: 'omnivoice', ttsLanguage: 'en', ttsAltLanguage: 'es',
+			ttsAltEnabled: true, ttsToolCalling: enabled
+		}));
+		assert.equal(enabled, provider !== 'anthropic');
+		assert.equal(prompt.includes('native tool calls'), enabled);
+		assert.equal(prompt.includes('inline speak() commands'), !enabled);
+	}
+	assert.equal(shouldUseSpeechTools('openai', false, settings), false);
+	assert.equal(shouldUseSpeechTools('openai', true, { ...settings, enableAltLanguage: false }), false);
+	assert.equal(shouldUseSpeechTools('openai', true, { ...settings, enableToolCalling: false }), false);
+	assert.equal(shouldUseSpeechTools('openai', true, { ...settings, activeProvider: 'openai-tts' }), false);
 });
